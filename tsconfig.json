@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      //"module": "commonjs",
+      "noImplicitAny": true, 
+      "outDir": "./dist/",
+      "target": "es6",
+      "jsx": "react",
+      "sourceMap": true,
+      "allowSyntheticDefaultImports": true,
+      "moduleResolution": "node",
+      "experimentalDecorators": true,
+      "baseUrl": "./",
+      "paths": {
+          "@utils/*": ["project/utils/*"],
+          "@constants/*": ["project/constants/*"]
+      },
+    },
+    "include": [
+        "./entry/**/*",
+        "./types/declaration.d.ts"
+    ],
+    "exclude": [ "node_modules" ]
+  }
