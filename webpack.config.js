@@ -83,7 +83,21 @@ module.exports = {
                 exclude: [
                     /node_modules/
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'image',  // 指定图片输入的文件夹
+                        publicPath: 'image',  // 指定获取图片的路径
+                        esModule: false,            
+                        name: '[name].[hash:8].[ext]'  // 输入的图片名
+                    }
+                  },
+                ],
+            },
         ]
     },
     watch: true,

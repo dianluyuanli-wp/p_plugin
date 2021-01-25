@@ -137,7 +137,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "D:\\self\\blockChain\\webPlugin\\plugin\\pop";
+/******/ 	__webpack_require__.p = "C:\\Users\\xiaohuli\\Desktop\\code\\blockChain\\webPlugin\\plugin\\pop";
 /******/
 /******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
@@ -155,17 +155,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./project/entry/index.css":
-/*!*********************************!*\
-  !*** ./project/entry/index.css ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"wrapper\":\"_3zfW7rwlpQZABQb4qUADq-\"};\n\n//# sourceURL=webpack:///./project/entry/index.css?");
-
-/***/ }),
-
 /***/ "./project/entry/index.tsx":
 /*!*********************************!*\
   !*** ./project/entry/index.tsx ***!
@@ -174,7 +163,7 @@ eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"wrapper\":\"_
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _page_home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page/home */ \"./project/entry/page/home/index.tsx\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.css */ \"./project/entry/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_3__);\n\r\n\r\n\r\n\r\n//  挂载组件\r\nconst mountNode = document.getElementById('app');\r\n//  原始前端渲染 在html的节点上挂载组件\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render((react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.wrapper },\r\n    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_page_home__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null))), mountNode);\r\n\n\n//# sourceURL=webpack:///./project/entry/index.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _page_home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page/home */ \"./project/entry/page/home/index.tsx\");\n\r\n\r\n\r\n//  挂载组件\r\nconst mountNode = document.getElementById('app');\r\n//  原始前端渲染 在html的节点上挂载组件\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render((react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_page_home__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)), mountNode);\r\n\n\n//# sourceURL=webpack:///./project/entry/index.tsx?");
 
 /***/ }),
 
@@ -185,7 +174,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"color\":\"_1fPCmGOu9-zkqX8RvZF9IU\"};\n\n//# sourceURL=webpack:///./project/entry/page/home/index.css?");
+eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"color\":\"_1fPCmGOu9-zkqX8RvZF9IU\",\"loggo\":\"xyoUeVRvHzzQzkJqqkH9V\"};\n\n//# sourceURL=webpack:///./project/entry/page/home/index.css?");
 
 /***/ }),
 
@@ -197,7 +186,7 @@ eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"color\":\"_1f
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./project/entry/page/home/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);\n\r\n\r\nconst HomePage = function () {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.color }, \"\\u5927\\u5BB6\\u597D\\uFF0C\\u6211\\u6765\\u4E86\"));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\r\n\n\n//# sourceURL=webpack:///./project/entry/page/home/index.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./project/entry/page/home/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);\n/*\r\n * @Author: guanlanluditie\r\n * @Date: 2021-01-22 22:36:26\r\n * @Last Modified by: guanlanluditie\r\n * @Last Modified time: 2021-01-25 10:22:37\r\n */\r\n\r\n\r\nconst HomePage = function () {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null,\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.loggo })));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\r\n\n\n//# sourceURL=webpack:///./project/entry/page/home/index.tsx?");
 
 /***/ }),
 

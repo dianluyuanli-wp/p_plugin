@@ -2,3 +2,10 @@
     color: red;
     font-size: .12rem;
 }
+
+.loggo {
+    width: 1.2rem;
+    height: 1.2rem;
+    background-size: 100% 100%;
+    background-image: url('./img/mainLogo.png');
+}
