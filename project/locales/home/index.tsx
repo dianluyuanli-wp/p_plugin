@@ -1,3 +1,9 @@
+/*
+ * @Author: guanlanluditie 
+ * @Date: 2021-01-28 00:12:41 
+ * @Last Modified by:   guanlanluditie 
+ * @Last Modified time: 2021-01-28 00:12:41 
+ */
 export const homeEn = {
     'kitter is a polkadot wallet': 'kitter is a polkadot wallet',
     'welcome to use': 'welcome to use',

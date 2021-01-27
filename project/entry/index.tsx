@@ -1,3 +1,9 @@
+/*
+ * @Author: guanlanluditie 
+ * @Date: 2021-01-28 00:13:03 
+ * @Last Modified by:   guanlanluditie 
+ * @Last Modified time: 2021-01-28 00:13:03 
+ */
 import React from 'react';
 import ReactDom from 'react-dom';
 import Home from './page/home';

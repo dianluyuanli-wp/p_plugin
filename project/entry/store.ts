@@ -1,3 +1,9 @@
+/*
+ * @Author: guanlanluditie 
+ * @Date: 2021-01-28 00:13:41 
+ * @Last Modified by:   guanlanluditie 
+ * @Last Modified time: 2021-01-28 00:13:41 
+ */
 import { observable, runInAction, action, makeAutoObservable } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import keyring from '@polkadot/ui-keyring';
