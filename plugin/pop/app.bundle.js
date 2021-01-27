@@ -163,7 +163,30 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _page_home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page/home */ \"./project/entry/page/home/index.tsx\");\n\r\n\r\n\r\n//  挂载组件\r\nconst mountNode = document.getElementById('app');\r\n//  原始前端渲染 在html的节点上挂载组件\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render((react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_page_home__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null)), mountNode);\r\n\n\n//# sourceURL=webpack:///./project/entry/index.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _page_home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page/home */ \"./project/entry/page/home/index.tsx\");\n/* harmony import */ var _utils_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @utils/i18n */ \"./project/utils/i18n.tsx\");\n/* harmony import */ var _page_createAccount__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./page/createAccount */ \"./project/entry/page/createAccount/index.tsx\");\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n//  挂载组件\r\nconst mountNode = document.getElementById('app');\r\n//  原始前端渲染 在html的节点上挂载组件\r\nreact_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render((react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__[\"BrowserRouter\"], null,\r\n    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__[\"Switch\"], null,\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__[\"Route\"], { exact: true, path: '/createAccount', component: _page_createAccount__WEBPACK_IMPORTED_MODULE_4__[\"default\"] }),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__[\"Route\"], { path: '', exact: true, component: _page_home__WEBPACK_IMPORTED_MODULE_2__[\"default\"] })))), mountNode);\r\n\n\n//# sourceURL=webpack:///./project/entry/index.tsx?");
+
+/***/ }),
+
+/***/ "./project/entry/page/createAccount/index.css":
+/*!****************************************************!*\
+  !*** ./project/entry/page/createAccount/index.css ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"wrap\":\"_3Rc0PLx6l6UhYJdBMC2iVI\",\"formTitle\":\"_3HCFR8cKWapqVN3RJSttHW\"};\n\n//# sourceURL=webpack:///./project/entry/page/createAccount/index.css?");
+
+/***/ }),
+
+/***/ "./project/entry/page/createAccount/index.tsx":
+/*!****************************************************!*\
+  !*** ./project/entry/page/createAccount/index.tsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./project/entry/page/createAccount/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _widgets_headBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @widgets/headBar */ \"./project/entry/widgets/headBar/index.tsx\");\n/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-i18next */ \"./node_modules/react-i18next/dist/es/index.js\");\n/*\r\n * @Author: guanlanluditie\r\n * @Date: 2021-01-27 00:17:53\r\n * @Last Modified by: guanlanluditie\r\n * @Last Modified time: 2021-01-28 00:11:54\r\n */\r\n\r\n\r\n\r\n\r\nconst CreactAccount = function () {\r\n    let { t } = Object(react_i18next__WEBPACK_IMPORTED_MODULE_3__[\"useTranslation\"])();\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.wrap },\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_widgets_headBar__WEBPACK_IMPORTED_MODULE_2__[\"default\"], { word: t('createAccount:create wallet') })));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (CreactAccount);\r\n\n\n//# sourceURL=webpack:///./project/entry/page/createAccount/index.tsx?");
 
 /***/ }),
 
@@ -186,7 +209,66 @@ eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"color\":\"_1f
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./project/entry/page/home/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ \"./node_modules/classnames/index.js\");\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);\n/*\r\n * @Author: guanlanluditie\r\n * @Date: 2021-01-22 22:36:26\r\n * @Last Modified by: guanlanluditie\r\n * @Last Modified time: 2021-01-26 10:29:56\r\n */\r\n\r\n\r\n\r\nconst HomePage = function () {\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null,\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.loggo }),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.word }, \"Kiter\\u662F\\u6CE2\\u5361\\u7F51\\u7EDC\\u7684\\u6CBB\\u7406\\u94B1\\u5305\"),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.word }, \"\\u6B22\\u8FCE\\u4F7F\\u7528\"),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_index_css__WEBPACK_IMPORTED_MODULE_1___default.a.btn, _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.create) }, \"\\u521B\\u5EFA\\u94B1\\u5305\"),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_index_css__WEBPACK_IMPORTED_MODULE_1___default.a.btn, _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.importIcon) }, \"\\u5BFC\\u5165\\u94B1\\u5305\")));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\r\n\n\n//# sourceURL=webpack:///./project/entry/page/home/index.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ \"./node_modules/react-i18next/dist/es/index.js\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index.css */ \"./project/entry/page/home/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ \"./node_modules/classnames/index.js\");\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);\n/*\r\n * @Author: guanlanluditie\r\n * @Date: 2021-01-22 22:36:26\r\n * @Last Modified by: guanlanluditie\r\n * @Last Modified time: 2021-01-28 00:03:01\r\n */\r\n\r\n\r\n\r\n\r\n\r\nconst HomePage = function () {\r\n    const history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__[\"useHistory\"])();\r\n    let { t, i18n } = Object(react_i18next__WEBPACK_IMPORTED_MODULE_2__[\"useTranslation\"])();\r\n    function jump() {\r\n        history.push('/createAccount');\r\n    }\r\n    function changeLanguage() {\r\n        i18n.changeLanguage(i18n.language == 'en' ? 'zh' : 'en');\r\n    }\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null,\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.loggo, onClick: changeLanguage }),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.word }, t('home:kitter is a polkadot wallet')),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.word }, t('home:welcome to use')),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: classnames__WEBPACK_IMPORTED_MODULE_4___default()(_index_css__WEBPACK_IMPORTED_MODULE_3___default.a.btn, _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.create), onClick: jump }, t('home:create wallet')),\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: classnames__WEBPACK_IMPORTED_MODULE_4___default()(_index_css__WEBPACK_IMPORTED_MODULE_3___default.a.btn, _index_css__WEBPACK_IMPORTED_MODULE_3___default.a.importIcon) }, t('home:import wallet'))));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\r\n\n\n//# sourceURL=webpack:///./project/entry/page/home/index.tsx?");
+
+/***/ }),
+
+/***/ "./project/entry/widgets/headBar/index.css":
+/*!*************************************************!*\
+  !*** ./project/entry/widgets/headBar/index.css ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\nmodule.exports = {\"content\":\"MnmeyyYcLlVgTE5DYBYYt\",\"backArrow\":\"_1ngRgSLHGt2SW4VjfCoV7x\"};\n\n//# sourceURL=webpack:///./project/entry/widgets/headBar/index.css?");
+
+/***/ }),
+
+/***/ "./project/entry/widgets/headBar/index.tsx":
+/*!*************************************************!*\
+  !*** ./project/entry/widgets/headBar/index.tsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.css */ \"./project/entry/widgets/headBar/index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/*\r\n * @Author: guanlanluditie\r\n * @Date: 2021-01-27 00:18:06\r\n * @Last Modified by: guanlanluditie\r\n * @Last Modified time: 2021-01-27 23:25:29\r\n */\r\n\r\n\r\n\r\nconst HeadBar = function (props) {\r\n    const history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__[\"useHistory\"])();\r\n    function back() {\r\n        history.goBack();\r\n    }\r\n    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.content },\r\n        props.word,\r\n        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", { className: _index_css__WEBPACK_IMPORTED_MODULE_1___default.a.backArrow, onClick: back })));\r\n};\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (HeadBar);\r\n\n\n//# sourceURL=webpack:///./project/entry/widgets/headBar/index.tsx?");
+
+/***/ }),
+
+/***/ "./project/locales/createAccount/index.tsx":
+/*!*************************************************!*\
+  !*** ./project/locales/createAccount/index.tsx ***!
+  \*************************************************/
+/*! exports provided: createAEN, createACN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createAEN\", function() { return createAEN; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createACN\", function() { return createACN; });\nconst createAEN = {\r\n    'create wallet': 'create wallet'\r\n};\r\nconst createACN = {\r\n    'create wallet': '创建钱包'\r\n};\r\n\n\n//# sourceURL=webpack:///./project/locales/createAccount/index.tsx?");
+
+/***/ }),
+
+/***/ "./project/locales/home/index.tsx":
+/*!****************************************!*\
+  !*** ./project/locales/home/index.tsx ***!
+  \****************************************/
+/*! exports provided: homeEn, homeCn */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"homeEn\", function() { return homeEn; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"homeCn\", function() { return homeCn; });\nconst homeEn = {\r\n    'kitter is a polkadot wallet': 'kitter is a polkadot wallet',\r\n    'welcome to use': 'welcome to use',\r\n    'create wallet': 'create wallet',\r\n    'import wallet': 'import wallet'\r\n};\r\nconst homeCn = {\r\n    'kitter is a polkadot wallet': 'Kiter是波卡网络的治理钱包',\r\n    'welcome to use': '欢迎使用',\r\n    'create wallet': '创建钱包',\r\n    'import wallet': '导入钱包'\r\n};\r\n\n\n//# sourceURL=webpack:///./project/locales/home/index.tsx?");
+
+/***/ }),
+
+/***/ "./project/utils/i18n.tsx":
+/*!********************************!*\
+  !*** ./project/utils/i18n.tsx ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var i18next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! i18next */ \"./node_modules/i18next/dist/esm/i18next.js\");\n/* harmony import */ var _locales_home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../locales/home */ \"./project/locales/home/index.tsx\");\n/* harmony import */ var _locales_createAccount__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../locales/createAccount */ \"./project/locales/createAccount/index.tsx\");\n/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-i18next */ \"./node_modules/react-i18next/dist/es/index.js\");\n//  import LanguageDetector from 'i18next-browser-languagedetector';\r\n\r\n\r\n\r\n\r\n//  i18n.use(LanguageDetector) //嗅探当前浏览器语言\r\ni18next__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use(react_i18next__WEBPACK_IMPORTED_MODULE_3__[\"initReactI18next\"]) //init i18next\r\n    .init({\r\n    //引入资源文件\r\n    resources: {\r\n        en: {\r\n            home: _locales_home__WEBPACK_IMPORTED_MODULE_1__[\"homeEn\"],\r\n            createAccount: _locales_createAccount__WEBPACK_IMPORTED_MODULE_2__[\"createAEN\"]\r\n        },\r\n        zh: {\r\n            home: _locales_home__WEBPACK_IMPORTED_MODULE_1__[\"homeCn\"],\r\n            createAccount: _locales_createAccount__WEBPACK_IMPORTED_MODULE_2__[\"createACN\"]\r\n        },\r\n    },\r\n    //选择默认语言，选择内容为上述配置中的key，即en/zh\r\n    fallbackLng: \"en\",\r\n    debug: false,\r\n    interpolation: {\r\n        escapeValue: false,\r\n    },\r\n});\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (i18next__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\r\n\n\n//# sourceURL=webpack:///./project/utils/i18n.tsx?");
 
 /***/ }),
 

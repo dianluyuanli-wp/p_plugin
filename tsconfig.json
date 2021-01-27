@@ -12,12 +12,13 @@
       "baseUrl": "./",
       "paths": {
           "@utils/*": ["project/utils/*"],
+          "@widgets/*": ["project/entry/widgets/*"],
           "@constants/*": ["project/constants/*"]
       },
     },
     "include": [
-        "./entry/**/*",
+        "./xx/project/*/*",
         "./types/declaration.d.ts"
     ],
     "exclude": [ "node_modules" ]
-  }
+}

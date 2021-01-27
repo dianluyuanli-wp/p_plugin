@@ -111,15 +111,9 @@ module.exports = {
             '.ts', '.tsx', '.js', '.json'
         ],
         alias: {
-            // "@xxxx/util": path.resolve(__dirname, 'utils'),
-            // "@polkadot/react-api": path.resolve(__dirname, "package/react-api/src"),
-            // "@polkadot/react-api/*": path.resolve(__dirname, "package/react-api/src/*"),
-            // "@polkadot/react-components": path.resolve(__dirname, "package/react-components/src"),
-            // "@polkadot/react-components/*": path.resolve(__dirname, "package/react-components/src/*"),
-            // "@polkadot/react-hooks": path.resolve(__dirname, "package/react-hooks/src"),
-            // "@polkadot/react-hooks/*": path.resolve(__dirname, "package/react-hooks/src/*"),
-            "@utils": path.resolve(__dirname, "utils"),
-            "@constants": path.resolve(__dirname, "constants")
+            "@utils": path.resolve(__dirname, "project/utils"),
+            "@widgets": path.resolve(__dirname, 'project/entry/widgets'),
+            "@constants": path.resolve(__dirname, "project/constants")
           },
     },
     mode:"development",
