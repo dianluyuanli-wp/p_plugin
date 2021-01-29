@@ -56,3 +56,7 @@
     background-size: 100% 100%;
     background-image: url('./img/import.png');
 }
+
+.wrap {
+    padding-top: 0.001rem;
+}

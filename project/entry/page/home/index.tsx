@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-01-28 00:03:01
+ * @Last Modified time: 2021-01-28 00:45:02
  */
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -21,7 +21,9 @@ const HomePage:FC = function() {
     }
     return (
         <div>
-            <div className={s.loggo} onClick={changeLanguage}/>
+            <div className={s.wrap}>
+                <div className={s.loggo} onClick={changeLanguage}/>
+            </div>
             <div className={s.word}>{t('home:kitter is a polkadot wallet')}</div>
             <div className={s.word}>{t('home:welcome to use')}</div>
             <div className={cx(s.btn, s.create)} onClick={jump}>{t('home:create wallet')}</div>
