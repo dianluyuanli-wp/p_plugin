@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const tsImportPluginFactory = require("ts-import-plugin");
 
@@ -7,10 +8,19 @@ module.exports = {
     entry: {
         app: ['./project/entry/index.tsx']
     },
+    devServer: {
+        // historyApiFallback:true,
+        // hot参数控制更新是刷新整个页面还是局部刷新
+        contentBase: path.resolve(__dirname,'plugin/pop'),  
+        publicPath: 'http://localhost:3000/',
+        hot: true,
+        port: 3000
+    },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'plugin/pop'),
-        publicPath: path.resolve(__dirname, 'plugin/pop')
+        publicPath: 'http://localhost:3000/'
+        //publicPath: path.resolve(__dirname, 'plugin/pop')
     },
     optimization: {
         splitChunks: {
@@ -30,16 +40,32 @@ module.exports = {
         new MiniCssExtractPlugin({      //对css进行打包，webpack4推荐语法
             filename: "[name].css",
             chunkFilename: "[name].css"
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         rules: [
             {
-                test: /\.(css|scss)$/,
+                test: /(?<=antd)\.(css|scss)$/,
                 exclude: /node_modules/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    //'css-loader',
+                    //MiniCssExtractPlugin.loader,
+                    'style-loader',
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: false,
+                            namedExport: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /(?<!antd)\.(css|scss)$/,
+                exclude: /node_modules/,
+                use: [
+                    //MiniCssExtractPlugin.loader,
+                    'style-loader',
                     {
                         loader: 'typings-for-css-modules-loader',
                         options: {
