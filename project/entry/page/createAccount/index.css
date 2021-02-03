@@ -3,33 +3,3 @@
     background-color: rgb(250, 250, 250);
     min-height: 100vh;
 }
-
-.contentWrap {
-    width: 3.43rem;
-    margin: 0 auto;
-}
-
-.topT {
-    margin-top: .25rem;
-}
-
-.formTitle {
-    font-size: .14rem;
-    color: #555555;
-    margin-bottom: .17rem;
-}
-
-.midT {
-    margin-top: .32rem;
-}
-
-.input {
-    height: .48rem;
-    width: 3.43rem;
-    margin: 0 auto;
-    font-size: .14rem !important;
-}
-
-.input .ant-input {
-    font-size: .14rem !important;
-}

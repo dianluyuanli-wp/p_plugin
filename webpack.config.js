@@ -46,7 +46,7 @@ module.exports = {
     module: {
         rules: [
             {
-                //  为了给antd定制样式，使用非获取匹配，反向否定预查
+                //  为了给antd定制样式，使用非获取匹配，反向肯定预查，不使用css module
                 test: /(?<=antd)\.(css|scss)$/,
                 exclude: /node_modules/,
                 use: [
