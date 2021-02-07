@@ -1,0 +1,11 @@
+.wrap {
+    color: #555555;
+    background-color: rgb(250, 250, 250);
+    min-height: 100vh;
+}
+
+.title {
+    margin-top: .24rem;
+    font-size: .14rem;
+    margin: 0 auto;
+}

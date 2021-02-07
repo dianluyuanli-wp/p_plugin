@@ -10,7 +10,6 @@ import keyring from '@polkadot/ui-keyring';
 //  import { OFFICAL_END_POINT } from '@constants/url';
 
 class CreateAccountStore {
-    @observable createTag: string = 'false';
     //  用户名
     @observable accountName: string = '';
     //  注册输入密码
