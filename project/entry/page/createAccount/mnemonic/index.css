@@ -1,0 +1,13 @@
+.wrap {
+    width: 3.43rem;
+    margin: 0 auto;
+    color: #333333;
+}
+
+.title {
+    font-size: .14rem;
+}
+
+.info {
+    font-size: .12rem;
+}

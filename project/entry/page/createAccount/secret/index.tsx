@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-03 10:57:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-07 11:57:25
+ * @Last Modified time: 2021-02-08 12:08:58
  */
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
@@ -13,6 +13,8 @@ import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { changeInput } from '@utils/input';
 import { useHistory } from 'react-router-dom';
+import { CREAT_STAGE } from '../contants';
+import { runInAction } from 'mobx';
 
 const CREATE_STORE_KEY = {
     INPUT_SEC: 'inputSec',
@@ -67,7 +69,7 @@ const SecretPart:FC = function() {
         })
     }
     //  修改两个密码
-    function changeSecret(e, key: string) {
+    function changeSecret(e: React.ChangeEvent<HTMLInputElement>, key: string) {
         changeInput(createStore, key, e);
         if (key === CREATE_STORE_KEY.INPUT_SEC) {
             const value = e.target.value;
@@ -96,9 +98,13 @@ const SecretPart:FC = function() {
                 infoStatus: INFO_STATUS.CHECK_AGREEMENT
             })
         }
+        //  进入下一阶段
+        runInAction(() => {
+            createStore.createStage = CREAT_STAGE.MNEMONIC;
+        })
     }
     //  跳转到用户协议
-    function toAgreement(e) {
+    function toAgreement(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         e.stopPropagation();
         history.push('/userAgreement');
     }

@@ -8,7 +8,7 @@
 // import React from 'react';
 import { runInAction } from 'mobx';
 
-export function changeInput(store, key, e) {
+export function changeInput(store: any, key: string, e: React.ChangeEvent<HTMLInputElement>) {
     runInAction(() => {
         store[key] = e.target.value;
     })

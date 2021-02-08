@@ -8,6 +8,7 @@
       "sourceMap": true,
       "allowSyntheticDefaultImports": true,
       "moduleResolution": "node",
+      "resolveJsonModule": true,
       "experimentalDecorators": true,
       "baseUrl": "./",
       "paths": {
@@ -17,7 +18,7 @@
       },
     },
     "include": [
-        "./xx/project/*/*",
+        "./project/*/*",
         "./types/declaration.d.ts"
     ],
     "exclude": [ "node_modules" ]
