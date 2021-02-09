@@ -8,7 +8,7 @@
         "default_title": "polkadot plugin",
         "default_icon": "pIcon.png"
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",
+    "content_security_policy": "script-src 'self' blob: 'unsafe-eval' 'wasm-eval'; object-src 'self'",
     "commands": {
         "_execute_browser_action": {
           "suggested_key": {

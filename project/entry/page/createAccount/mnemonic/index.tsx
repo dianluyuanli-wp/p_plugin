@@ -2,18 +2,25 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-08 12:08:48
+ * @Last Modified time: 2021-02-09 11:46:36
  */
 
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import s from './index.css';
 import { Input, Form, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { mnemonicGenerate } from '@polkadot/util-crypto';
 // import { } from '../'
 import cx from 'classnames';
-
-const CreactAccount:FC = function() {
-    let { t } = useTranslation()
+//      "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",
+let mnemonic = '';
+const CreactMnemonic:FC = function() {
+    let { t } = useTranslation();
+    useEffect(() => {
+        mnemonic = mnemonicGenerate();
+        console.log(mnemonic, '111');
+    }, []);
+    console.log(mnemonic, '222');
     return (
         <div className={s.wrap}>
             <div>
@@ -26,4 +33,4 @@ const CreactAccount:FC = function() {
     )
 }
 
-export default CreactAccount;
+export default CreactMnemonic;
