@@ -9,7 +9,7 @@ import React, { FC, useEffect } from 'react';
 import s from './index.css';
 import { Input, Form, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { mnemonicGenerate } from '@polkadot/util-crypto';
+import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 // import { } from '../'
 import cx from 'classnames';
 //      "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",
@@ -17,8 +17,12 @@ let mnemonic = '';
 const CreactMnemonic:FC = function() {
     let { t } = useTranslation();
     useEffect(() => {
-        mnemonic = mnemonicGenerate();
-        console.log(mnemonic, '111');
+        async function init() {
+            await cryptoWaitReady();
+            mnemonic = mnemonicGenerate();
+            console.log(mnemonic, '111');
+        }
+        init();
     }, []);
     console.log(mnemonic, '222');
     return (
