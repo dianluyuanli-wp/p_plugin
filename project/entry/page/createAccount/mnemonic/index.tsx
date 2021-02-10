@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-10 23:12:59
+ * @Last Modified time: 2021-02-10 23:59:20
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -38,8 +38,14 @@ const CreactMnemonic:FC = function() {
     function stateReducer(state: Object, action: mnemonicStateObj) {
         return Object.assign({}, state, action);
     }
-    const [stateObj, setState] = useReducer(stateReducer, { status: STATUS.ONE } as mnemonicStateObj);
+    const [stateObj, setState] = useReducer(stateReducer, { status: STATUS.ONE, words: [], pickWords: [] } as mnemonicStateObj);
+    //  是否第一阶段
     const isStepOne = useMemo(() => stateObj.status === STATUS.ONE, [stateObj.status]);
+    //  是否正确恢复的顺序
+    const isRightOrder = useMemo(() => {
+        const { words, pickWords } = stateObj;
+        return (words.length === pickWords.length) && words.every((item, index) => item.value === pickWords[index].value);
+    }, [stateObj.words, stateObj.pickWords]);
     useEffect(() => {
         async function init() {
             await cryptoWaitReady();
@@ -50,7 +56,6 @@ const CreactMnemonic:FC = function() {
                 pickWords: [],
                 randomSortWords: wordsList.sort(() => Math.random() - 0.5)
             })
-            console.log(mnemonic, '111');
         }
         init();
     }, []);
@@ -79,9 +84,20 @@ const CreactMnemonic:FC = function() {
             pickWords: copyPickList
         })
     }
+    
+    function reset() {
+        const { randomSortWords } = stateObj;
+        setState({
+            pickWords: [],
+            randomSortWords: randomSortWords.map(item => { 
+                item.isPick = false;
+                return item;
+            })
+        })
+    }
     //  渲染助记词区域
     function showArea() {
-        const { status, words, randomSortWords, pickWords } = stateObj;
+        const { status, words, randomSortWords, pickWords = [] } = stateObj;
         const contentMap = {
             [STATUS.ONE]: () => <>
                 <div className={s.mask} onClick={() => setState({ status: STATUS.TWO })}>
@@ -103,6 +119,12 @@ const CreactMnemonic:FC = function() {
                         const { value } = item;
                         return <div className={s.tag} key={value} onClick={() => pickWord(value, true)}>{value}</div>
                     })}
+                </div>
+                <div className={s.check}>
+                    {(!isRightOrder && (pickWords.length === words.length)) ?
+                        <>顺序不正确,<span className={s.deLine} onClick={reset}>点击重试</span></>
+                        : null
+                    }
                 </div>
                 <div className={s.pickContent}>
                     {randomSortWords.map(item => {
@@ -131,7 +153,7 @@ const CreactMnemonic:FC = function() {
 
     function button() {
         const { status } = stateObj;
-        const isAble = !isStepOne;
+        const isAble = status === STATUS.TWO || isRightOrder;
         return <div className={cx(s.bottomBtn, isAble ? s.ableBtn : '')} onClick={buttonClick}>
             {status !== STATUS.THREE ? '确认备份' : '完成备份'}
         </div>
@@ -147,7 +169,7 @@ const CreactMnemonic:FC = function() {
             </> :
             <>
                 <div className={s.title}>确认助记词</div>
-                <div className={s.info}>请按顺序点点击助记词，已确认您备份正确</div>
+                <div className={s.info}>请按顺序点击助记词，已确认您备份正确</div>
             </>
     }
     return (

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-27 00:17:53 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-08 12:08:36
+ * @Last Modified time: 2021-02-11 00:23:27
  */
 
 import React, { FC } from 'react';
@@ -31,9 +31,13 @@ const CreactAccount:FC = function() {
         const Target = widgetMap[createStore.createStage];
         return <Target />
     }
+    function resetStatus() {
+
+    }
+ 
     return (
-        <div className={s.wrap}>
-            <HeadBar word={t('createAccount:create wallet')}/>
+        <div className={cx(s.wrap, createStore.createStage === CREAT_STAGE.MNEMONIC ? s.mnBg : '')}>
+            <HeadBar externalCallBack={resetStatus} word={t('createAccount:create wallet')}/>
             {stageRender()}
         </div>
     )
