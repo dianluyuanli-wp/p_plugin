@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-27 00:17:53 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-11 00:23:27
+ * @Last Modified time: 2021-02-11 09:56:11
  */
 
 import React, { FC } from 'react';
@@ -15,13 +15,14 @@ import Mnemonic from './mnemonic';
 import { observer } from 'mobx-react';
 import { useStores } from '@utils/useStore';
 import { CREAT_STAGE } from './contants';
+import { CreateStoreType } from './store';
 import cx from 'classnames';
 
 
 
 const CreactAccount:FC = function() {
     let { t } = useTranslation();
-    const createStore = useStores('CreateAccountStore');
+    const createStore = useStores('CreateAccountStore') as CreateStoreType;
 
     function stageRender() {
         const widgetMap = {
@@ -32,7 +33,7 @@ const CreactAccount:FC = function() {
         return <Target />
     }
     function resetStatus() {
-
+        createStore.resetStore();
     }
  
     return (

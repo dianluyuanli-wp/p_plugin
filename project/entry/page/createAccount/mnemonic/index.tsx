@@ -2,13 +2,19 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-10 23:59:20
+ * @Last Modified time: 2021-02-12 18:27:44
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
-import { Input, Form, Button } from 'antd';
+import { Input, Form, Button, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
+import keyring from '@polkadot/ui-keyring';
+//  import { Keyring } from '@polkadot/api'
+import { useStores } from '@utils/useStore';
+import { CreateStoreType } from '../store';
+import { ADDRESS_ARRAY } from '@constants/chrome';
+import { getStorage, setStorage } from '@utils/chrome';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 // import { } from '../'
 import cx from 'classnames';
@@ -27,12 +33,18 @@ interface mnemonicStateObj {
     status?: number,
     words?: Array<WordObj>,
     randomSortWords?: Array<WordObj>,
-    pickWords?: Array<WordObj>
+    pickWords?: Array<WordObj>,
+    showLoading?: boolean
+}
+
+interface addressArrayObj {
+    accountAddress: Array<string>
 }
 //      "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",
 
 const CreactMnemonic:FC = function() {
     let { t } = useTranslation();
+    const createStore = useStores('CreateAccountStore') as CreateStoreType;
 
     //  状态管理
     function stateReducer(state: Object, action: mnemonicStateObj) {
@@ -49,12 +61,13 @@ const CreactMnemonic:FC = function() {
     useEffect(() => {
         async function init() {
             await cryptoWaitReady();
-            const mnemonic = mnemonicGenerate();
-            const wordsList = mnemonic.split(' ').map(item => ({ value: item, isPick: false } as WordObj))
+            const mnemonic = mnemonicGenerate() as string;
+            const wordsList = mnemonic.split(' ').map((item) => ({ value: item, isPick: false } as WordObj))
             setState({
                 words: wordsList,
                 pickWords: [],
-                randomSortWords: wordsList.sort(() => Math.random() - 0.5)
+                randomSortWords: wordsList.slice()
+                //  .sort(() => Math.random() - 0.5)
             })
         }
         init();
@@ -137,8 +150,8 @@ const CreactMnemonic:FC = function() {
         return contentMap[status]();
     }
 
-    function buttonClick() {
-        const { status } = stateObj;
+    async function buttonClick() {
+        const { status, words } = stateObj;
         if (isStepOne) {
             return;
         }
@@ -147,7 +160,30 @@ const CreactMnemonic:FC = function() {
                 status: STATUS.THREE
             })
         } else {
-
+            setState({
+                showLoading: true
+            })
+            const { inputSec, accountName } = createStore;
+            const originMnemonic = words.map(item => item.value).join(' ');
+            keyring.loadAll({});
+            const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
+            console.log(result, 111);
+            const { json } = result;
+            const { address, meta } = json
+            const saveKey = json.address;
+            const saveObj = { address, meta }
+            let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
+            let newArray = origin[ADDRESS_ARRAY];
+            newArray.push(saveKey);
+            await setStorage({
+                [ADDRESS_ARRAY]: newArray,
+                [saveKey]: saveObj
+            })
+            setState({
+                showLoading: false
+            })
+            //  const keyring = new Keyring({ type: 'sr25519' });
+            //  const result = keyring.addFromUri(`${originMnemonic}///${inputSec}`);
         }
     }
 
@@ -174,6 +210,7 @@ const CreactMnemonic:FC = function() {
     }
     return (
         <div className={s.wrap}>
+            {stateObj.showLoading ? <Spin /> : null}
             <div>
                 {headInfo()}
                 {showArea()}
