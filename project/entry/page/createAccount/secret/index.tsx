@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-03 10:57:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-10 12:55:34
+ * @Last Modified time: 2021-02-13 16:37:50
  */
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
@@ -14,6 +14,7 @@ import { useStores } from '@utils/useStore';
 import { changeInput } from '@utils/input';
 import { useHistory } from 'react-router-dom';
 import { CREAT_STAGE } from '../contants';
+import { PAGE_NAME } from '@constants/app';
 import { runInAction } from 'mobx';
 
 const CREATE_STORE_KEY = {
@@ -106,7 +107,7 @@ const SecretPart:FC = function() {
     //  跳转到用户协议
     function toAgreement(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         e.stopPropagation();
-        history.push('/userAgreement');
+        history.push(PAGE_NAME.USER_AGREEMENT);
     }
     //  修改眼睛内容，antd有点问题没有办法传入node节点的时候带上类名
     // function secretIcon(show) {

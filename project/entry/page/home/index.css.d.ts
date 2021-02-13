@@ -9,6 +9,7 @@ export const head: string;
 export const account: string;
 export const aName: string;
 export const address: string;
+export const copyIcon: string;
 export const pIcon: string;
 export const balance: string;
 export const usd: string;

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-12 18:27:44
+ * @Last Modified time: 2021-02-13 23:36:15
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -165,7 +165,6 @@ const CreactMnemonic:FC = function() {
             })
             const { inputSec, accountName } = createStore;
             const originMnemonic = words.map(item => item.value).join(' ');
-            keyring.loadAll({});
             const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
             console.log(result, 111);
             const { json } = result;

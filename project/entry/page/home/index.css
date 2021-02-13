@@ -98,11 +98,12 @@
 .address {
     font-size: .12rem;
     color: #333333;
+    display: inline-block;
 }
 
-.address::after {
-    content: '';
+.copyIcon {
     display: inline-block;
+    vertical-align: top;
     width: .11rem;
     height: .11rem;
     background-size: 100% 100%;
