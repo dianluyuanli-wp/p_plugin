@@ -1,13 +1,18 @@
 /*
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
- * @Last Modified by:   guanlanluditie 
- * @Last Modified time: 2021-01-28 00:13:41 
+ * @Last Modified by: guanlanluditie
+ * @Last Modified time: 2021-02-12 23:28:12
  */
 import { observable, runInAction, action, makeAutoObservable } from 'mobx';
-import { ApiPromise, WsProvider } from '@polkadot/api'
+import { ApiPromise, WsProvider } from '@polkadot/api';
 import keyring from '@polkadot/ui-keyring';
-//  import { OFFICAL_END_POINT } from '@constants/url';
+import { OFFICAL_END_POINT } from '@constants/chain';
+
+export interface globalStoreType {
+    hasInit: boolean,
+    api: ApiPromise
+}
 
 class AppStore {
     @observable hasInit: boolean = false;
@@ -19,21 +24,21 @@ class AppStore {
 
     @action.bound
     async init(): Promise<void> {
-        // const provider = new WsProvider(OFFICAL_END_POINT);
-        // this.api = await ApiPromise.create({
-        //     provider
-        // });
-        // //  keyring初始化
-        // keyring.loadAll({
-        //     genesisHash: this.api.genesisHash as any,
-        //     ss58Format: 0,
-        //     store: undefined,
-        //     type: 'ed25519'
-        // }, [])
-        // console.log('api init');
-        // runInAction(() => {
-        //     this.hasInit = true;
-        // })
+        const provider = new WsProvider(OFFICAL_END_POINT);
+        this.api = await ApiPromise.create({
+            provider
+        });
+        //  keyring初始化
+        keyring.loadAll({
+            genesisHash: this.api.genesisHash as any,
+            ss58Format: 0,
+            store: undefined,
+            type: 'ed25519'
+        }, [])
+        console.log('api init');
+        runInAction(() => {
+            this.hasInit = true;
+        })
     }
 }
 

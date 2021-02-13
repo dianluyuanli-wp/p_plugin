@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-07 11:53:17
+ * @Last Modified time: 2021-02-12 22:54:31
  */
 
 import React from 'react';
@@ -19,6 +19,7 @@ function AppRouter() {
         GlobalStore,
         CreateAccountStore
     }
+    GlobalStore.init();
     return <MobXProviderContext.Provider value={storeObj}>
         <Router>
             <Switch>

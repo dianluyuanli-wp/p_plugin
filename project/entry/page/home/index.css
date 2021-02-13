@@ -60,3 +60,113 @@
 .wrap {
     padding-top: 0.001rem;
 }
+
+.head {
+    font-size: .18rem;
+    color: #333333;
+    padding-left: .16rem;
+    height: .56rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: .01rem solid #F2F2F2;
+}
+
+.head::before{
+    content: '';
+    display: inline-block;
+    width: .3rem;
+    height: .3rem;
+    margin-right: .16rem;
+    background-image: url('../home/img/mainLogo.png');
+    background-size: 100% 100%;
+}
+
+.account {
+    padding-top: .14rem;
+    padding-left: .16rem;
+    height: .69rem;
+    border-bottom: .01rem solid #F2F2F2;
+}
+
+.aName {
+    font-size: .14rem;
+    margin-bottom: .08rem;
+    color: #333333;
+}
+
+.address {
+    font-size: .12rem;
+    color: #333333;
+}
+
+.address::after {
+    content: '';
+    display: inline-block;
+    width: .11rem;
+    height: .11rem;
+    background-size: 100% 100%;
+    position: relative;
+    top: 0.02rem;
+    left: .07rem;
+    background-image: url('./img/copy.png');
+}
+
+.pIcon {
+    height: .38rem;
+    width: .38rem;
+    background-image: url('./img/coin.png');
+    background-size: 100% 100%;
+    margin:  0 auto;
+    margin-top: .24rem;
+}
+
+.balance {
+    margin-top: .16rem;
+    font-size: .3rem;
+    color: #333333;
+    text-align: center;
+}
+
+.usd {
+    color: #999999;
+    font-size: .14rem;
+    margin-top: .08rem;
+    text-align: center;
+}
+
+.tWrap {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: .56rem;
+    font-size: .12rem;
+    color: #333333;
+    text-align: center;
+}
+
+.inAccount {
+    width: .45rem;
+    height: .45rem;
+    background-size: 100% 100%;
+    background-image: url('./img/transfer.png');
+}
+
+.out {
+    width: .45rem;
+    height: .45rem;
+    background-size: 100% 100%;
+    background-image: url('./img/out.png');
+}
+
+.connetIcon {
+    color: #0273A4;
+    background-color: #C7E3F0;
+    font-size: .1rem;
+    padding-left: .05rem;
+    padding-right: .05rem;
+    height: .17rem;
+    display: inline-block;
+    position: relative;
+    left: .07rem;
+}

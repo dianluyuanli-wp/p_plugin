@@ -1,3 +1,9 @@
+/*
+ * @Author: guanlanluditie 
+ * @Date: 2021-02-12 19:59:05 
+ * @Last Modified by:   guanlanluditie 
+ * @Last Modified time: 2021-02-12 19:59:05 
+ */
 //  chrome本地存储相关
 export function getStorage(obj: Object) {
     return new Promise((res, rej) => {
