@@ -3,6 +3,6 @@ export const PAGE_NAME = {
     HOME: '',
     CREATE_ACCOUNT: '/createAccount',
     RECIENT: '/recient',
-    TRANSFER: './transfer',
+    TRANSFER: '/transfer',
     USER_AGREEMENT: '/userAgreement'
 }

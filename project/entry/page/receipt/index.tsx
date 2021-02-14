@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 15:55:08 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:28:27
+ * @Last Modified time: 2021-02-13 23:57:10
  */
 
 import React, { FC, useEffect } from 'react';
@@ -23,7 +23,6 @@ const Recient:FC = function() {
 
     useEffect(() => {
         Qrcode.toCanvas(document.getElementById('qrcode'), currentAccount.address)
-        //  const qr = new qrcode();
     }, [])
 
     function copyAdd() {

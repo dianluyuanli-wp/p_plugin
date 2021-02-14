@@ -1,0 +1,29 @@
+.tInput .ant-input{
+    font-size: .14rem;
+    border: none;
+    height: .48rem;
+}
+
+.tInput .ant-input-group-addon {
+    background-color: #ffffff;
+    border: none;
+}
+
+.tMInput .ant-input {
+    font-size: .3rem;
+    border: none;
+    height: .48rem;
+}
+
+.feeInput .ant-input {
+    background-color: #ffffff !important;
+    font-size: .14rem;
+    color: #555555  !important;
+    user-select: none;
+}
+
+.sInput .ant-input{
+    font-size: .14rem !important;
+    border: none;
+    height: .45rem;
+}

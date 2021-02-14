@@ -61,7 +61,6 @@ class AppStore {
 
     @computed
     get currentAccount() {
-        console.log(this, 'xxx');
         return this.accountObj[this.favoriteAccount] || {}
     }
 

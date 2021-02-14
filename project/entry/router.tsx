@@ -13,6 +13,7 @@ import CreateAccount from './page/createAccount';
 import CreateAccountStore from './page/createAccount/store';
 import UserAgreement from './page/userAgreement';
 import Recient from './page/receipt';
+import Transfer from './page/transfer';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -31,6 +32,8 @@ function AppRouter() {
                 <Route exact path={PAGE_NAME.USER_AGREEMENT} component={UserAgreement}/>
                 {/* 收款页 */}
                 <Route exact path={PAGE_NAME.RECIENT} component={Recient} />
+                {/* 转账页 */}
+                <Route exact path={PAGE_NAME.TRANSFER} component={Transfer} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>

@@ -40,6 +40,7 @@ const HomePage:FC = function() {
     //  是否初始化完成
     const hasInit = useMemo(() => globalStore.hasInit, [globalStore.hasInit]);
     function jump(path: string) {
+        console.log(path, 'path');
         history.push(path);
     }
     function changeLanguage() {
@@ -50,15 +51,16 @@ const HomePage:FC = function() {
     }
     async function xx() {
         let abb = '5EHZ7yCT4KgTs79UBcEtfEbJhLYsHD6gazSjk6Yhs8jeCNun';
-        let a = await globalStore.api.query.system.account(abb);
-        runInAction(() => {
-            globalStore.balance = myFormatBalance(a.data.free);
+        globalStore.api.query.system.account(abb).then(a => {
+            runInAction(() => {
+                globalStore.balance = myFormatBalance(a.data.free);
+            })
+            setState({
+                balance: myFormatBalance(a.data.free),
+                balanceHasInit: true
+            })
         })
-        setState({
-            balance: myFormatBalance(a.data.free),
-            balanceHasInit: true
-        })
-    }
+    };
     useEffect(() => {
         if(globalStore.hasInit) {
             xx()
@@ -91,7 +93,7 @@ const HomePage:FC = function() {
         const { address, meta } = target;
         return (
             <>
-                <div className={s.head}>Kitter {statusIcon()}</div>
+                <div className={s.head} onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>Kitter {statusIcon()}</div>
                 <div className={s.account}>
                     <div className={s.aName}>{meta.name}</div>
                     <div>
@@ -105,11 +107,11 @@ const HomePage:FC = function() {
                     <div className={s.usd}>$0.00 USD</div>
                 </Spin>
                 <div className={s.tWrap}>
-                    <div>
-                        <div className={s.inAccount} onClick={() => jump(PAGE_NAME.RECIENT)}/>
+                    <div onClick={() => jump(PAGE_NAME.RECIENT)}>
+                        <div className={s.inAccount} />
                         收款
                     </div>
-                    <div>
+                    <div onClick={() => jump(PAGE_NAME.TRANSFER)}>
                         <div className={s.out}/>
                         转账
                     </div>
