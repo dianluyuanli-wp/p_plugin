@@ -14,6 +14,7 @@
       "paths": {
           "@utils/*": ["project/utils/*"],
           "@widgets/*": ["project/entry/widgets/*"],
+          "@entry/*": ["project/entry/*"],
           "@constants/*": ["project/constants/*"]
       },
     },

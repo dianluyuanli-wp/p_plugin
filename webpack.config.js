@@ -145,6 +145,7 @@ module.exports = {
         alias: {
             "@utils": path.resolve(__dirname, "project/utils"),
             "@widgets": path.resolve(__dirname, 'project/entry/widgets'),
+            "@entry": path.resolve(__dirname, 'project/entry'),
             "@constants": path.resolve(__dirname, "project/constants")
           },
     },

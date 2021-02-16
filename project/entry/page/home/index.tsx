@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:54:17
+ * @Last Modified time: 2021-02-15 22:08:03
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -13,7 +13,7 @@ import { PAGE_NAME } from '@constants/app';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
 import { observer } from 'mobx-react';
-import { myFormatBalance } from '@utils/tools';
+import { myFormatBalance, addressFormat } from '@utils/tools';
 import { Spin, message } from 'antd';
 import copyContent from 'copy-to-clipboard';
 import { getStorage, setStorage } from '@utils/chrome';
@@ -49,33 +49,20 @@ const HomePage:FC = function() {
     function testFun() {
         setStorage({ 'www': 1});
     }
-    async function xx() {
-        let abb = '5EHZ7yCT4KgTs79UBcEtfEbJhLYsHD6gazSjk6Yhs8jeCNun';
-        globalStore.api.query.system.account(abb).then(a => {
-            runInAction(() => {
-                globalStore.balance = myFormatBalance(a.data.free);
-            })
-            setState({
-                balance: myFormatBalance(a.data.free),
-                balanceHasInit: true
-            })
-        })
-    };
+
     useEffect(() => {
         if(globalStore.hasInit) {
-            xx()
+            globalStore.api.query.system.account(currentAccount.address).then(a => {
+                runInAction(() => {
+                    globalStore.balance = myFormatBalance(a.data.free);
+                })
+                setState({
+                    balance: myFormatBalance(a.data.free),
+                    balanceHasInit: true
+                })
+            })
         }
     }, [globalStore.hasInit])
-    useEffect(() => {
-        async function test() {
-            let a = await getStorage({ [ADDRESS_ARRAY]: []}) as any;
-            const accountsPro = a.accountAddress.map((item: any) => getStorage({ [item]: {}}));
-            const accountDeatil = await Promise.all(accountsPro);
-            console.log(a, accountDeatil);
-            xx();
-        }
-        //  test();
-    }, [])
 
     function statusIcon() {
         return !hasInit ? <div className={s.connetIcon}>连接中</div> : null;
@@ -86,18 +73,23 @@ const HomePage:FC = function() {
         copyContent(address);
         message.success('复制成功');
     }
-    console.log('home');
 
     function AccountPage() {
         const target = currentAccount;
         const { address, meta } = target;
         return (
             <>
-                <div className={s.head} onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>Kitter {statusIcon()}</div>
+                <div className={s.head}>
+                    <div className={s.leftTitle}  onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>
+                        <div className={s.titleIcon} />
+                        <div>Kitter {statusIcon()}</div>
+                    </div>
+                    <div className={s.toolIcon} onClick={() => jump(PAGE_NAME.SET_PANEL)}/>
+                </div>
                 <div className={s.account}>
                     <div className={s.aName}>{meta.name}</div>
                     <div>
-                        <div className={s.address}>{address.slice(0, 4) + '....' + address.slice(address.length - 4)}</div>
+                        <div className={s.address}>{addressFormat(address)}</div>
                         <div className={s.copyIcon} onClick={() => copyClick()}/>
                     </div>
                 </div>

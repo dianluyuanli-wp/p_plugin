@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 19:43:36
+ * @Last Modified time: 2021-02-16 15:09:40
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -66,23 +66,26 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        // let a = await getStorage({ [ADDRESS_ARRAY]: []}) as any;
-        // const accountsPro = a.accountAddress.map((item: any) => getStorage({ [item]: {}}));
-        // const accountDeatil = await Promise.all(accountsPro);
+        let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any;
+        const queryAccObj = {} as Record<string, string>;
+        ans.accountAddress.forEach((item: string) => {
+            queryAccObj[item] = '';
+        })
+        const accountDeatil = await getStorage(queryAccObj) as any;
+        console.log(accountDeatil, 'deatil');
+        const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
             //  this.addressArr = a.accountAddress,
-            this.favoriteAccount = add;
-            this.accountObj = Object.assign.apply(null, [{}, mock])
+            this.favoriteAccount = ans.favoriteAccount || firsetAcc;
+            this.accountObj = Object.assign.call(null, {}, accountDeatil)
+            //  this.favoriteAccount = add;
+            //  this.accountObj = Object.assign.apply(null, [{}, mock])
         });
     }
 
     //  初始化api
     @action.bound
     async init(): Promise<void> {
-        const provider = new WsProvider(OFFICAL_END_POINT);
-        this.api = await ApiPromise.create({
-            provider
-        });
         //  keyring初始化
         keyring.loadAll({
             genesisHash: this.api.genesisHash as any,
@@ -90,9 +93,19 @@ class AppStore {
             store: undefined,
             type: 'ed25519'
         }, [])
+        const provider = new WsProvider(OFFICAL_END_POINT);
+        let initSuccess = true;
+        this.api = await (ApiPromise.create({
+            provider
+        }).catch(e => {
+            console.log(e);
+            initSuccess = false;
+            return {} as ApiPromise;
+        }));
+
         console.log('api init');
         runInAction(() => {
-            this.hasInit = true;
+            this.hasInit = initSuccess;
         })
     }
 }

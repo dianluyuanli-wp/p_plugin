@@ -2,21 +2,21 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:36:15
+ * @Last Modified time: 2021-02-16 15:10:36
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
-import { Input, Form, Button, Spin } from 'antd';
+import { Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 import keyring from '@polkadot/ui-keyring';
-//  import { Keyring } from '@polkadot/api'
+import { runInAction } from 'mobx';
 import { useStores } from '@utils/useStore';
 import { CreateStoreType } from '../store';
 import { ADDRESS_ARRAY } from '@constants/chrome';
 import { getStorage, setStorage } from '@utils/chrome';
+import { globalStoreType } from '@entry/store';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
-// import { } from '../'
 import cx from 'classnames';
 
 const STATUS = {
@@ -45,6 +45,7 @@ interface addressArrayObj {
 const CreactMnemonic:FC = function() {
     let { t } = useTranslation();
     const createStore = useStores('CreateAccountStore') as CreateStoreType;
+    const globalStore = useStores('GlobalStore') as globalStoreType;
 
     //  状态管理
     function stateReducer(state: Object, action: mnemonicStateObj) {
@@ -152,9 +153,11 @@ const CreactMnemonic:FC = function() {
 
     async function buttonClick() {
         const { status, words } = stateObj;
+        //  第一阶段直接返回
         if (isStepOne) {
             return;
         }
+        //  第二阶段就切换阶段
         if (status === STATUS.TWO) {
             setState({
                 status: STATUS.THREE
@@ -165,24 +168,29 @@ const CreactMnemonic:FC = function() {
             })
             const { inputSec, accountName } = createStore;
             const originMnemonic = words.map(item => item.value).join(' ');
+            //  创建新账号
             const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
             console.log(result, 111);
             const { json } = result;
-            const { address, meta } = json
+            const { address } = json
             const saveKey = json.address;
-            const saveObj = { address, meta }
             let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
             let newArray = origin[ADDRESS_ARRAY];
             newArray.push(saveKey);
+            //  同步本地的store状态
+            runInAction(() => {
+                globalStore.addressArr = newArray,
+                globalStore.favoriteAccount = globalStore.favoriteAccount || address;
+                globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: json })
+            })
+            //  修改chromeStorage
             await setStorage({
                 [ADDRESS_ARRAY]: newArray,
-                [saveKey]: saveObj
+                [address]: json
             })
             setState({
                 showLoading: false
             })
-            //  const keyring = new Keyring({ type: 'sr25519' });
-            //  const result = keyring.addFromUri(`${originMnemonic}///${inputSec}`);
         }
     }
 

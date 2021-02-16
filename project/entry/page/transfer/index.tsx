@@ -26,7 +26,8 @@ interface transferStateObj {
     status?: number,
     targetAdd?: string,
     transferAmount?: string,
-    secret?: string
+    secret?: string,
+    buttonActive?: boolean
 }
 const Transfer:FC = function() {
     //  状态管理
@@ -39,12 +40,22 @@ const Transfer:FC = function() {
         status: TRANSFER_STEP.ONE,
         transferAmount: '0',
         targetAdd: '',
+        buttonActive: false,
         secret: '' } as transferStateObj
     );
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const { balance, currentAccount } = globalStore;
+    //  判断当前阶段
     const isStepOne = useMemo(() => stateObj.status === TRANSFER_STEP.ONE, [stateObj.status]);
-
+    //  判断摁钮是否可点击
+    const buttonIsAcctive = useMemo(() => {
+        const { transAmountErrMsg, addressErrMsg, targetAdd, transferAmount, secret } = stateObj;
+        if (isStepOne) {
+            return !!(!transAmountErrMsg && !addressErrMsg && targetAdd && transferAmount)
+        } else {
+            return !!secret
+        }
+    }, [stateObj.transferAmount, stateObj.transAmountErrMsg, stateObj.addressErrMsg, stateObj.targetAdd])
     const aferIcon = (
         <div className={s.icon}/>
     )
@@ -101,9 +112,15 @@ const Transfer:FC = function() {
     }
 
     function buttonClick() {
-        setState({
-            status: TRANSFER_STEP.TWO
-        })  
+        if (buttonIsAcctive) {
+            if (isStepOne) {
+                setState({
+                    status: TRANSFER_STEP.TWO
+                })  
+            } else {
+                //  let sendPair = keyring.createFromUri();
+            }
+        }
     }
 
     function renderStepOne() {

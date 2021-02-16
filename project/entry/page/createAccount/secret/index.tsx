@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-03 10:57:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 16:37:50
+ * @Last Modified time: 2021-02-16 15:03:23
  */
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
@@ -87,18 +87,18 @@ const SecretPart:FC = function() {
     //  创建账户
     function createAccount() {
         const { inputSec, inputSecConfirm } = createStore;
-        // //  密码不一致
-        // if (inputSec !== inputSecConfirm) {
-        //     return setState({
-        //         infoStatus: INFO_STATUS.SECRET_NOT_EQUAL
-        //     })
-        // }
-        // //  没有勾选用户协议
-        // if (!stateObj.userArgeementStatus) {
-        //     return setState({
-        //         infoStatus: INFO_STATUS.CHECK_AGREEMENT
-        //     })
-        // }
+        //  密码不一致
+        if (inputSec !== inputSecConfirm) {
+            return setState({
+                infoStatus: INFO_STATUS.SECRET_NOT_EQUAL
+            })
+        }
+        //  没有勾选用户协议
+        if (!stateObj.userArgeementStatus) {
+            return setState({
+                infoStatus: INFO_STATUS.CHECK_AGREEMENT
+            })
+        }
         //  进入下一阶段
         runInAction(() => {
             createStore.createStage = CREAT_STAGE.MNEMONIC;

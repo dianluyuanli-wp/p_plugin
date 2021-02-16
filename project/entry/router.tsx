@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:37:01
+ * @Last Modified time: 2021-02-15 22:27:14
  */
 
 import React, { useEffect } from 'react';
@@ -14,6 +14,8 @@ import CreateAccountStore from './page/createAccount/store';
 import UserAgreement from './page/userAgreement';
 import Recient from './page/receipt';
 import Transfer from './page/transfer';
+import SetPanel from './page/setPanel';
+import WalletManage from './page/walletManage';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -34,6 +36,10 @@ function AppRouter() {
                 <Route exact path={PAGE_NAME.RECIENT} component={Recient} />
                 {/* 转账页 */}
                 <Route exact path={PAGE_NAME.TRANSFER} component={Transfer} />
+                {/* 设置 */}
+                <Route exact path={PAGE_NAME.SET_PANEL} component={SetPanel} />
+                {/* 钱包管理 */}
+                <Route exact path={PAGE_NAME.WALLET_MANAGE} component={WalletManage} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>
