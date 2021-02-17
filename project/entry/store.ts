@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 15:09:40
+ * @Last Modified time: 2021-02-16 19:55:33
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -10,6 +10,7 @@ import { ADDRESS_ARRAY } from '@constants/chrome';
 import keyring from '@polkadot/ui-keyring';
 import { getStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
+import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import type BN from 'bn.js';
 
 export interface globalStoreType {
@@ -19,7 +20,7 @@ export interface globalStoreType {
     favoriteAccount: string,
     accountObj: Record<string, Object>,
     balance: number | string | BN | BigInt,
-    currentAccount: account
+    currentAccount: KeyringPair$Json
 }
 
 interface metaData {
@@ -66,20 +67,20 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any;
-        const queryAccObj = {} as Record<string, string>;
-        ans.accountAddress.forEach((item: string) => {
-            queryAccObj[item] = '';
-        })
-        const accountDeatil = await getStorage(queryAccObj) as any;
-        console.log(accountDeatil, 'deatil');
-        const firsetAcc = Object.keys(accountDeatil)[0];
+        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any || {};
+        // const queryAccObj = {} as Record<string, string>;
+        // (ans.accountAddress || []).forEach((item: string) => {
+        //     queryAccObj[item] = '';
+        // })
+        // const accountDeatil = await getStorage(queryAccObj) as any;
+        // console.log(accountDeatil, 'deatil');
+        // const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
             //  this.addressArr = a.accountAddress,
-            this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            this.accountObj = Object.assign.call(null, {}, accountDeatil)
-            //  this.favoriteAccount = add;
-            //  this.accountObj = Object.assign.apply(null, [{}, mock])
+            // this.favoriteAccount = ans.favoriteAccount || firsetAcc;
+            // this.accountObj = Object.assign.call(null, {}, accountDeatil)
+            this.favoriteAccount = add;
+            this.accountObj = Object.assign.apply(null, [{}, mock])
         });
     }
 
@@ -88,7 +89,7 @@ class AppStore {
     async init(): Promise<void> {
         //  keyring初始化
         keyring.loadAll({
-            genesisHash: this.api.genesisHash as any,
+            //  genesisHash: this.api.genesisHash as any,
             ss58Format: 0,
             store: undefined,
             type: 'ed25519'

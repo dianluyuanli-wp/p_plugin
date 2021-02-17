@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 22:25:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 14:50:17
+ * @Last Modified time: 2021-02-16 18:04:07
  */
 
 import React, { FC, useEffect } from 'react';
@@ -84,7 +84,7 @@ const WalletManage:FC = function() {
                 </div>
             </div>
             <div className={s.rigthContent}>
-                <div className={s.title}>Polkadot <div className={s.addIcon}/></div>
+                <div className={s.title}>Polkadot <div className={s.addIcon} onClick={() => jump(PAGE_NAME.RETRIEVE_WALLET)}/></div>
                 {renderAccount()}
             </div>
         </div>

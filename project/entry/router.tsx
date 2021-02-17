@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-15 22:27:14
+ * @Last Modified time: 2021-02-17 17:28:31
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MobXProviderContext  } from 'mobx-react';
 import Home from './page/home';
 import GlobalStore from './store';
@@ -16,13 +16,17 @@ import Recient from './page/receipt';
 import Transfer from './page/transfer';
 import SetPanel from './page/setPanel';
 import WalletManage from './page/walletManage';
+import RetrieveWallet from './page/retriveWallet/entry';
+import RW_MNEMONIC from './page/retriveWallet/mnemonic';
+import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function AppRouter() {
     const storeObj = {
         GlobalStore,
-        CreateAccountStore
+        CreateAccountStore,
+        RetrieveStore,
     }
 
     return <MobXProviderContext.Provider value={storeObj}>
@@ -40,6 +44,13 @@ function AppRouter() {
                 <Route exact path={PAGE_NAME.SET_PANEL} component={SetPanel} />
                 {/* 钱包管理 */}
                 <Route exact path={PAGE_NAME.WALLET_MANAGE} component={WalletManage} />
+                {/* 恢复钱包 */}
+                <Route path={PAGE_NAME.RETRIEVE_WALLET} render={() => {
+                    return <>
+                        <Route exact path={PAGE_NAME.RETRIEVE_WALLET} component={RetrieveWallet}/>
+                        <Route exact path={PAGE_NAME.RW_MNEMONIC} component={RW_MNEMONIC}/>
+                    </>
+                }} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>

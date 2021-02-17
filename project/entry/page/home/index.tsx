@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-15 22:08:03
+ * @Last Modified time: 2021-02-16 15:42:52
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -52,8 +52,9 @@ const HomePage:FC = function() {
 
     useEffect(() => {
         if(globalStore.hasInit) {
-            globalStore.api.query.system.account(currentAccount.address).then(a => {
+            globalStore.api.query.system.account('13DrGJTWv6wwJe9z9FHtoPRTYxYWyWepfVBDuPY4RDmANj9R' || currentAccount.address).then(a => {
                 runInAction(() => {
+                    console.log(`${a.data.free}`, '22')
                     globalStore.balance = myFormatBalance(a.data.free);
                 })
                 setState({
@@ -80,7 +81,7 @@ const HomePage:FC = function() {
         return (
             <>
                 <div className={s.head}>
-                    <div className={s.leftTitle}  onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>
+                    <div className={s.leftTitle}>
                         <div className={s.titleIcon} />
                         <div>Kitter {statusIcon()}</div>
                     </div>

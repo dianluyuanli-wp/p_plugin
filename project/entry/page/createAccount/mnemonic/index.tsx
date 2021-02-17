@@ -2,12 +2,11 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 15:10:36
+ * @Last Modified time: 2021-02-16 16:04:24
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
-import { Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 import keyring from '@polkadot/ui-keyring';
 import { runInAction } from 'mobx';
@@ -16,6 +15,8 @@ import { CreateStoreType } from '../store';
 import { ADDRESS_ARRAY } from '@constants/chrome';
 import { getStorage, setStorage } from '@utils/chrome';
 import { globalStoreType } from '@entry/store';
+import { useHistory } from 'react-router-dom';
+import { PAGE_NAME } from '@constants/app';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 import cx from 'classnames';
 
@@ -44,6 +45,7 @@ interface addressArrayObj {
 
 const CreactMnemonic:FC = function() {
     let { t } = useTranslation();
+    const history = useHistory();
     const createStore = useStores('CreateAccountStore') as CreateStoreType;
     const globalStore = useStores('GlobalStore') as globalStoreType;
 
@@ -163,9 +165,6 @@ const CreactMnemonic:FC = function() {
                 status: STATUS.THREE
             })
         } else {
-            setState({
-                showLoading: true
-            })
             const { inputSec, accountName } = createStore;
             const originMnemonic = words.map(item => item.value).join(' ');
             //  创建新账号
@@ -188,9 +187,7 @@ const CreactMnemonic:FC = function() {
                 [ADDRESS_ARRAY]: newArray,
                 [address]: json
             })
-            setState({
-                showLoading: false
-            })
+            history.goBack();
         }
     }
 
@@ -217,7 +214,6 @@ const CreactMnemonic:FC = function() {
     }
     return (
         <div className={s.wrap}>
-            {stateObj.showLoading ? <Spin /> : null}
             <div>
                 {headInfo()}
                 {showArea()}

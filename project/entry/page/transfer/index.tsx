@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:59:22
+ * @Last Modified time: 2021-02-16 15:54:02
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -27,7 +27,8 @@ interface transferStateObj {
     targetAdd?: string,
     transferAmount?: string,
     secret?: string,
-    buttonActive?: boolean
+    buttonActive?: boolean,
+    errMsg?: string
 }
 const Transfer:FC = function() {
     //  状态管理
@@ -41,10 +42,11 @@ const Transfer:FC = function() {
         transferAmount: '0',
         targetAdd: '',
         buttonActive: false,
+        errMsg: '',
         secret: '' } as transferStateObj
     );
     const globalStore = useStores('GlobalStore') as globalStoreType;
-    const { balance, currentAccount } = globalStore;
+    const { balance, currentAccount, api } = globalStore;
     //  判断当前阶段
     const isStepOne = useMemo(() => stateObj.status === TRANSFER_STEP.ONE, [stateObj.status]);
     //  判断摁钮是否可点击
@@ -111,14 +113,32 @@ const Transfer:FC = function() {
         })
     }
 
-    function buttonClick() {
+    async function buttonClick() {
         if (buttonIsAcctive) {
             if (isStepOne) {
                 setState({
                     status: TRANSFER_STEP.TWO
                 })  
             } else {
-                //  let sendPair = keyring.createFromUri();
+                let sendPair = keyring.createFromJson(currentAccount);
+                try {
+                    sendPair.decodePkcs8(stateObj.secret)
+                } catch(e) {
+                    console.log(e);
+                    setState({ errMsg: '密码错误' })
+                    return;
+                }
+                try {
+                    const tx = api.tx.balances.transfer(stateObj.targetAdd, parseFloat(stateObj.transferAmount) * Math.pow(10, 10));
+                    const hash = await tx.signAndSend(sendPair);
+                    console.log(hash);
+                } catch (e) {
+                    if (e.toString().includes('Invalid Transaction: Inability to pay some fees')) {
+                        setState({ errMsg: '余额过低'})
+                    }
+                    console.log(e)
+                }
+
             }
         }
     }
@@ -164,7 +184,7 @@ const Transfer:FC = function() {
             </div>
             <div className={cx(s.formTitle, s.topT)}>密码确认</div>
             <Input.Password onChange={(e) => inputSec(e)} className={cx(s.input, 'sInput')} placeholder={'请输入密码'}/>
-            <div className={s.addressError}></div>
+            <div className={s.addressError}>{stateObj.errMsg}</div>
         </div>
     }
     return (

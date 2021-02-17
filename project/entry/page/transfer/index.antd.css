@@ -26,4 +26,6 @@
     font-size: .14rem !important;
     border: none;
     height: .45rem;
+    position: relative;
+    top: -.03rem;
 }
