@@ -12,15 +12,14 @@ import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
 
 interface BarProps {
+    isCheck: boolean,
     externalCallBack?: Function
 }
 const HeadBar:FC<BarProps> = function(props:BarProps) {
     const history = useHistory();
-    const [check, setCheck] = useState(false);
 
     function changeAgreeStatus() {
-        props.externalCallBack?.(check);
-        setCheck(!check);
+        props.externalCallBack?.();
     }
 
     //  跳转到用户协议
@@ -31,7 +30,7 @@ const HeadBar:FC<BarProps> = function(props:BarProps) {
     return (
         <>
             <div className={s.agreeWrap} onClick={changeAgreeStatus}>
-                <div className={cx(s.check, check ? s.accept : s.notAccept)}/>
+                <div className={cx(s.check, props.isCheck ? s.accept : s.notAccept)}/>
                 <div className={s.agrCon}>我已阅读并同意用户协议<span className={s.agreement} onClick={toAgreement}>《用户协议》</span></div>
             </div>
         </>

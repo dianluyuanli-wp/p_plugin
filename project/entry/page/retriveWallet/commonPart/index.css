@@ -13,3 +13,26 @@
     font-size: .14rem !important;
     height: .48rem;
 }
+
+.btn {
+    margin-top: .16rem;
+    margin-right: .16rem;
+    color: #ffffff;
+    background-color: #C7E3F0;
+    height: .48rem;
+    line-height: .48rem;
+    text-align: center;
+    border-radius: .02rem;
+    font-size: .14rem;
+}
+
+.btnActive {
+    background-color: #0273A4;
+}
+
+.forAgree {
+    font-size: .1rem;
+    color: #0273A4;
+    margin-top: .05rem;
+    height: .15rem;
+}

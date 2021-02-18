@@ -12,6 +12,8 @@ export interface retrieveStoreType {
     secret: string;
     checkAgreement: boolean;
     mnemonicWords: string;
+    mnemonicErrMsg: string;
+    buttonActive: boolean;
 }
 
 class RetrieveStore {
@@ -26,6 +28,10 @@ class RetrieveStore {
     @observable checkAgreement: boolean = false;
     //  输入助记词
     @observable mnemonicWords: string = '';
+    //  助记词错误
+    @observable mnemonicErrMsg: string = '';
+    //  是否可以创建
+    @observable buttonActive: boolean = false;
 
     //  重置store,方便下次创建
     @action.bound

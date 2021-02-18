@@ -7,15 +7,16 @@
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
 import './index.antd.css';
-import { Input, Form, Button } from 'antd';
+import { Input, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { changeInput } from '@utils/input';
-import { useHistory } from 'react-router-dom';
 import { CREAT_STAGE } from '../contants';
-import { PAGE_NAME } from '@constants/app';
+import { observer } from 'mobx-react';
 import { runInAction } from 'mobx';
+import UserAgreement from '@widgets/userAgreement';
+import { CreateStoreType } from '../store';
 
 const CREATE_STORE_KEY = {
     INPUT_SEC: 'inputSec',
@@ -53,14 +54,13 @@ function infoPart(type: number) {
 
 const SecretPart:FC = function() {
     let { t } = useTranslation();
-    const history = useHistory();
     
     //  状态管理
     function stateReducer(state: Object, action: CreateStateObj) {
         return Object.assign({}, state, action);
     }
     const [stateObj, setState] = useReducer(stateReducer, { infoStatus: INFO_STATUS.COMMON } as CreateStateObj);
-    const createStore = useStores('CreateAccountStore');
+    const createStore = useStores('CreateAccountStore') as CreateStoreType;
 
     //  切换用户协议状态
     function changeAgreeSta() {
@@ -104,11 +104,6 @@ const SecretPart:FC = function() {
             createStore.createStage = CREAT_STAGE.MNEMONIC;
         })
     }
-    //  跳转到用户协议
-    function toAgreement(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-        e.stopPropagation();
-        history.push(PAGE_NAME.USER_AGREEMENT);
-    }
     //  修改眼睛内容，antd有点问题没有办法传入node节点的时候带上类名
     // function secretIcon(show) {
     //     const styleObj = {
@@ -123,27 +118,25 @@ const SecretPart:FC = function() {
         <div className={s.contentWrap}>
             <div className={cx(s.formTitle, s.topT)}>钱包名称</div>
             <Form.Item >
-                <Input onChange={(e) => changeInput(createStore, 'accountName', e)} className={s.input} maxLength={12} placeholder={'1-12位字符'}/>
+                <Input value={createStore.accountName} onChange={(e) => changeInput(createStore, 'accountName', e)} className={s.input} maxLength={12} placeholder={'1-12位字符'}/>
             </Form.Item>
             <div className={cx(s.formTitle, s.midT)}>密码 <div className={cx(s.secWrap, stateObj.sectStatus === 'strong' ? s.strongSec : s.weatSec)} /></div>
             <Form.Item>
                 <Input.Password
+                    value={createStore.inputSec}
                     onChange={(e) => changeSecret(e, CREATE_STORE_KEY.INPUT_SEC)}
                     className={cx(s.input, 'myInput')} placeholder={'钱包密码'}
                     // iconRender={secretIcon}
                 />
-                <Input.Password onChange={(e) => changeSecret(e, CREATE_STORE_KEY.INPUT_SEC_CONFIRM)} className={cx(s.input, 'myInput')} placeholder={'重复输入密码'}/>
+                <Input.Password value={createStore.inputSecConfirm} onChange={(e) => changeSecret(e, CREATE_STORE_KEY.INPUT_SEC_CONFIRM)} className={cx(s.input, 'myInput')} placeholder={'重复输入密码'}/>
             </Form.Item>
             <div className={s.explainInfo}>
                 {infoPart(stateObj.infoStatus)}
             </div>
-            <div className={s.agreeWrap} onClick={changeAgreeSta}>
-                <div className={cx(s.check, stateObj.userArgeementStatus ? s.accept : s.notAccept)}/>
-                <div className={s.agrCon}>我已阅读并同意用户协议<span className={s.agreement} onClick={toAgreement}>《用户协议》</span></div>
-            </div>
+            <UserAgreement isCheck={stateObj.userArgeementStatus} externalCallBack={changeAgreeSta}/>
             <div className={s.createBtn} onClick={createAccount}>创建钱包</div>
         </div>
     )
 }
 
-export default SecretPart;
+export default observer(SecretPart);
