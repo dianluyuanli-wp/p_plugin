@@ -166,6 +166,7 @@ const CreactMnemonic:FC = function() {
             })
         } else {
             const { inputSec, accountName } = createStore;
+            console.log(words, 'mn');
             const originMnemonic = words.map(item => item.value).join(' ');
             //  创建新账号
             const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });

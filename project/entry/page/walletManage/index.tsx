@@ -35,7 +35,15 @@ const WalletManage:FC = function() {
         history.push(path);
     }
 
-    async function deleteAccount(add: string) {
+    function changeFavorite(address: string) {
+        runInAction(() => {
+            globalStore.favoriteAccount = address;
+        })
+    }
+
+    async function deleteAccount(e: React.MouseEvent<HTMLSpanElement, MouseEvent>, add: string) {
+        //  避免冒泡
+        e.stopPropagation();
         let ans = await getStorage({ [ADDRESS_ARRAY]: [] }) as any;
         let addArr = ans[ADDRESS_ARRAY];
         console.log(ans, addArr);
@@ -61,13 +69,13 @@ const WalletManage:FC = function() {
         const target = globalStore.accountObj;
         return Object.keys(target).map((item, index) => {
             const { address, meta } = target[item] as KeyringPair$Json;
-            return <div key={index} className={s.accountWrap}>
+            return <div key={index} className={s.accountWrap} onClick={() => changeFavorite(address)}>
                 <div className={s.firRow}>
                     <div className={s.ffRow}>
-                        <div className={cx(s.point, s.activePoint)}/>
+                        <div className={cx(s.point, address === globalStore.favoriteAccount ? s.activePoint : '')}/>
                         <div className={s.aName}>{meta.name}</div>
                     </div>
-                    <div className={s.tail} onClick={() => deleteAccount(address)}>···</div>
+                    <div className={s.tail} onClick={(e) => deleteAccount(e, address)}>···</div>
                 </div>
                 <div className={s.secAdd}>{addressFormat(address)}</div>
             </div>

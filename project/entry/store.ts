@@ -67,20 +67,20 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any || {};
-        // const queryAccObj = {} as Record<string, string>;
-        // (ans.accountAddress || []).forEach((item: string) => {
-        //     queryAccObj[item] = '';
-        // })
-        // const accountDeatil = await getStorage(queryAccObj) as any;
-        // console.log(accountDeatil, 'deatil');
-        // const firsetAcc = Object.keys(accountDeatil)[0];
+        let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any || {};
+        const queryAccObj = {} as Record<string, string>;
+        (ans.accountAddress || []).forEach((item: string) => {
+            queryAccObj[item] = '';
+        })
+        const accountDeatil = await getStorage(queryAccObj) as any;
+        const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
-            //  this.addressArr = a.accountAddress,
-            // this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            // this.accountObj = Object.assign.call(null, {}, accountDeatil)
-            this.favoriteAccount = add;
-            this.accountObj = Object.assign.apply(null, [{}, mock])
+            this.addressArr = ans.accountAddress,
+            this.favoriteAccount = ans.favoriteAccount || firsetAcc;
+            this.accountObj = Object.assign.call(null, {}, accountDeatil);
+
+            // this.favoriteAccount = add;
+            // this.accountObj = Object.assign.apply(null, [{}, mock])
         });
     }
 
