@@ -17,7 +17,7 @@ import { PAGE_NAME } from '@constants/app';
 import { addressFormat } from '@utils/tools';
 import { removeStorage, setStorage, getStorage } from '@utils/chrome';
 import { useStores } from '@utils/useStore';
-import { ADDRESS_ARRAY } from '@constants/chrome';
+import { ADDRESS_ARRAY, FAVORITE_ACCOUNT } from '@constants/chrome';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import { globalStoreType } from '../../store';
 
@@ -38,6 +38,10 @@ const WalletManage:FC = function() {
     function changeFavorite(address: string) {
         runInAction(() => {
             globalStore.favoriteAccount = address;
+        })
+        //  设置chrome存储
+        setStorage({
+            [FAVORITE_ACCOUNT]: address
         })
     }
 

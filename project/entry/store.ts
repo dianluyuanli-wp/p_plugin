@@ -6,7 +6,7 @@
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ADDRESS_ARRAY } from '@constants/chrome';
+import { ADDRESS_ARRAY, FAVORITE_ACCOUNT } from '@constants/chrome';
 import keyring from '@polkadot/ui-keyring';
 import { getStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
@@ -67,7 +67,7 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        let ans = await getStorage({ [ADDRESS_ARRAY]: [], favoriteAccount: '' }) as any || {};
+        let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '' }) as any || {};
         const queryAccObj = {} as Record<string, string>;
         (ans.accountAddress || []).forEach((item: string) => {
             queryAccObj[item] = '';

@@ -1,6 +1,6 @@
 import { formatBalance, isHex } from '@polkadot/util';
 import { SEED_LENGTHS } from '@constants/chain';
-import { keyExtractSuri, mnemonicGenerate, mnemonicValidate } from '@polkadot/util-crypto';
+import { keyExtractSuri, mnemonicValidate } from '@polkadot/util-crypto';
 import type BN from 'bn.js';
 
 //  这玩意不知道怎么用，先手动拼一下吧
@@ -44,5 +44,13 @@ export function validateMnemonicOrHexSeed(inputValue: string) {
             result.errMsg = 'Not a valid mnemonic seed'
         }
     }
+    return result;
+}
+
+export function validateKeyStoreJsonStr(content: string) {
+    let result = {
+        success: true,
+        errMsg: ''
+    };
     return result;
 }

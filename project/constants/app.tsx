@@ -9,4 +9,5 @@ export const PAGE_NAME = {
     WALLET_MANAGE: '/walletManage', //  钱包管理
     RETRIEVE_WALLET: '/retrieveWallet', //  恢复钱包
     RW_MNEMONIC: '/retrieveWallet/mnemonic', //  恢复钱包-助记词
+    RW_KEYSTORE: '/retrieveWallet/keyStore', //  恢复钱包-keyStore json
 }

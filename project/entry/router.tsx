@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-17 17:28:31
+ * @Last Modified time: 2021-02-20 09:11:22
  */
 
 import React from 'react';
@@ -18,6 +18,7 @@ import SetPanel from './page/setPanel';
 import WalletManage from './page/walletManage';
 import RetrieveWallet from './page/retriveWallet/entry';
 import RW_MNEMONIC from './page/retriveWallet/mnemonic';
+import RW_KEYSTORE from './page/retriveWallet/keyStore';
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -49,6 +50,7 @@ function AppRouter() {
                     return <>
                         <Route exact path={PAGE_NAME.RETRIEVE_WALLET} component={RetrieveWallet}/>
                         <Route exact path={PAGE_NAME.RW_MNEMONIC} component={RW_MNEMONIC}/>
+                        <Route exact path={PAGE_NAME.RW_KEYSTORE} component={RW_KEYSTORE}/>
                     </>
                 }} />
                 {/* 首页 */}
