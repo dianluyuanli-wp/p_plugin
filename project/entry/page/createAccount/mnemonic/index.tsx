@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 16:04:24
+ * @Last Modified time: 2021-02-21 10:32:36
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -166,7 +166,6 @@ const CreactMnemonic:FC = function() {
             })
         } else {
             const { inputSec, accountName } = createStore;
-            console.log(words, 'mn');
             const originMnemonic = words.map(item => item.value).join(' ');
             //  创建新账号
             const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
@@ -176,17 +175,19 @@ const CreactMnemonic:FC = function() {
             const saveKey = json.address;
             let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
             let newArray = origin[ADDRESS_ARRAY];
+            //  本地存储的账号信息，需要脱敏
+            const localSaveObj = { address, meta: json.meta };
             newArray.push(saveKey);
             //  同步本地的store状态
             runInAction(() => {
                 globalStore.addressArr = newArray,
                 globalStore.favoriteAccount = globalStore.favoriteAccount || address;
-                globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: json })
+                globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: localSaveObj })
             })
             //  修改chromeStorage
             await setStorage({
                 [ADDRESS_ARRAY]: newArray,
-                [address]: json
+                [address]: localSaveObj
             })
             history.goBack();
         }

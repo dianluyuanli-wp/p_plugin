@@ -2,11 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-03 10:57:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 15:03:23
+ * @Last Modified time: 2021-02-21 11:54:41
  */
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
-import './index.antd.css';
 import { Input, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
@@ -17,6 +16,7 @@ import { observer } from 'mobx-react';
 import { runInAction } from 'mobx';
 import UserAgreement from '@widgets/userAgreement';
 import { CreateStoreType } from '../store';
+import SecretInput from '@widgets/secretInput';
 
 const CREATE_STORE_KEY = {
     INPUT_SEC: 'inputSec',
@@ -26,7 +26,8 @@ const CREATE_STORE_KEY = {
 const INFO_STATUS = {
     COMMON: 0,
     CHECK_AGREEMENT: 1,
-    SECRET_NOT_EQUAL: 2
+    SECRET_NOT_EQUAL: 2,
+    SEC_TOO_SHORT: 3
 }
 
 interface CreateStateObj {
@@ -42,12 +43,9 @@ function infoPart(type: number) {
             <div className={s.info}>不少于8位字符，建议混合大小写字母、数字、符号</div>
             <div className={s.info}>改密码将作为钱包的交易密码。Kiter无法提供找回密码功能，请务必妥善保管钱包密码！</div>
         </>,
-        [INFO_STATUS.CHECK_AGREEMENT]: () => <>
-            <div className={s.info}>请勾选用户协议</div>
-        </>,
-        [INFO_STATUS.SECRET_NOT_EQUAL]: () => <>
-            <div className={s.info}>密码不一致</div>
-        </>
+        [INFO_STATUS.CHECK_AGREEMENT]: () => <div className={s.info}>请勾选用户协议</div>,
+        [INFO_STATUS.SECRET_NOT_EQUAL]: () => <div className={s.info}>密码不一致</div>,
+        [INFO_STATUS.SEC_TOO_SHORT]: () => <div className={s.info}>密码少于8位</div>
     }
     return contentMap[type]();
 }
@@ -69,24 +67,15 @@ const SecretPart:FC = function() {
             userArgeementStatus: !currentStatus
         })
     }
-    //  修改两个密码
-    function changeSecret(e: React.ChangeEvent<HTMLInputElement>, key: string) {
-        changeInput(createStore, key, e);
-        if (key === CREATE_STORE_KEY.INPUT_SEC) {
-            const value = e.target.value;
-            const hasCapitalLetter = /[A-Z]/.test(value);
-            const hasLowcaseLetter = /[a-z]/.test(value);
-            const hasNumber = /[0-9]/.test(value);
-            const moreThan8 = value.length > 7;
-            const res = [hasCapitalLetter, hasLowcaseLetter, hasNumber, moreThan8].reduce((origin, item) => origin + (item ? 1 : 0), 0);
-            setState({
-                sectStatus: res === 4 ? 'strong' : 'weak'
-            })
-        }
-    }
     //  创建账户
     function createAccount() {
         const { inputSec, inputSecConfirm } = createStore;
+        //  密码过短
+        if (inputSec.length <= 7) {
+            return setState({
+                infoStatus: INFO_STATUS.SEC_TOO_SHORT
+            })
+        }
         //  密码不一致
         if (inputSec !== inputSecConfirm) {
             return setState({
@@ -120,19 +109,11 @@ const SecretPart:FC = function() {
             <Form.Item >
                 <Input value={createStore.accountName} onChange={(e) => changeInput(createStore, 'accountName', e)} className={s.input} maxLength={12} placeholder={'1-12位字符'}/>
             </Form.Item>
-            <div className={cx(s.formTitle, s.midT)}>密码 <div className={cx(s.secWrap, stateObj.sectStatus === 'strong' ? s.strongSec : s.weatSec)} /></div>
-            <Form.Item>
-                <Input.Password
-                    value={createStore.inputSec}
-                    onChange={(e) => changeSecret(e, CREATE_STORE_KEY.INPUT_SEC)}
-                    className={cx(s.input, 'myInput')} placeholder={'钱包密码'}
-                    // iconRender={secretIcon}
-                />
-                <Input.Password value={createStore.inputSecConfirm} onChange={(e) => changeSecret(e, CREATE_STORE_KEY.INPUT_SEC_CONFIRM)} className={cx(s.input, 'myInput')} placeholder={'重复输入密码'}/>
-            </Form.Item>
+            <SecretInput secretKey={CREATE_STORE_KEY.INPUT_SEC} checkSecretKey={CREATE_STORE_KEY.INPUT_SEC_CONFIRM} store={createStore}/>
             <div className={s.explainInfo}>
                 {infoPart(stateObj.infoStatus)}
             </div>
+            <div className={s.pad}/>
             <UserAgreement isCheck={stateObj.userArgeementStatus} externalCallBack={changeAgreeSta}/>
             <div className={s.createBtn} onClick={createAccount}>创建钱包</div>
         </div>

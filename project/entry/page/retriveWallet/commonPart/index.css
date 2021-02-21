@@ -6,7 +6,7 @@
 }
 
 .topTitle {
-    margin-top: .24rem;
+    margin-top: 0;
 }
 
 .secInput {
@@ -24,6 +24,7 @@
     text-align: center;
     border-radius: .02rem;
     font-size: .14rem;
+    user-select: none;
 }
 
 .btnActive {
@@ -35,4 +36,10 @@
     color: #0273A4;
     margin-top: .05rem;
     height: .15rem;
+}
+
+.checkInfo {
+    font-size: .12rem;
+    height: .14rem;
+    color: #0273A4;
 }

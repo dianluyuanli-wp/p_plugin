@@ -1,5 +1,7 @@
 import { formatBalance, isHex } from '@polkadot/util';
 import { SEED_LENGTHS } from '@constants/chain';
+import type { KeyringPair$Json } from '@polkadot/keyring/types';
+import keyring from '@polkadot/ui-keyring';
 import { keyExtractSuri, mnemonicValidate } from '@polkadot/util-crypto';
 import type BN from 'bn.js';
 
@@ -52,5 +54,14 @@ export function validateKeyStoreJsonStr(content: string) {
         success: true,
         errMsg: ''
     };
+    let json: KeyringPair$Json;
+    try {
+        json = JSON.parse(content) as KeyringPair$Json;
+        keyring.createFromJson(json);
+    } catch {
+        result.success = false;
+        result.errMsg = '错误的输入';
+        return;
+    }
     return result;
 }

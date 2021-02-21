@@ -4,3 +4,4 @@ export const secInput: string;
 export const btn: string;
 export const btnActive: string;
 export const forAgree: string;
+export const checkInfo: string;

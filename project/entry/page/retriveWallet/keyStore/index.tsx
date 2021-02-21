@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-20 09:07:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-20 09:15:56
+ * @Last Modified time: 2021-02-21 13:42:10
  */
 
 import React, { FC, useEffect, useReducer } from 'react';
@@ -29,7 +29,7 @@ const Mnemonic:FC = function() {
 
     function inputMnemonic(e: React.ChangeEvent<HTMLTextAreaElement>) {
         const inputValue = e.target.value;
-        changeInput(RetrieveStore, 'mnemonicWords', e);
+        changeInput(RetrieveStore, 'keyStoreJsonStr', e);
         const validateRes = validateMnemonicOrHexSeed(inputValue);
         runInAction(() => {
             RetrieveStore.mnemonicErrMsg = validateRes.errMsg;
