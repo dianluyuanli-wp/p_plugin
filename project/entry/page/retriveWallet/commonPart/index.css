@@ -39,7 +39,22 @@
 }
 
 .checkInfo {
+    margin-top: .1rem;
     font-size: .12rem;
     height: .14rem;
     color: #0273A4;
+}
+
+.formTitle {
+    font-size: .14rem;
+    color: #555555;
+    margin-bottom: .1rem;
+    margin-top: .1rem;
+}
+
+.input {
+    height: .48rem;
+    width: 3.43rem;
+    margin: 0 auto;
+    font-size: .14rem !important;
 }

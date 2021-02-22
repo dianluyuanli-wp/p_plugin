@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-21 10:32:36
+ * @Last Modified time: 2021-02-22 09:04:16
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -38,7 +38,7 @@ interface mnemonicStateObj {
     showLoading?: boolean
 }
 
-interface addressArrayObj {
+export interface addressArrayObj {
     accountAddress: Array<string>
 }
 //      "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",

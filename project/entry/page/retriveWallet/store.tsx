@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 17:24:57 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-21 13:40:41
+ * @Last Modified time: 2021-02-22 10:00:45
  */
 
 import { observable, runInAction, action, makeAutoObservable } from 'mobx';
@@ -17,13 +17,15 @@ export interface retrieveStoreType {
     checkStatus: number;
     confirmSecret: string;
     keyStoreJsonStr: string;
+    keyStoreErrMsg: string;
 }
 
 export const CHECT_STATUS = {
     PASS: 0,
     SECRECT_NOT_EQUAL: 1,
     NOT_CHECK_AGREEMETN: 2,
-    SECRET_TOO_SHORT: 3
+    SECRET_TOO_SHORT: 3,
+    WRONG_PASS: 4
 }
 
 class RetrieveStore {
@@ -57,6 +59,10 @@ class RetrieveStore {
         this.name = '';
         this.secret = '';
         this.checkAgreement = false;
+        this.confirmSecret = '';
+        this.keyStoreJsonStr = '';
+        this.keyStoreErrMsg = '';
+        this.mnemonicErrMsg = '';
     }
 }
 

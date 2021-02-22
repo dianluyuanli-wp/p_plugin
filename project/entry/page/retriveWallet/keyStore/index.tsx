@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-20 09:07:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-21 13:42:10
+ * @Last Modified time: 2021-02-22 09:49:52
  */
 
 import React, { FC, useEffect, useReducer } from 'react';
@@ -16,7 +16,7 @@ import { runInAction } from 'mobx';
 import './index.antd.css';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
-import { validateMnemonicOrHexSeed } from '@utils/tools';
+import { validateKeyStoreJsonStr } from '@utils/tools';
 import CommonPart from '../commonPart';
 import { changeInput } from '@utils/input';
 import { retrieveStoreType } from '../store';
@@ -27,29 +27,29 @@ const Mnemonic:FC = function() {
     const RetrieveStore = useStores('RetrieveStore') as retrieveStoreType;
     const { currentAccount } = globalStore;
 
-    function inputMnemonic(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    function inputRestoreJson(e: React.ChangeEvent<HTMLTextAreaElement>) {
         const inputValue = e.target.value;
         changeInput(RetrieveStore, 'keyStoreJsonStr', e);
-        const validateRes = validateMnemonicOrHexSeed(inputValue);
+        const validateRes = validateKeyStoreJsonStr(inputValue);
         runInAction(() => {
             RetrieveStore.mnemonicErrMsg = validateRes.errMsg;
         })
     }
 
     useEffect(() => {
-        const { name, mnemonicErrMsg, mnemonicWords, checkAgreement } = RetrieveStore;
+        const { name, keyStoreJsonStr, checkAgreement, keyStoreErrMsg } = RetrieveStore;
         runInAction(() => {
-            RetrieveStore.buttonActive = (name && mnemonicWords && !mnemonicErrMsg && checkAgreement)
+            RetrieveStore.buttonActive = (name && keyStoreJsonStr && !keyStoreErrMsg && checkAgreement)
         })
-    }, [RetrieveStore.name, RetrieveStore.mnemonicWords, RetrieveStore.mnemonicErrMsg, RetrieveStore.checkAgreement])
+    }, [RetrieveStore.name, RetrieveStore.keyStoreJsonStr, RetrieveStore.keyStoreErrMsg, RetrieveStore.checkAgreement])
 
     return (
         <div className={s.wrap}>
             <HeadBar word={'创建钱包'}/>
             <div className={s.wordsWrap}>
-                <div className={cx(s.title, s.topTitle)}>助记词</div>
-                <Input.TextArea autoSize={{ minRows: 2 }} value={RetrieveStore.mnemonicWords} onChange={(e) => inputMnemonic(e)} className={s.textArea} placeholder={'请粘贴keyStore json文件内容'}/>
-                {/* <div className={s.addressError}>{RetrieveStore.mnemonicErrMsg}</div> */}
+                <div className={cx(s.title, s.topTitle)}>keyStore Json</div>
+                <Input.TextArea autoSize={{ minRows: 2 }} value={RetrieveStore.keyStoreJsonStr} onChange={(e) => inputRestoreJson(e)} className={s.textArea} placeholder={'请粘贴keyStore json文件内容'}/>
+                <div className={s.addressError}>{RetrieveStore.keyStoreErrMsg}</div>
                 <CommonPart />
             </div>
         </div>

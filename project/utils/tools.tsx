@@ -3,7 +3,16 @@ import { SEED_LENGTHS } from '@constants/chain';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import keyring from '@polkadot/ui-keyring';
 import { keyExtractSuri, mnemonicValidate } from '@polkadot/util-crypto';
+import { ADDRESS_ARRAY } from '@constants/chrome';
+import { getStorage, setStorage } from '@utils/chrome';
+import { globalStoreType } from '@entry/store';
+import { runInAction } from 'mobx';
+import globalStore from '@entry/store';
 import type BN from 'bn.js';
+
+export interface addressArrayObj {
+    accountAddress: Array<string>
+}
 
 //  这玩意不知道怎么用，先手动拼一下吧
 export function myFormatBalance(balance: number | string | BN | BigInt ) {
@@ -64,4 +73,25 @@ export function validateKeyStoreJsonStr(content: string) {
         return;
     }
     return result;
+}
+
+export async function addNewAccount(result: Record<string, any>) {
+    const { json } = result;
+    const { address } = json;
+    let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
+    let newArray = origin[ADDRESS_ARRAY];
+    //  本地存储的账号信息，需要脱敏
+    const localSaveObj = { address, meta: json.meta };
+    newArray.push(address);
+    //  同步本地的store状态
+    runInAction(() => {
+        globalStore.addressArr = newArray,
+        globalStore.favoriteAccount = globalStore.favoriteAccount || address;
+        globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: localSaveObj })
+    })
+    //  修改chromeStorage
+    await setStorage({
+        [ADDRESS_ARRAY]: newArray,
+        [address]: localSaveObj
+    })
 }

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-16 17:54:00 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-20 09:32:09
+ * @Last Modified time: 2021-02-22 10:01:30
  */
 
 import React, { FC } from 'react';
@@ -12,12 +12,15 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
 import { PAGE_NAME } from '@constants/app';
+import RetrieveStore from '../store';
 
 const Entry:FC = function() {
     let { t } = useTranslation();
     const history = useHistory();
 
     function jump(path: string) {
+        //  重新进入的时候要重置数据
+        RetrieveStore.resetStore();
         history.push(path);
     }
 
