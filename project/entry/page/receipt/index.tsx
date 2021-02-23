@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 15:55:08 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-13 23:57:10
+ * @Last Modified time: 2021-02-23 09:55:58
  */
 
 import React, { FC, useEffect } from 'react';
@@ -14,6 +14,8 @@ import Qrcode from 'qrcode';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
 import { message } from 'antd';
+import { canvasToDataURL, dataURLToBlob } from '@utils/tools';
+import { saveAs } from 'file-saver';
 import copyContent from 'copy-to-clipboard';
 
 const Recient:FC = function() {
@@ -30,6 +32,13 @@ const Recient:FC = function() {
         copyContent(currentAccount.address);
     }
 
+    function downLoadImg() {
+        let qrCodeCanvas = document.getElementById('qrcode');
+        const dataUrl = canvasToDataURL(qrCodeCanvas);
+        const blob = dataURLToBlob(dataUrl);
+        saveAs(blob, `${currentAccount.meta.name}_address_qrCode.png`)
+    }
+
     return (
         <div className={s.wrap}>
             <HeadBar word={'收款'}/>
@@ -42,7 +51,7 @@ const Recient:FC = function() {
             <div className={s.bottm}>
                 <div className={cx(s.buttonWord, s.copy)} onClick={copyAdd}>复制地址</div>
                 <div className={s.split}/>
-                <div className={cx(s.buttonWord, s.downLoad)}>下载收款码</div>
+                <div className={cx(s.buttonWord, s.downLoad)} onClick={downLoadImg}>下载收款码</div>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 19:55:33
+ * @Last Modified time: 2021-02-23 11:11:52
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -68,11 +68,13 @@ class AppStore {
     @action.bound
     async prepareAccount(): Promise<void> {
         let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '' }) as any || {};
+        console.log(ans, 'ans');
         const queryAccObj = {} as Record<string, string>;
         (ans.accountAddress || []).forEach((item: string) => {
             queryAccObj[item] = '';
         })
         const accountDeatil = await getStorage(queryAccObj) as any;
+        console.log(accountDeatil, 'detail');
         const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
             this.addressArr = ans.accountAddress,

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 15:42:52
+ * @Last Modified time: 2021-02-23 10:45:31
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -19,8 +19,6 @@ import copyContent from 'copy-to-clipboard';
 import { getStorage, setStorage } from '@utils/chrome';
 import s from './index.css';
 import cx from 'classnames';
-
-const ad = '5EhmYogkqoyHiCDEfMWvQkEBcJjuaaZ4chW5K1z3TuioHTP7';
 
 interface homeStatus {
     balance?: string,
@@ -52,7 +50,7 @@ const HomePage:FC = function() {
 
     useEffect(() => {
         if(globalStore.hasInit) {
-            globalStore.api.query.system.account('13DrGJTWv6wwJe9z9FHtoPRTYxYWyWepfVBDuPY4RDmANj9R' || currentAccount.address).then(a => {
+            globalStore.api.query.system.account(currentAccount.address).then(a => {
                 runInAction(() => {
                     console.log(`${a.data.free}`, '22')
                     globalStore.balance = myFormatBalance(a.data.free);
