@@ -24,6 +24,7 @@ export function addressFormat(address: string) {
     return address.slice(0, 4) + '....' + address.slice(address.length - 4);
 }
 
+//  校验助记词输入
 export function validateMnemonicOrHexSeed(inputValue: string) {
     let result = {
         success: true,
@@ -58,6 +59,7 @@ export function validateMnemonicOrHexSeed(inputValue: string) {
     return result;
 }
 
+//  校验keyStore输入
 export function validateKeyStoreJsonStr(content: string) {
     let result = {
         success: true,
@@ -75,6 +77,7 @@ export function validateKeyStoreJsonStr(content: string) {
     return result;
 }
 
+//  添加新账号，同步store和chrome storage
 export async function addNewAccount(result: Record<string, any>) {
     const { json } = result;
     const { address } = json;
@@ -96,10 +99,12 @@ export async function addNewAccount(result: Record<string, any>) {
     })
 }
 
+//  将canvas转换成dataUrl
 export function canvasToDataURL(canvas: any){
 	return canvas.toDataURL('image/png', 1.0);
 }
 
+//  将dataUrl转换成blob
 export function dataURLToBlob(dataurl: string){
 	var arr = dataurl.split(',');
 	var mime = arr[0].match(/:(.*?);/)[1];
@@ -110,4 +115,9 @@ export function dataURLToBlob(dataurl: string){
 		u8arr[n] = bstr.charCodeAt(n);
 	}
 	return new Blob([u8arr], {type:mime});
+}
+
+//  将字符串转化成转账金额
+export function dotStrToTransferAmount(amount: string) {
+    return parseFloat(amount) * Math.pow(10, 10)
 }

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-22 09:04:16
+ * @Last Modified time: 2021-02-24 09:16:56
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -175,8 +175,8 @@ const CreactMnemonic:FC = function() {
             const saveKey = json.address;
             let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
             let newArray = origin[ADDRESS_ARRAY];
-            //  本地存储的账号信息，需要脱敏
-            const localSaveObj = { address, meta: json.meta };
+            //  本地存储的账号信息,看来不需要脱敏，因为polkadot.js直接放在localstorage里面
+            const localSaveObj = json;
             newArray.push(saveKey);
             //  同步本地的store状态
             runInAction(() => {

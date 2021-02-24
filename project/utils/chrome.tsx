@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-12 19:59:05 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-23 11:36:53
+ * @Last Modified time: 2021-02-24 09:13:38
  */
 
  // 获取本地存储
@@ -37,10 +37,6 @@ export function getStorage(obj: Object) {
             payLoad: obj,
         }, function(response: Object) {
             console.log(response, 'yyy')
-            //  没有的话取localstorage
-            if (!response) {
-                res(getLocalStorage(obj));
-            }
             res(response);
         })
     })
@@ -48,8 +44,6 @@ export function getStorage(obj: Object) {
 
 export function setStorage(obj: Object) {
     return new Promise((res, rej) => {
-        //  同步本地存储
-        //  setLocalStorage(obj);
         sendMessageToContentScript({
             method: 'setStorage',
             payLoad: obj,
@@ -61,8 +55,6 @@ export function setStorage(obj: Object) {
 
 export function removeStorage(keys: string | string[]) {
     return new Promise((res, rej) => {
-        //  同步本地存储
-        removeLocalStorage(keys);
         sendMessageToContentScript({
             method: 'removeStorage',
             payLoad: keys,

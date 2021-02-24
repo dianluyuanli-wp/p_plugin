@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 15:54:02
+ * @Last Modified time: 2021-02-24 10:06:38
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
+import { dotStrToTransferAmount } from '@utils/tools';
 import { keyring } from '@polkadot/ui-keyring';
 import { message, Input, Form } from 'antd';
 
@@ -28,7 +29,8 @@ interface transferStateObj {
     transferAmount?: string,
     secret?: string,
     buttonActive?: boolean,
-    errMsg?: string
+    errMsg?: string,
+    partialFee?: string;
 }
 const Transfer:FC = function() {
     //  状态管理
@@ -62,6 +64,18 @@ const Transfer:FC = function() {
         <div className={s.icon}/>
     )
 
+    useEffect(() => {
+        async function computedFee() {
+            const { targetAdd, transferAmount } = stateObj;
+            const transfer = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount))
+            const { partialFee, weight } = await transfer.paymentInfo(currentAccount.address);
+            setState({
+                partialFee: parseFloat(partialFee.toHuman().split(' ')[0]) / 1000 + ''
+            })
+        }
+        computedFee();
+    }, [stateObj.transferAmount, stateObj.targetAdd])
+
     const amountIcon = (
         <div className={s.amountIconWrap}>
             DOT<div className={s.split} /><div>全部</div>
@@ -69,7 +83,7 @@ const Transfer:FC = function() {
     )
 
     const fee = (
-        <div className={s.fee}>0.1118 DOT</div>
+        <div className={s.fee}>{stateObj.partialFee} DOT</div>
     )
     //  校验地址
     function addressInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -114,6 +128,7 @@ const Transfer:FC = function() {
     }
 
     async function buttonClick() {
+        const { secret, targetAdd, transferAmount } = stateObj;
         if (buttonIsAcctive) {
             if (isStepOne) {
                 setState({
@@ -122,14 +137,14 @@ const Transfer:FC = function() {
             } else {
                 let sendPair = keyring.createFromJson(currentAccount);
                 try {
-                    sendPair.decodePkcs8(stateObj.secret)
+                    sendPair.decodePkcs8(secret)
                 } catch(e) {
                     console.log(e);
                     setState({ errMsg: '密码错误' })
                     return;
                 }
                 try {
-                    const tx = api.tx.balances.transfer(stateObj.targetAdd, parseFloat(stateObj.transferAmount) * Math.pow(10, 10));
+                    const tx = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount));
                     const hash = await tx.signAndSend(sendPair);
                     console.log(hash);
                 } catch (e) {
@@ -179,7 +194,7 @@ const Transfer:FC = function() {
                     <div>付款地址</div><div className={cx(s.tContent, s.tCAdd)}>{currentAccount.address}</div>
                 </div>
                 <div className={s.sTd}>
-                    <div>矿工费</div><div className={s.tContent}>1.22 DOT</div>
+                    <div>矿工费</div><div className={s.tContent}>{stateObj.partialFee} DOT</div>
                 </div>
             </div>
             <div className={cx(s.formTitle, s.topT)}>密码确认</div>
