@@ -10,4 +10,7 @@ export const PAGE_NAME = {
     RETRIEVE_WALLET: '/retrieveWallet', //  恢复钱包
     RW_MNEMONIC: '/retrieveWallet/mnemonic', //  恢复钱包-助记词
     RW_KEYSTORE: '/retrieveWallet/keyStore', //  恢复钱包-keyStore json
+    SINGLE_WALLTE_MANAGE: '/setWalletDetial', //  单个钱包设置
+    SW_EDIT_NAME: '/setWalletDetial/editName', //  单个钱包，修改名称
+    SW_EDIT_SECRET: '/setWalletDetial/editSecret', //   单个钱包，修改密码
 }

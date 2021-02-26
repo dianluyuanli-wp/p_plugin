@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-20 09:11:22
+ * @Last Modified time: 2021-02-26 09:29:52
  */
 
 import React from 'react';
@@ -18,6 +18,9 @@ import SetPanel from './page/setPanel';
 import WalletManage from './page/walletManage';
 import RetrieveWallet from './page/retriveWallet/entry';
 import RW_MNEMONIC from './page/retriveWallet/mnemonic';
+import S_W_M_ENTRY from './page/setWalletDetial/entry';
+import SW_EDIT_NAME from './page/setWalletDetial/editName';
+import SW_EDIT_SECRET from './page/setWalletDetial/changeSecret';
 import RW_KEYSTORE from './page/retriveWallet/keyStore';
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
@@ -51,6 +54,14 @@ function AppRouter() {
                         <Route exact path={PAGE_NAME.RETRIEVE_WALLET} component={RetrieveWallet}/>
                         <Route exact path={PAGE_NAME.RW_MNEMONIC} component={RW_MNEMONIC}/>
                         <Route exact path={PAGE_NAME.RW_KEYSTORE} component={RW_KEYSTORE}/>
+                    </>
+                }} />
+                {/* 单个钱包配置 */}
+                <Route path={PAGE_NAME.SINGLE_WALLTE_MANAGE} render={() => {
+                    return <>
+                        <Route exact path={PAGE_NAME.SINGLE_WALLTE_MANAGE} component={S_W_M_ENTRY}/>
+                        <Route exact path={PAGE_NAME.SW_EDIT_NAME} component={SW_EDIT_NAME}/>
+                        <Route exact path={PAGE_NAME.SW_EDIT_SECRET} component={SW_EDIT_SECRET}/>
                     </>
                 }} />
                 {/* 首页 */}

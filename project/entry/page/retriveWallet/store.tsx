@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 17:24:57 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-22 10:00:45
+ * @Last Modified time: 2021-02-26 09:45:38
  */
 
-import { observable, runInAction, action, makeAutoObservable } from 'mobx';
+import { observable, action, makeAutoObservable } from 'mobx';
 
 export interface retrieveStoreType {
     name: string;

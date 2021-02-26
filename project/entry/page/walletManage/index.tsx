@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 22:25:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-16 18:04:07
+ * @Last Modified time: 2021-02-26 08:40:27
  */
 
 import React, { FC, useEffect } from 'react';
@@ -69,6 +69,12 @@ const WalletManage:FC = function() {
         removeStorage(add);
     }
 
+    function toSingleManage(e: React.MouseEvent<HTMLSpanElement, MouseEvent>, address: string) {
+        //  避免冒泡
+        e.stopPropagation();
+        history.push(PAGE_NAME.SINGLE_WALLTE_MANAGE, { address })
+    }
+
     function renderAccount() {
         const target = globalStore.accountObj;
         return Object.keys(target).map((item, index) => {
@@ -79,7 +85,7 @@ const WalletManage:FC = function() {
                         <div className={cx(s.point, address === globalStore.favoriteAccount ? s.activePoint : '')}/>
                         <div className={s.aName}>{meta.name}</div>
                     </div>
-                    <div className={s.tail} onClick={(e) => deleteAccount(e, address)}>···</div>
+                    <div className={s.tail} onClick={(e) => toSingleManage(e, address)}>···</div>
                 </div>
                 <div className={s.secAdd}>{addressFormat(address)}</div>
             </div>

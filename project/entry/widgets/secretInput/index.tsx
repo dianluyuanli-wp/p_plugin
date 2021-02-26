@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-21 10:37:35 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-21 11:34:55
+ * @Last Modified time: 2021-02-26 09:58:08
  */
 
 
@@ -19,6 +19,7 @@ interface SecretInput {
     store?: Record<string, any>,
     secretKey?: string,
     checkSecretKey?: string,
+    title?: string,
 }
 const HeadBar:FC<SecretInput> = function(props:SecretInput) {
     const [secretStatus, setSecretSta] = useState('weak');
@@ -39,7 +40,7 @@ const HeadBar:FC<SecretInput> = function(props:SecretInput) {
     }
     return (
         <>
-            <div className={cx(s.formTitle, s.midT)}>密码 <div className={cx(s.secWrap, secretStatus === 'strong' ? s.strongSec : s.weatSec)} /></div>
+            <div className={cx(s.formTitle, s.midT)}>{props.title || '密码'} <div className={cx(s.secWrap, secretStatus === 'strong' ? s.strongSec : s.weatSec)} /></div>
             <Input.Password
                     value={store[secretKey]}
                     onChange={(e) => changeSecret(e, secretKey)}

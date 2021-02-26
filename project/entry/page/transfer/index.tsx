@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-24 10:06:38
+ * @Last Modified time: 2021-02-25 09:11:50
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -66,12 +66,16 @@ const Transfer:FC = function() {
 
     useEffect(() => {
         async function computedFee() {
-            const { targetAdd, transferAmount } = stateObj;
-            const transfer = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount))
-            const { partialFee, weight } = await transfer.paymentInfo(currentAccount.address);
-            setState({
-                partialFee: parseFloat(partialFee.toHuman().split(' ')[0]) / 1000 + ''
-            })
+            //  实时计算交易费用
+            try {
+                const { targetAdd, transferAmount } = stateObj;
+                const transfer = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount))
+                const { partialFee } = await transfer.paymentInfo(currentAccount.address);
+                setState({
+                    partialFee: parseFloat(partialFee.toHuman().split(' ')[0]) / 1000 + ''
+                })
+            } catch {
+            }
         }
         computedFee();
     }, [stateObj.transferAmount, stateObj.targetAdd])
