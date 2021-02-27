@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 17:16:59
+ * @Last Modified time: 2021-02-27 20:52:03
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -15,6 +15,7 @@ import { globalStoreType } from '@entry/store';
 import { useHistory } from 'react-router-dom';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 import cx from 'classnames';
+import { Spin } from 'antd';
 import { addNewAccount } from '@utils/tools';
 
 const STATUS = {
@@ -50,7 +51,7 @@ const CreactMnemonic:FC = function() {
     function stateReducer(state: Object, action: mnemonicStateObj) {
         return Object.assign({}, state, action);
     }
-    const [stateObj, setState] = useReducer(stateReducer, { status: STATUS.ONE, words: [], pickWords: [] } as mnemonicStateObj);
+    const [stateObj, setState] = useReducer(stateReducer, { status: STATUS.ONE, words: [], pickWords: [], showLoading: false } as mnemonicStateObj);
     //  是否第一阶段
     const isStepOne = useMemo(() => stateObj.status === STATUS.ONE, [stateObj.status]);
     //  是否正确恢复的顺序
@@ -162,21 +163,32 @@ const CreactMnemonic:FC = function() {
                 status: STATUS.THREE
             })
         } else {
-            const { inputSec, accountName } = createStore;
-            const originMnemonic = words.map(item => item.value).join(' ');
-            //  创建新账号
-            const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
-            await addNewAccount(result);
-            history.goBack();
+            setState({
+                showLoading: true
+            })
+            setTimeout(async () => {
+                const { inputSec, accountName } = createStore;
+                const originMnemonic = words.map(item => item.value).join(' ');
+                //  创建新账号
+                const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
+                await addNewAccount(result);
+                setState({
+                    showLoading: false
+                })
+                history.goBack();
+            }, 0)
+
         }
     }
 
     function button() {
         const { status } = stateObj;
         const isAble = status === STATUS.TWO || isRightOrder;
-        return <div className={cx(s.bottomBtn, isAble ? s.ableBtn : '')} onClick={buttonClick}>
-            {status !== STATUS.THREE ? '确认备份' : '完成备份'}
-        </div>
+        return <Spin spinning={stateObj.showLoading}>
+            <div className={cx(s.bottomBtn, isAble ? s.ableBtn : '')} onClick={buttonClick}>
+                {status !== STATUS.THREE ? '确认备份' : '完成备份'}
+            </div>
+        </Spin>
     }
 
     function headInfo() {

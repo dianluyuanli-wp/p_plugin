@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 22:25:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 17:39:40
+ * @Last Modified time: 2021-02-27 22:36:02
  */
 
 import React, { FC, useEffect } from 'react';
@@ -43,30 +43,6 @@ const WalletManage:FC = function() {
         setStorage({
             [FAVORITE_ACCOUNT]: address
         })
-    }
-
-    async function deleteAccount(e: React.MouseEvent<HTMLSpanElement, MouseEvent>, add: string) {
-        //  避免冒泡
-        e.stopPropagation();
-        let ans = await getStorage({ [ADDRESS_ARRAY]: [] }) as any;
-        let addArr = ans[ADDRESS_ARRAY];
-        console.log(ans, addArr);
-        const targetIndex = addArr.indexOf(add);
-        addArr.splice(targetIndex, 1)
-        setStorage({
-            [ADDRESS_ARRAY]: addArr
-        })
-        if (add === favoriteAccount) {
-            runInAction(() => {
-                globalStore.favoriteAccount = addArr[0];
-            })
-        }
-        //  同步自己store的内容
-        runInAction(() => {
-            globalStore.addressArr = addArr;
-            delete globalStore.accountObj[add];
-        })
-        removeStorage(add);
     }
 
     function toSingleManage(e: React.MouseEvent<HTMLSpanElement, MouseEvent>, address: string) {

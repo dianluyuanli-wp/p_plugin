@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 10:03:25
+ * @Last Modified time: 2021-02-27 21:37:19
  */
 
 import React from 'react';
@@ -21,7 +21,8 @@ import RW_MNEMONIC from './page/retriveWallet/mnemonic'; // 助记词恢复账�
 import S_W_M_ENTRY from './page/setWalletDetial/entry'; //  钱包设置-入口
 import SW_EDIT_NAME from './page/setWalletDetial/editName'; //  单个账号-修改名字
 import SW_EDIT_SECRET from './page/setWalletDetial/changeSecret'; //    单个账号-改密码
-import SW_EDITO_BACKUP  from './page/setWalletDetial/backupKeyStore'; // 单个账号-备份keyStore文件
+import SW_EDIT_BACKUP  from './page/setWalletDetial/backupKeyStore'; // 单个账号-备份keyStore文件
+import SW_EDIT_DELETE from './page/setWalletDetial/deletaAccount'; //   单个账号-删除账号
 import RW_KEYSTORE from './page/retriveWallet/keyStore'; // 恢复钱包-keystore
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
@@ -63,7 +64,8 @@ function AppRouter() {
                         <Route exact path={PAGE_NAME.SINGLE_WALLTE_MANAGE} component={S_W_M_ENTRY}/>
                         <Route exact path={PAGE_NAME.SW_EDIT_NAME} component={SW_EDIT_NAME}/>
                         <Route exact path={PAGE_NAME.SW_EDIT_SECRET} component={SW_EDIT_SECRET}/>
-                        <Route exact path={PAGE_NAME.SW_EDIT_BACKUP} component={SW_EDITO_BACKUP}/>
+                        <Route exact path={PAGE_NAME.SW_EDIT_BACKUP} component={SW_EDIT_BACKUP}/>
+                        <Route exact path={PAGE_NAME.SW_EDIT_DELETE} component={SW_EDIT_DELETE}/>
                     </>
                 }} />
                 {/* 首页 */}

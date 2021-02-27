@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 17:20:34 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 17:22:39
+ * @Last Modified time: 2021-02-27 23:18:20
  */
 
 import React, { FC } from 'react';
@@ -54,7 +54,6 @@ const CommonPart:FC = function() {
             }
         }
         runInAction(() => RetrieveStore.checkStatus === CHECT_STATUS.PASS);
-        let result;
         if (isInMnemonic) {
             const mnemoRes = keyring.addUri(mnemonicWords, secret, { name });
             //  store和chrome存储都同步
@@ -71,7 +70,6 @@ const CommonPart:FC = function() {
             await addNewAccount({ json: parsedJson } as CreateResult);
         }
         //  回到首页
-        console.log('back');
         history.push(PAGE_NAME.HOME);
     }
 

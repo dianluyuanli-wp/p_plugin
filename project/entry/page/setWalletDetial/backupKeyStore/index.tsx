@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-27 09:56:21 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 20:02:25
+ * @Last Modified time: 2021-02-27 20:20:39
  */
 
 import React, { FC, useReducer } from 'react';
@@ -56,21 +56,24 @@ const ChangeSec:FC = function() {
         setState({
             isSpining: true
         })
-        try {
-            keyring.restoreAccount(targetAccount, stateObj.secret);
-        } catch(e) {
-            console.log(e);
-            return setState({
-                infoStr: '密码错误',
+        //  上面setState本身是异步的，不这样没法有spin效果
+        setTimeout(() => {
+            try {
+                keyring.restoreAccount(targetAccount, stateObj.secret);
+            } catch(e) {
+                console.log(e);
+                return setState({
+                    infoStr: '密码错误',
+                    isSpining: false
+                })
+            }
+            const blob = new Blob([JSON.stringify(targetAccount)], { type: 'application/json; charset=utf-8' })
+            saveAs(blob, `address-${address}.json`)
+            setState({
+                infoStr: '',
                 isSpining: false
             })
-        }
-        const blob = new Blob([JSON.stringify(targetAccount)], { type: 'application/json; charset=utf-8' })
-        saveAs(blob, `address-${address}.json`)
-        setState({
-            infoStr: '',
-            isSpining: false
-        })
+        }, 0)
     }
 
     return (

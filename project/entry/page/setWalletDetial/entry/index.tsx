@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-25 09:53:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 10:03:55
+ * @Last Modified time: 2021-02-27 21:34:14
  */
 
 
@@ -63,7 +63,7 @@ const Entry:FC = function() {
                     <div className={s.arrow}/>
                 </div>
             </div>
-            <div className={s.btn}>删除</div>
+            <div className={s.btn} onClick={() => jump(PAGE_NAME.SW_EDIT_DELETE)}>删除</div>
         </div>
     )
 }
