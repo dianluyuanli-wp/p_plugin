@@ -6,6 +6,7 @@ import { keyExtractSuri, mnemonicValidate } from '@polkadot/util-crypto';
 import { ADDRESS_ARRAY } from '@constants/chrome';
 import { getStorage, setStorage } from '@utils/chrome';
 import { globalStoreType } from '@entry/store';
+import type { CreateResult } from '@polkadot/ui-keyring/types';
 import { runInAction } from 'mobx';
 import globalStore from '@entry/store';
 import type BN from 'bn.js';
@@ -78,14 +79,15 @@ export function validateKeyStoreJsonStr(content: string) {
 }
 
 //  添加新账号，同步store和chrome storage
-export async function addNewAccount(result: Record<string, any>) {
+export async function addNewAccount(result: CreateResult) {
     const { json } = result;
-    const { address } = json;
+    const { address } = json
+    const saveKey = json.address;
     let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
     let newArray = origin[ADDRESS_ARRAY];
-    //  本地存储的账号信息，需要脱敏
-    const localSaveObj = { address, meta: json.meta };
-    newArray.push(address);
+    //  本地存储的账号信息,看来不需要脱敏，因为polkadot.js直接放在localstorage里面
+    const localSaveObj = json;
+    newArray.push(saveKey);
     //  同步本地的store状态
     runInAction(() => {
         globalStore.addressArr = newArray,
@@ -96,6 +98,20 @@ export async function addNewAccount(result: Record<string, any>) {
     await setStorage({
         [ADDRESS_ARRAY]: newArray,
         [address]: localSaveObj
+    })
+}
+
+//  更新账号信息，内存和chrome存储都更新
+export async function updateAccountInfo(result: CreateResult) {
+    const { json } = result;
+    const { address } = json
+    //  同步本地的store状态
+    runInAction(() => {
+        globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: json })
+    })
+    //  修改chromeStorage
+    await setStorage({
+        [address]: json
     })
 }
 

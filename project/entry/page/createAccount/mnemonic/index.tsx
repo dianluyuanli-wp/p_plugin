@@ -2,23 +2,20 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-24 09:16:56
+ * @Last Modified time: 2021-02-27 17:16:59
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
 import { useTranslation } from 'react-i18next';
 import keyring from '@polkadot/ui-keyring';
-import { runInAction } from 'mobx';
 import { useStores } from '@utils/useStore';
 import { CreateStoreType } from '../store';
-import { ADDRESS_ARRAY } from '@constants/chrome';
-import { getStorage, setStorage } from '@utils/chrome';
 import { globalStoreType } from '@entry/store';
 import { useHistory } from 'react-router-dom';
-import { PAGE_NAME } from '@constants/app';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 import cx from 'classnames';
+import { addNewAccount } from '@utils/tools';
 
 const STATUS = {
     ONE: 0,
@@ -169,26 +166,7 @@ const CreactMnemonic:FC = function() {
             const originMnemonic = words.map(item => item.value).join(' ');
             //  创建新账号
             const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
-            console.log(result, 111);
-            const { json } = result;
-            const { address } = json
-            const saveKey = json.address;
-            let origin = await getStorage({ [ADDRESS_ARRAY]: [] }) as addressArrayObj;
-            let newArray = origin[ADDRESS_ARRAY];
-            //  本地存储的账号信息,看来不需要脱敏，因为polkadot.js直接放在localstorage里面
-            const localSaveObj = json;
-            newArray.push(saveKey);
-            //  同步本地的store状态
-            runInAction(() => {
-                globalStore.addressArr = newArray,
-                globalStore.favoriteAccount = globalStore.favoriteAccount || address;
-                globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: localSaveObj })
-            })
-            //  修改chromeStorage
-            await setStorage({
-                [ADDRESS_ARRAY]: newArray,
-                [address]: localSaveObj
-            })
+            await addNewAccount(result);
             history.goBack();
         }
     }

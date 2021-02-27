@@ -2,26 +2,27 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-26 09:29:52
+ * @Last Modified time: 2021-02-27 10:03:25
  */
 
 import React from 'react';
 import { MobXProviderContext  } from 'mobx-react';
 import Home from './page/home';
 import GlobalStore from './store';
-import CreateAccount from './page/createAccount';
-import CreateAccountStore from './page/createAccount/store';
-import UserAgreement from './page/userAgreement';
-import Recient from './page/receipt';
-import Transfer from './page/transfer';
-import SetPanel from './page/setPanel';
-import WalletManage from './page/walletManage';
-import RetrieveWallet from './page/retriveWallet/entry';
-import RW_MNEMONIC from './page/retriveWallet/mnemonic';
-import S_W_M_ENTRY from './page/setWalletDetial/entry';
-import SW_EDIT_NAME from './page/setWalletDetial/editName';
-import SW_EDIT_SECRET from './page/setWalletDetial/changeSecret';
-import RW_KEYSTORE from './page/retriveWallet/keyStore';
+import CreateAccount from './page/createAccount'; //    创建账号
+import CreateAccountStore from './page/createAccount/store'; // 
+import UserAgreement from './page/userAgreement'; //    用户协议
+import Recient from './page/receipt'; //    收款
+import Transfer from './page/transfer'; //  转账
+import SetPanel from './page/setPanel'; //  设置面板
+import WalletManage from './page/walletManage'; //  钱包入口
+import RetrieveWallet from './page/retriveWallet/entry'; // 恢复账号-入口
+import RW_MNEMONIC from './page/retriveWallet/mnemonic'; // 助记词恢复账号
+import S_W_M_ENTRY from './page/setWalletDetial/entry'; //  钱包设置-入口
+import SW_EDIT_NAME from './page/setWalletDetial/editName'; //  单个账号-修改名字
+import SW_EDIT_SECRET from './page/setWalletDetial/changeSecret'; //    单个账号-改密码
+import SW_EDITO_BACKUP  from './page/setWalletDetial/backupKeyStore'; // 单个账号-备份keyStore文件
+import RW_KEYSTORE from './page/retriveWallet/keyStore'; // 恢复钱包-keystore
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -62,6 +63,7 @@ function AppRouter() {
                         <Route exact path={PAGE_NAME.SINGLE_WALLTE_MANAGE} component={S_W_M_ENTRY}/>
                         <Route exact path={PAGE_NAME.SW_EDIT_NAME} component={SW_EDIT_NAME}/>
                         <Route exact path={PAGE_NAME.SW_EDIT_SECRET} component={SW_EDIT_SECRET}/>
+                        <Route exact path={PAGE_NAME.SW_EDIT_BACKUP} component={SW_EDITO_BACKUP}/>
                     </>
                 }} />
                 {/* 首页 */}

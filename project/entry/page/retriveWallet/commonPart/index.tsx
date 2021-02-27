@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 17:20:34 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-26 09:21:26
+ * @Last Modified time: 2021-02-27 17:22:39
  */
 
 import React, { FC } from 'react';
@@ -23,6 +23,7 @@ import { CHECT_STATUS } from '../store';
 import { useStores } from '@utils/useStore';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import { PAGE_NAME } from '@constants/app';
+import type { CreateResult } from '@polkadot/ui-keyring/types';
 import { addNewAccount } from '@utils/tools';
 
 const CommonPart:FC = function() {
@@ -60,8 +61,6 @@ const CommonPart:FC = function() {
             await addNewAccount(mnemoRes);
         } else {
             const parsedJson = JSON.parse(keyStoreJsonStr) as KeyringPair$Json;
-            const { address, meta } = keyring.createFromJson(parsedJson);
-            result = { address, meta };
             try {
                 //  校验密码
                 keyring.restoreAccount(parsedJson, secret);
@@ -69,7 +68,7 @@ const CommonPart:FC = function() {
                 return runInAction(() => RetrieveStore.checkStatus = CHECT_STATUS.WRONG_PASS);
             }
             //  store和chrome存储都同步
-            await addNewAccount({ json: result });
+            await addNewAccount({ json: parsedJson } as CreateResult);
         }
         //  回到首页
         console.log('back');

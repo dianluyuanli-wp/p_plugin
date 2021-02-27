@@ -13,4 +13,5 @@ export const PAGE_NAME = {
     SINGLE_WALLTE_MANAGE: '/setWalletDetial', //  单个钱包设置
     SW_EDIT_NAME: '/setWalletDetial/editName', //  单个钱包，修改名称
     SW_EDIT_SECRET: '/setWalletDetial/editSecret', //   单个钱包，修改密码
+    SW_EDIT_BACKUP: '/setWalletDetial/backupKeyStore', //   单个钱包,备份store
 }

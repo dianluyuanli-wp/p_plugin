@@ -2,13 +2,12 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-23 10:45:31
+ * @Last Modified time: 2021-02-27 19:58:25
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ADDRESS_ARRAY } from '@constants/chrome';
 import { PAGE_NAME } from '@constants/app';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
@@ -16,7 +15,6 @@ import { observer } from 'mobx-react';
 import { myFormatBalance, addressFormat } from '@utils/tools';
 import { Spin, message } from 'antd';
 import copyContent from 'copy-to-clipboard';
-import { getStorage, setStorage } from '@utils/chrome';
 import s from './index.css';
 import cx from 'classnames';
 
@@ -44,12 +42,9 @@ const HomePage:FC = function() {
     function changeLanguage() {
         i18n.changeLanguage(i18n.language=='en'?'zh':'en')
     }
-    function testFun() {
-        setStorage({ 'www': 1});
-    }
 
     useEffect(() => {
-        if(globalStore.hasInit) {
+        if(globalStore.hasInit && currentAccount?.address) {
             globalStore.api.query.system.account(currentAccount.address).then(a => {
                 runInAction(() => {
                     console.log(`${a.data.free}`, '22')
@@ -118,7 +113,7 @@ const HomePage:FC = function() {
             <div className={s.word}>{t('home:kitter is a polkadot wallet')}</div>
             <div className={s.word}>{t('home:welcome to use')}</div>
             <div className={cx(s.btn, s.create)} onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>{t('home:create wallet')}</div>
-            <div className={cx(s.btn, s.importIcon)} onClick={testFun}>{t('home:import wallet')}</div>
+            <div className={cx(s.btn, s.importIcon)} onClick={() => jump(PAGE_NAME.RETRIEVE_WALLET)}>{t('home:import wallet')}</div>
         </>
     }
     const hasAccount = currentAccount.address;

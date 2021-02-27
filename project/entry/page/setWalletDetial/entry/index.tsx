@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-25 09:53:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-26 09:39:17
+ * @Last Modified time: 2021-02-27 10:03:55
  */
 
 
@@ -57,7 +57,7 @@ const Entry:FC = function() {
                 </div>
             </div>
             <div className={s.bottonTitle}>钱包备份</div>
-            <div className={s.item}>
+            <div className={s.item} onClick={() => jump(PAGE_NAME.SW_EDIT_BACKUP)}>
                 <div>备份keyStore</div>
                 <div className={s.aName}>
                     <div className={s.arrow}/>
