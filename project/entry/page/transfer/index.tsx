@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-25 09:11:50
+ * @Last Modified time: 2021-02-28 09:27:22
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -14,7 +14,7 @@ import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
 import { dotStrToTransferAmount } from '@utils/tools';
 import { keyring } from '@polkadot/ui-keyring';
-import { message, Input, Form } from 'antd';
+import { message, Input, Form, AutoComplete } from 'antd';
 
 const  TRANSFER_STEP = {
     ONE: 0,

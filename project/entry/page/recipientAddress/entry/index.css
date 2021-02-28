@@ -1,0 +1,9 @@
+.wrap {
+    background-color: #FAFAFA;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.wrap::-webkit-scrollbar {
+    display: none;
+}

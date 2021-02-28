@@ -18,3 +18,13 @@
     top: .21rem;
     left: .13rem;
 }
+
+.addIcon {
+    background-image: url('./addIcon.png');
+    background-size: 100% 100%;
+    width: .28rem;
+    height: .28rem;
+    position: absolute;
+    top: .14rem;
+    right: .09rem;
+}

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 19:38:49
+ * @Last Modified time: 2021-02-28 10:16:41
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -67,22 +67,21 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '' }) as any || {};
-        console.log(ans, 'ans');
-        const queryAccObj = {} as Record<string, string>;
-        (ans.accountAddress || []).forEach((item: string) => {
-            queryAccObj[item] = '';
-        })
-        const accountDeatil = await getStorage(queryAccObj) as any;
-        // console.log(accountDeatil, 'detail');
-        const firsetAcc = Object.keys(accountDeatil)[0];
+        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '' }) as any || {};
+        // console.log(ans, 'ans');
+        // const queryAccObj = {} as Record<string, string>;
+        // (ans.accountAddress || []).forEach((item: string) => {
+        //     queryAccObj[item] = '';
+        // })
+        // const accountDeatil = await getStorage(queryAccObj) as any;
+        // const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
-            this.addressArr = ans.accountAddress,
-            this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            this.accountObj = Object.assign.call(null, {}, accountDeatil);
+            // this.addressArr = ans.accountAddress,
+            // this.favoriteAccount = ans.favoriteAccount || firsetAcc;
+            // this.accountObj = Object.assign.call(null, {}, accountDeatil);
 
-            // this.favoriteAccount = add;
-            // this.accountObj = Object.assign.apply(null, [{}, mock])
+            this.favoriteAccount = add;
+            this.accountObj = Object.assign.apply(null, [{}, mock])
         });
     }
 
