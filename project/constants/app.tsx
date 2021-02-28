@@ -16,5 +16,5 @@ export const PAGE_NAME = {
     SW_EDIT_BACKUP: '/setWalletDetial/backupKeyStore', //   单个钱包,备份store
     SW_EDIT_DELETE: '/setWalletDetial/deleteAccount', //    单个钱包，删除账号
     RECIPIENT_ADDRESS: '/recipientAddress', //    转账地址，入口
-    RECIPIENT_ADD_NEW: '/recipientAddress/addNew', //   转账地址，新增
+    RECIPIENT_ADD_NEW_OR_EDIT: '/recipientAddress/addNewOrEdit', //   转账地址，新增
 }

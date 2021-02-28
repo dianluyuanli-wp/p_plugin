@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 09:27:22
+ * @Last Modified time: 2021-02-28 22:56:58
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -12,8 +12,10 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '../../store';
+import { addressFormat } from '@utils/tools';
 import { dotStrToTransferAmount } from '@utils/tools';
 import { keyring } from '@polkadot/ui-keyring';
+
 import { message, Input, Form, AutoComplete } from 'antd';
 
 const  TRANSFER_STEP = {
@@ -69,6 +71,9 @@ const Transfer:FC = function() {
             //  实时计算交易费用
             try {
                 const { targetAdd, transferAmount } = stateObj;
+                if (!targetAdd) {
+                    return;
+                }
                 const transfer = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount))
                 const { partialFee } = await transfer.paymentInfo(currentAccount.address);
                 setState({
@@ -162,12 +167,33 @@ const Transfer:FC = function() {
         }
     }
 
+    function selectAddress() {
+        const { addressArr, accountObj, recipientArr } = globalStore;
+        return addressArr.map(item => {
+            const { address, meta } = accountObj[item];
+            return {
+                label: meta.name + ' - ' + addressFormat(address),
+                value: address
+            }
+        }).concat(recipientArr.map(item => {
+            const { comment, address } = item;
+            return {
+                label: comment + ' - ' + addressFormat(address),
+                value: address
+            }
+        }))
+    }
+
     function renderStepOne() {
         return <div className={s.contentWrap}>
             <div className={cx(s.formTitle, s.topT)}>收款地址</div>
-            <Input onChange={(e) => addressInput(e)}
-                addonAfter={aferIcon}
-                className={cx(s.input, 'tInput')} placeholder={'输入地址'}/>
+            <AutoComplete
+                className={cx(s.input, 'tInput')}
+                children={<Input onChange={(e) => addressInput(e)}
+                    addonAfter={aferIcon}
+                    placeholder={'输入地址'}/>}
+                options={selectAddress()}
+            />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
             <div className={cx(s.formTitle, s.mid)}>金额 <span className={s.tAmount}>{balance} DOT 可用</span></div>
             <Input onChange={(e) => inputAmount(e)}

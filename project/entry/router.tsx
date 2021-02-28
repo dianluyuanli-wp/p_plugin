@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 09:48:11
+ * @Last Modified time: 2021-02-28 12:20:21
  */
 
 import React from 'react';
@@ -25,6 +25,7 @@ import setWalletDetailSecret from './page/setWalletDetial/changeSecret'; //    �
 import setWalletDetailBackup  from './page/setWalletDetial/backupKeyStore'; // 单个账号-备份keyStore文件
 import setWalletDetailDeleteAccount from './page/setWalletDetial/deletaAccount'; //   单个账号-删除账号
 import recipientAddressEntry from './page/recipientAddress/entry'; // 收款地址-入口
+import recipientAddressAddNew from './page/recipientAddress/addNewOrEditAddress'; //  收款地址-新增地址
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -73,6 +74,7 @@ function AppRouter() {
                 <Route path={PAGE_NAME.RECIPIENT_ADDRESS} render={() => {
                     return <>
                         <Route exact path={PAGE_NAME.RECIPIENT_ADDRESS} component={recipientAddressEntry}/>
+                        <Route exact path={PAGE_NAME.RECIPIENT_ADD_NEW_OR_EDIT} component={recipientAddressAddNew}/>
                     </>
                 }} />
                 {/* 首页 */}

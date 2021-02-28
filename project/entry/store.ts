@@ -2,11 +2,11 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 10:16:41
+ * @Last Modified time: 2021-02-28 11:59:47
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ADDRESS_ARRAY, FAVORITE_ACCOUNT } from '@constants/chrome';
+import { ADDRESS_ARRAY, FAVORITE_ACCOUNT, RECIPIENT_ARRAY } from '@constants/chrome';
 import keyring from '@polkadot/ui-keyring';
 import { getStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
@@ -20,7 +20,8 @@ export interface globalStoreType {
     favoriteAccount: string,
     accountObj: Record<string, KeyringPair$Json>,
     balance: number | string | BN | BigInt,
-    currentAccount: KeyringPair$Json
+    currentAccount: KeyringPair$Json,
+    recipientArr: Array<recipientObj>
 }
 
 interface metaData {
@@ -30,6 +31,11 @@ interface metaData {
 export interface account {
     address: string,
     meta: metaData
+}
+
+export interface recipientObj {
+    address: string;
+    comment: string;
 }
 
 const mock = {
@@ -55,6 +61,8 @@ class AppStore {
     @observable accountObj: Record<string, Object> = {};
     //  当前账户余额
     @observable balance: number | string | BN | BigInt = 0;
+    //  转账账户列表
+    @observable recipientArr: Array<recipientObj> = [];
 
     constructor() {
         makeAutoObservable(this)
@@ -67,7 +75,7 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '' }) as any || {};
+        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '', [RECIPIENT_ARRAY]: [] }) as any || {};
         // console.log(ans, 'ans');
         // const queryAccObj = {} as Record<string, string>;
         // (ans.accountAddress || []).forEach((item: string) => {
@@ -81,7 +89,9 @@ class AppStore {
             // this.accountObj = Object.assign.call(null, {}, accountDeatil);
 
             this.favoriteAccount = add;
-            this.accountObj = Object.assign.apply(null, [{}, mock])
+            this.addressArr = [add];
+            this.accountObj = Object.assign.apply(null, [{}, mock]);
+            this.recipientArr = [{ address: add, comment: 'wef' }];
         });
     }
 
