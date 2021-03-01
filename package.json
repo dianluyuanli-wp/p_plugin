@@ -5,6 +5,7 @@
         "start": "node ./bin/start",
         "dev": "webpack-dev-server",
         "build": "webpack --color --config webpack.config.js",
+        "clear": "node project/script/pre-commit.js",
         "deploy": "npm run build && node writeHtml.js"
     },
     "dependencies": {

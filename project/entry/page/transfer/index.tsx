@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 22:56:58
+ * @Last Modified time: 2021-03-01 08:46:08
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -162,14 +162,14 @@ const Transfer:FC = function() {
                     }
                     console.log(e)
                 }
-
             }
         }
     }
 
     function selectAddress() {
         const { addressArr, accountObj, recipientArr } = globalStore;
-        return addressArr.map(item => {
+        //  个人的账户和转账账户拼接起来
+        return addressArr.filter(item => item !== currentAccount.address).map(item => {
             const { address, meta } = accountObj[item];
             return {
                 label: meta.name + ' - ' + addressFormat(address),

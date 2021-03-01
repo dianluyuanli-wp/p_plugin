@@ -17,4 +17,6 @@ export const PAGE_NAME = {
     SW_EDIT_DELETE: '/setWalletDetial/deleteAccount', //    单个钱包，删除账号
     RECIPIENT_ADDRESS: '/recipientAddress', //    转账地址，入口
     RECIPIENT_ADD_NEW_OR_EDIT: '/recipientAddress/addNewOrEdit', //   转账地址，新增
+    GENERAL_SETTING: '/generalSetting', //   通用配置
+    GENERAL_SETTING_LANGUAGE: '/generalSetting/language' // 通用配置 语言
 }

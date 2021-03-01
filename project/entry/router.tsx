@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 12:20:21
+ * @Last Modified time: 2021-03-01 09:50:22
  */
 
 import React from 'react';
@@ -26,6 +26,8 @@ import setWalletDetailBackup  from './page/setWalletDetial/backupKeyStore'; // �
 import setWalletDetailDeleteAccount from './page/setWalletDetial/deletaAccount'; //   单个账号-删除账号
 import recipientAddressEntry from './page/recipientAddress/entry'; // 收款地址-入口
 import recipientAddressAddNew from './page/recipientAddress/addNewOrEditAddress'; //  收款地址-新增地址
+import generalSettingEntry from './page/generalSetting/entry'; //   通用配置 入口
+import generalSettingLanguage from './page/generalSetting/language'; // 通用配置 语言
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -75,6 +77,13 @@ function AppRouter() {
                     return <>
                         <Route exact path={PAGE_NAME.RECIPIENT_ADDRESS} component={recipientAddressEntry}/>
                         <Route exact path={PAGE_NAME.RECIPIENT_ADD_NEW_OR_EDIT} component={recipientAddressAddNew}/>
+                    </>
+                }} />
+                {/* 通用配置 */}
+                <Route path={PAGE_NAME.GENERAL_SETTING} render={() => {
+                    return <>
+                        <Route exact path={PAGE_NAME.GENERAL_SETTING} component={generalSettingEntry}/>
+                        <Route exact path={PAGE_NAME.GENERAL_SETTING_LANGUAGE} component={generalSettingLanguage}/>
                     </>
                 }} />
                 {/* 首页 */}

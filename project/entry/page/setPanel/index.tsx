@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 21:55:52 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 09:41:34
+ * @Last Modified time: 2021-03-01 09:22:13
  */
 
 import React, { FC, useEffect } from 'react';
@@ -30,7 +30,7 @@ const SetPanel:FC = function() {
             <HeadBar word={'设置'}/>
             <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.WALLET_MANAGE)}>钱包管理</div>
             <div className={cx(s.item, s.add)} onClick={() => jump(PAGE_NAME.RECIPIENT_ADDRESS)}>转账地址</div>
-            <div className={cx(s.item, s.common)}>通用</div>
+            <div className={cx(s.item, s.common)} onClick={() => jump(PAGE_NAME.GENERAL_SETTING)}>通用</div>
             <div className={cx(s.item, s.about)}>关于Kitter</div>
             <div className={cx(s.item, s.agreement)}>用户协议</div>
         </div>
