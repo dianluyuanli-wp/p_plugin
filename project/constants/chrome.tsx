@@ -6,3 +6,6 @@ export const FAVORITE_ACCOUNT = 'favoriteAccount';
 
 //  转账用户列表
 export const RECIPIENT_ARRAY = 'recipientArr';
+
+//  本地配置列表
+export const LOCAL_CONFIG = 'local_config';

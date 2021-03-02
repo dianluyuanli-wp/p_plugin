@@ -27,14 +27,23 @@ const actionMap = {
 
 let chromeStorage = {};
 async function Init() {
-    let { accountAddress } = await actionMap.getStorage({ accountAddress: []});
+    const dataObj = await actionMap.getStorage({
+        accountAddress: [],
+        favoriteAccount: '',
+        recipientArr: [],
+        local_config: {
+            language: 'english',
+            autoLockTime: 0,
+            lastInSTM: 0
+        }
+    });
+    const { accountAddress } = dataObj;
     let queryObj = {};
     accountAddress.forEach(item => {
         queryObj[item] = {};
     })
     let ansObj = await actionMap.getStorage(queryObj);
-    let xxx = await actionMap.getStorage({ www: 2});
-    chromeStorage = Object.assign({}, ansObj, { accountAddress }, xxx);
+    chromeStorage = Object.assign({}, ansObj, dataObj);
     console.log(chromeStorage, 'hahah')
 }
 Init();

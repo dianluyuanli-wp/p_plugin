@@ -2,11 +2,11 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 11:59:47
+ * @Last Modified time: 2021-03-02 09:56:07
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ADDRESS_ARRAY, FAVORITE_ACCOUNT, RECIPIENT_ARRAY } from '@constants/chrome';
+import { ADDRESS_ARRAY, FAVORITE_ACCOUNT, RECIPIENT_ARRAY, LOCAL_CONFIG } from '@constants/chrome';
 import keyring from '@polkadot/ui-keyring';
 import { getStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
@@ -22,6 +22,7 @@ export interface globalStoreType {
     balance: number | string | BN | BigInt,
     currentAccount: KeyringPair$Json,
     recipientArr: Array<recipientObj>
+    localConfig: loaclConfigType
 }
 
 interface metaData {
@@ -36,6 +37,12 @@ export interface account {
 export interface recipientObj {
     address: string;
     comment: string;
+}
+
+export interface loaclConfigType {
+    language?: 'english' | 'chinese',
+    autoLockTime?: number,
+    lastInSTM?: number
 }
 
 const mock = {
@@ -63,6 +70,8 @@ class AppStore {
     @observable balance: number | string | BN | BigInt = 0;
     //  转账账户列表
     @observable recipientArr: Array<recipientObj> = [];
+    //  本地配置对象
+    @observable localConfig: loaclConfigType = {} ;
 
     constructor() {
         makeAutoObservable(this)
@@ -75,23 +84,33 @@ class AppStore {
 
     @action.bound
     async prepareAccount(): Promise<void> {
-        // let ans = await getStorage({ [ADDRESS_ARRAY]: [], [FAVORITE_ACCOUNT]: '', [RECIPIENT_ARRAY]: [] }) as any || {};
-        // console.log(ans, 'ans');
-        // const queryAccObj = {} as Record<string, string>;
-        // (ans.accountAddress || []).forEach((item: string) => {
-        //     queryAccObj[item] = '';
-        // })
-        // const accountDeatil = await getStorage(queryAccObj) as any;
-        // const firsetAcc = Object.keys(accountDeatil)[0];
+        let ans = await getStorage({ 
+            [ADDRESS_ARRAY]: [],
+            [FAVORITE_ACCOUNT]: '',
+            [RECIPIENT_ARRAY]: [],
+            [LOCAL_CONFIG]: {
+                language: 'english',
+                autoLockTime: 0,
+                lastInSTM: 0
+            }}) as any || {};
+        console.log(ans, 'ans');
+        const queryAccObj = {} as Record<string, string>;
+        (ans.accountAddress || []).forEach((item: string) => {
+            queryAccObj[item] = '';
+        })
+        const accountDeatil = await getStorage(queryAccObj) as any;
+        const firsetAcc = Object.keys(accountDeatil)[0];
+        console.log(ans,'111');
         runInAction(() => {
-            // this.addressArr = ans.accountAddress,
-            // this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            // this.accountObj = Object.assign.call(null, {}, accountDeatil);
+            this.addressArr = ans.accountAddress,
+            this.favoriteAccount = ans.favoriteAccount || firsetAcc;
+            this.accountObj = Object.assign.call(null, {}, accountDeatil);
+            this.localConfig = ans[LOCAL_CONFIG];
 
-            this.favoriteAccount = add;
-            this.addressArr = [add];
-            this.accountObj = Object.assign.apply(null, [{}, mock]);
-            this.recipientArr = [{ address: add, comment: 'wef' }];
+            // this.favoriteAccount = add;
+            // this.addressArr = [add];
+            // this.accountObj = Object.assign.apply(null, [{}, mock]);
+            // this.recipientArr = [{ address: add, comment: 'wef' }];
         });
     }
 

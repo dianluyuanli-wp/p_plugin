@@ -11,38 +11,54 @@ import HeadBar from '@widgets/headBar';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
+import { observer } from 'mobx-react';
+import { runInAction } from 'mobx';
+import { LOCAL_CONFIG } from '@constants/chrome';
 import { useStores } from '@utils/useStore';
-import { PAGE_NAME } from '@constants/app';
 import { globalStoreType } from '@entry/store';
 import { addressFormat } from '@utils/tools';
+import { setStorage } from '@utils/chrome';
 
 const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
 
-    function jump(path: string, state?: Record<string, any>) {
-        history.push(path, state);
+    const { localConfig } = globalStore;
+
+    function changeLanguage(lan: 'english' | 'chinese') {
+        if (lan === localConfig.language) {
+            return;
+        }
+        runInAction(() => {
+            globalStore.localConfig.language = lan;
+        })
+        setStorage({
+            [LOCAL_CONFIG]: {
+                ...localConfig,
+                language: lan
+            }
+        })
     }
 
     return (
         <div className={s.wrap}>
             <HeadBar word={'语言'}/>
-            <div className={s.item}>
+            <div className={s.item} onClick={() => changeLanguage('chinese')}>
                 <div>简体中文</div>
                 <div className={s.right}>
-                    <div className={s.arrow}/>
+                    {localConfig.language === 'chinese' && <div className={s.arrow}/>}
                 </div>
             </div>
-            <div className={s.item}>
+            <div className={s.item}  onClick={() => changeLanguage('english')}>
                 <div>English</div>
                 <div className={s.right}>
-                    <div className={s.arrow}/>
+                    {localConfig.language === 'english' && <div className={s.arrow}/>}
                 </div>
             </div>
-            <div className={s.btn}>保存</div>
+            {/* <div className={s.btn}>保存</div> */}
         </div>
     )
 }
 
-export default Entry;
+export default observer(Entry);
