@@ -18,5 +18,7 @@ export const PAGE_NAME = {
     RECIPIENT_ADDRESS: '/recipientAddress', //    转账地址，入口
     RECIPIENT_ADD_NEW_OR_EDIT: '/recipientAddress/addNewOrEdit', //   转账地址，新增
     GENERAL_SETTING: '/generalSetting', //   通用配置
-    GENERAL_SETTING_LANGUAGE: '/generalSetting/language' // 通用配置 语言
+    GENERAL_SETTING_LANGUAGE: '/generalSetting/language', // 通用配置 语言
+    GENERAL_SETTING_AUTOLOCK: '/generalSetting/autolock',   //  通用配置    自动锁定
+    ABOUT_US: '/aboutUs', //    关于我们
 }

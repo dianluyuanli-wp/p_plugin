@@ -33,7 +33,7 @@ async function Init() {
         recipientArr: [],
         local_config: {
             language: 'english',
-            autoLockTime: 0,
+            autoLockTime: Infinity,
             lastInSTM: 0
         }
     });

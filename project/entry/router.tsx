@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-01 09:50:22
+ * @Last Modified time: 2021-03-03 09:33:05
  */
 
 import React from 'react';
@@ -10,7 +10,7 @@ import { MobXProviderContext  } from 'mobx-react';
 import Home from './page/home';
 import GlobalStore from './store';
 import CreateAccount from './page/createAccount'; //    创建账号
-import CreateAccountStore from './page/createAccount/store'; // 
+import CreateAccountStore from './page/createAccount/store';
 import UserAgreement from './page/userAgreement'; //    用户协议
 import Recient from './page/receipt'; //    收款
 import Transfer from './page/transfer'; //  转账
@@ -28,6 +28,8 @@ import recipientAddressEntry from './page/recipientAddress/entry'; // 收款地�
 import recipientAddressAddNew from './page/recipientAddress/addNewOrEditAddress'; //  收款地址-新增地址
 import generalSettingEntry from './page/generalSetting/entry'; //   通用配置 入口
 import generalSettingLanguage from './page/generalSetting/language'; // 通用配置 语言
+import generalSettingAutolock from './page/generalSetting/autoLock'; // 通用配置 自动锁定
+import aboutUs from './page/aboutUs';
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -84,8 +86,11 @@ function AppRouter() {
                     return <>
                         <Route exact path={PAGE_NAME.GENERAL_SETTING} component={generalSettingEntry}/>
                         <Route exact path={PAGE_NAME.GENERAL_SETTING_LANGUAGE} component={generalSettingLanguage}/>
+                        <Route exact path={PAGE_NAME.GENERAL_SETTING_AUTOLOCK} component={generalSettingAutolock}/>
                     </>
                 }} />
+                {/* 关于我们 */}
+                <Route exact path={PAGE_NAME.ABOUT_US} component={aboutUs} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>

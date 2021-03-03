@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 21:55:52 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-01 09:22:13
+ * @Last Modified time: 2021-03-03 09:33:40
  */
 
 import React, { FC, useEffect } from 'react';
@@ -31,8 +31,8 @@ const SetPanel:FC = function() {
             <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.WALLET_MANAGE)}>钱包管理</div>
             <div className={cx(s.item, s.add)} onClick={() => jump(PAGE_NAME.RECIPIENT_ADDRESS)}>转账地址</div>
             <div className={cx(s.item, s.common)} onClick={() => jump(PAGE_NAME.GENERAL_SETTING)}>通用</div>
-            <div className={cx(s.item, s.about)}>关于Kitter</div>
-            <div className={cx(s.item, s.agreement)}>用户协议</div>
+            <div className={cx(s.item, s.about)} onClick={() => jump(PAGE_NAME.ABOUT_US)}>关于Kitter</div>
+            <div className={cx(s.item, s.agreement)} onClick={() => jump(PAGE_NAME.USER_AGREEMENT)}>用户协议</div>
         </div>
     )
 }

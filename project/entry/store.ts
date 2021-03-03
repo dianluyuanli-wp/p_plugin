@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-02 09:56:07
+ * @Last Modified time: 2021-03-02 23:41:12
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -90,7 +90,7 @@ class AppStore {
             [RECIPIENT_ARRAY]: [],
             [LOCAL_CONFIG]: {
                 language: 'english',
-                autoLockTime: 0,
+                autoLockTime: Infinity,
                 lastInSTM: 0
             }}) as any || {};
         console.log(ans, 'ans');
