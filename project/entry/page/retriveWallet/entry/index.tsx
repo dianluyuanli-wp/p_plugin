@@ -30,7 +30,7 @@ const Entry:FC = function() {
             <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>创建钱包</div>
             <div className={cx(s.title, s.titlePadding)}>导入钱包</div>
             <div className={cx(s.item, s.word)} onClick={() => jump(PAGE_NAME.RW_MNEMONIC)}>助记词</div>
-            <div className={cx(s.item, s.key)} onClick={() => {}}>私钥</div>
+            {/* <div className={cx(s.item, s.key)} onClick={() => {}}>私钥</div> */}
             <div className={cx(s.item, s.store)} onClick={() => jump(PAGE_NAME.RW_KEYSTORE)}>KeyStore</div>
         </div>
     )

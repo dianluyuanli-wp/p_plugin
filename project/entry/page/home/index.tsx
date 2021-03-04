@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 19:58:25
+ * @Last Modified time: 2021-03-03 23:54:04
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -47,7 +47,6 @@ const HomePage:FC = function() {
         if(globalStore.hasInit && currentAccount?.address) {
             globalStore.api.query.system.account(currentAccount.address).then(a => {
                 runInAction(() => {
-                    console.log(`${a.data.free}`, '22')
                     globalStore.balance = myFormatBalance(a.data.free);
                 })
                 setState({
@@ -59,13 +58,13 @@ const HomePage:FC = function() {
     }, [globalStore.hasInit])
 
     function statusIcon() {
-        return !hasInit ? <div className={s.connetIcon}>连接中</div> : null;
+        return !hasInit ? <div className={s.connetIcon}>{t('home:connecting')}</div> : null;
     }
 
     function copyClick() {
         const { address } = currentAccount;
         copyContent(address);
-        message.success('复制成功');
+        message.success(t('home:copy success'));
     }
 
     function AccountPage() {
@@ -95,11 +94,11 @@ const HomePage:FC = function() {
                 <div className={s.tWrap}>
                     <div onClick={() => jump(PAGE_NAME.RECIENT)}>
                         <div className={s.inAccount} />
-                        收款
+                        {t('home:receiving')}
                     </div>
                     <div onClick={() => jump(PAGE_NAME.TRANSFER)}>
                         <div className={s.out}/>
-                        转账
+                        {t('home:transfer')}
                     </div>
                 </div>
             </>
@@ -117,6 +116,7 @@ const HomePage:FC = function() {
         </>
     }
     const hasAccount = currentAccount.address;
+    console.log(hasAccount, currentAccount);
     return (
         <div>
             {hasAccount ? AccountPage() : homeWithoutAccount()}

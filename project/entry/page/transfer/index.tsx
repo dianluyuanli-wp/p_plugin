@@ -136,6 +136,12 @@ const Transfer:FC = function() {
         })
     }
 
+    function addInput(value: string) {
+        setState({
+            targetAdd: value
+        })
+    }
+
     async function buttonClick() {
         const { secret, targetAdd, transferAmount } = stateObj;
         if (buttonIsAcctive) {
@@ -189,6 +195,7 @@ const Transfer:FC = function() {
             <div className={cx(s.formTitle, s.topT)}>收款地址</div>
             <AutoComplete
                 className={cx(s.input, 'tInput')}
+                onChange={addInput}
                 children={<Input onChange={(e) => addressInput(e)}
                     addonAfter={aferIcon}
                     placeholder={'输入地址'}/>}

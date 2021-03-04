@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-27 21:17:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 23:08:07
+ * @Last Modified time: 2021-03-03 23:50:51
  */
 
 import React, { FC, useReducer } from 'react';
@@ -17,7 +17,7 @@ import { keyring } from '@polkadot/ui-keyring';
 import { runInAction } from 'mobx';
 import { PAGE_NAME } from '@constants/app';
 import { removeStorage, setStorage, getStorage } from '@utils/chrome';
-import { ADDRESS_ARRAY } from '@constants/chrome';
+import { ADDRESS_ARRAY, FAVORITE_ACCOUNT } from '@constants/chrome';
 
 interface HState {
     address?: string;
@@ -54,11 +54,12 @@ const DeleteAccount:FC = function() {
         //  避免冒泡
         let ans = await getStorage({ [ADDRESS_ARRAY]: [] }) as any;
         let addArr = ans[ADDRESS_ARRAY];
-        console.log(ans, addArr);
         const targetIndex = addArr.indexOf(add);
-        addArr.splice(targetIndex, 1)
+        addArr.splice(targetIndex, 1);
+        const isFavorite = add === favoriteAccount;
         setStorage({
-            [ADDRESS_ARRAY]: addArr
+            [ADDRESS_ARRAY]: addArr,
+            [FAVORITE_ACCOUNT]: (isFavorite ? addArr[0] : globalStore.favoriteAccount)
         })
         if (add === favoriteAccount) {
             runInAction(() => {

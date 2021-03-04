@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-02 23:41:12
+ * @Last Modified time: 2021-03-04 09:46:25
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -79,7 +79,7 @@ class AppStore {
 
     @computed
     get currentAccount() {
-        return this.accountObj[this.favoriteAccount] || {}
+        return this.accountObj[this.favoriteAccount] || this.accountObj[this.addressArr[0]] || {}
     }
 
     @action.bound
@@ -106,6 +106,7 @@ class AppStore {
             this.favoriteAccount = ans.favoriteAccount || firsetAcc;
             this.accountObj = Object.assign.call(null, {}, accountDeatil);
             this.localConfig = ans[LOCAL_CONFIG];
+            this.recipientArr = ans[RECIPIENT_ARRAY];
 
             // this.favoriteAccount = add;
             // this.addressArr = [add];

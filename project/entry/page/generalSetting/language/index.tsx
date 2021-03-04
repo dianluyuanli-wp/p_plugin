@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 09:40:07 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-01 09:55:48
+ * @Last Modified time: 2021-03-04 09:40:38
  */
 
 import React, { FC } from 'react';
@@ -18,9 +18,10 @@ import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
 import { addressFormat } from '@utils/tools';
 import { setStorage } from '@utils/chrome';
+import { LOCAL_LANGUAGE } from '@constants/app';
 
 const Entry:FC = function() {
-    let { t } = useTranslation();
+    let { t, i18n } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
 
@@ -30,6 +31,9 @@ const Entry:FC = function() {
         if (lan === localConfig.language) {
             return;
         }
+        const targetLan = lan === 'english' ? 'en' : 'zh';
+        window.localStorage.setItem(LOCAL_LANGUAGE, targetLan);
+        i18n.changeLanguage(targetLan);
         runInAction(() => {
             globalStore.localConfig.language = lan;
         })

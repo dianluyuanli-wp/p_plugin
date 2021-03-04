@@ -31,7 +31,7 @@ const Entry:FC = function() {
             { text: '微信公众号', link: 'ChainBridgeNetwork'}];
         return array.map(item => {
             const { text, link } = item;
-            return <div className={s.itemWrap} onClick={test}>
+            return <div className={s.itemWrap} onClick={test} key={text}>
                 <div>{text}</div>
                 <div className={s.link}>{link}</div>
             </div>

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 08:50:12 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-02 23:50:02
+ * @Last Modified time: 2021-03-04 09:41:55
  */
 
 import React, { FC } from 'react';
@@ -29,7 +29,7 @@ const Entry:FC = function() {
             <div className={s.item} onClick={() => jump(PAGE_NAME.GENERAL_SETTING_LANGUAGE)}>
                 <div>语言</div>
                 <div className={s.right}>
-                    <div className={s.mini}>简体中文</div>
+                    <div className={s.mini}>{globalStore.localConfig.language === 'chinese' ? '简体中文' : 'english'}</div>
                     <div className={s.arrow}/>
                 </div>
             </div>
