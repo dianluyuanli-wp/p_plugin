@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 15:55:08 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-23 09:55:58
+ * @Last Modified time: 2021-03-05 10:00:19
  */
 
 import React, { FC, useEffect } from 'react';
@@ -23,12 +23,15 @@ const Recient:FC = function() {
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const { currentAccount } = globalStore;
 
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`receipt:${input}`);
+
     useEffect(() => {
         Qrcode.toCanvas(document.getElementById('qrcode'), currentAccount.address)
     }, [])
 
     function copyAdd() {
-        message.success('复制成功');
+        message.success(lanWrap('Copy succeeded'));
         copyContent(currentAccount.address);
     }
 
@@ -41,17 +44,17 @@ const Recient:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'收款'}/>
+            <HeadBar word={lanWrap('Collection')}/>
             <div className={s.content}>
-                <div className={s.topTip}>扫二维码，向我转账</div>
+                <div className={s.topTip}>{lanWrap('Scan the QR code and transfer money to me')}</div>
                 <canvas className={s.qrCode} id='qrcode'/>
-                <div className={s.topTip}>钱包地址</div>
+                <div className={s.topTip}>{lanWrap('Wallet address')}</div>
                 <div className={s.address}>{currentAccount.address}</div>
             </div>
             <div className={s.bottm}>
-                <div className={cx(s.buttonWord, s.copy)} onClick={copyAdd}>复制地址</div>
+                <div className={cx(s.buttonWord, s.copy)} onClick={copyAdd}>{lanWrap('Copy address')}</div>
                 <div className={s.split}/>
-                <div className={cx(s.buttonWord, s.downLoad)} onClick={downLoadImg}>下载收款码</div>
+                <div className={cx(s.buttonWord, s.downLoad)} onClick={downLoadImg}>{lanWrap('Download collection code')}</div>
             </div>
         </div>
     )

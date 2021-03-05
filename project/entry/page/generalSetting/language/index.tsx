@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 09:40:07 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 09:40:38
+ * @Last Modified time: 2021-03-05 09:46:00
  */
 
 import React, { FC } from 'react';
@@ -27,6 +27,9 @@ const Entry:FC = function() {
 
     const { localConfig } = globalStore;
 
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`generalSetting:${input}`);
+
     function changeLanguage(lan: 'english' | 'chinese') {
         if (lan === localConfig.language) {
             return;
@@ -47,7 +50,7 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'语言'}/>
+            <HeadBar word={lanWrap('language')}/>
             <div className={s.item} onClick={() => changeLanguage('chinese')}>
                 <div>简体中文</div>
                 <div className={s.right}>

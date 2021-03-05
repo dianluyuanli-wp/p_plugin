@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-03 09:12:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 09:59:00
+ * @Last Modified time: 2021-03-04 23:10:07
  */
 
 import React, { FC } from 'react';
@@ -11,11 +11,8 @@ import HeadBar from '@widgets/headBar';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { runInAction } from 'mobx';
-import { LOCAL_CONFIG } from '@constants/chrome';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
-import { setStorage } from '@utils/chrome';
 
 const Entry:FC = function() {
     let { t } = useTranslation();
@@ -27,8 +24,8 @@ const Entry:FC = function() {
     }
 
     function renderItem() {
-        const array = [{ text: '网站', link: 'https://chainbridge.network'}, { text: 'Twitter', link: '@ChainBridgeNetwork'},
-            { text: '微信公众号', link: 'ChainBridgeNetwork'}];
+        const array = [{ text: t('aboutUs:website'), link: 'https://chainbridge.network'}, { text: 'Twitter', link: '@ChainBridgeNetwork'},
+            { text: t('aboutUs:WeChat official account'), link: 'ChainBridgeNetwork'}];
         return array.map(item => {
             const { text, link } = item;
             return <div className={s.itemWrap} onClick={test} key={text}>
@@ -40,7 +37,7 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'关于kitter'}/>
+            <HeadBar word={t('aboutUs:about kitter')}/>
             <div className={s.logo} />
             <div className={s.title}>Kiter</div>
             <div className={s.title}>v0.1.0</div>

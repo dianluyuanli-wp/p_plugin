@@ -2,13 +2,15 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:12:30 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 09:40:52
+ * @Last Modified time: 2021-03-05 09:59:31
  */
 //  import LanguageDetector from 'i18next-browser-languagedetector';
 import i18n from "i18next";
-//  import { homeCn, homeEn } from '../locales/home';
-import { homeCn, homeEn } from '@entry/page/home/language';
-import { createACN, createAEN } from '../locales/createAccount';
+import { homeCn, homeEn } from '@entry/page/home/language'; //  主页语言文件
+import { aboutEn, aboutZh } from '@entry/page/aboutUs/language'; // 关于
+import { createEn, createZh } from '@entry/page/createAccount/language'; // 创建钱包
+import { generalSettingEn, generalSettingZh } from '@entry/page/generalSetting/language'; // 通用设置
+import { receiptEn, receiptZh } from '@entry/page/receipt/language'; // 收款
 import { LOCAL_LANGUAGE } from '@constants/app';
 import {
   initReactI18next
@@ -22,12 +24,18 @@ i18n.use(initReactI18next) //init i18next
   //引入资源文件
   resources: {
     en: {
-        home: homeEn,
-        createAccount: createAEN
+      home: homeEn,
+      aboutUs: aboutEn,
+      createAccount: createEn,
+      generalSetting: generalSettingEn,
+      receipt: receiptEn,
     },
     zh: {
       home: homeCn,
-      createAccount: createACN
+      aboutUs: aboutZh,
+      createAccount: createZh,
+      generalSetting: generalSettingZh,
+      receipt: receiptZh
     },
   },
   //选择默认语言，选择内容为上述配置中的key，即en/zh

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 09:33:05
+ * @Last Modified time: 2021-03-05 09:48:44
  */
 
 import React from 'react';
@@ -27,7 +27,7 @@ import setWalletDetailDeleteAccount from './page/setWalletDetial/deletaAccount';
 import recipientAddressEntry from './page/recipientAddress/entry'; // 收款地址-入口
 import recipientAddressAddNew from './page/recipientAddress/addNewOrEditAddress'; //  收款地址-新增地址
 import generalSettingEntry from './page/generalSetting/entry'; //   通用配置 入口
-import generalSettingLanguage from './page/generalSetting/language'; // 通用配置 语言
+import generalSettingLanguage from './page/generalSetting/language/index'; // 通用配置 语言
 import generalSettingAutolock from './page/generalSetting/autoLock'; // 通用配置 自动锁定
 import aboutUs from './page/aboutUs';
 import RetrieveStore from './page/retriveWallet/store';

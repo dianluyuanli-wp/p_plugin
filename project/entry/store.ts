@@ -100,7 +100,6 @@ class AppStore {
         })
         const accountDeatil = await getStorage(queryAccObj) as any;
         const firsetAcc = Object.keys(accountDeatil)[0];
-        console.log(ans,'111');
         runInAction(() => {
             this.addressArr = ans.accountAddress,
             this.favoriteAccount = ans.favoriteAccount || firsetAcc;

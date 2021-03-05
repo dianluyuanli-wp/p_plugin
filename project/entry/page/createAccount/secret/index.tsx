@@ -37,19 +37,6 @@ interface CreateStateObj {
     infoStatus?: number
 }
 
-function infoPart(type: number) {
-    const contentMap = {
-        [INFO_STATUS.COMMON]: () => <>
-            <div className={s.info}>不少于8位字符，建议混合大小写字母、数字、符号</div>
-            <div className={s.info}>改密码将作为钱包的交易密码。Kiter无法提供找回密码功能，请务必妥善保管钱包密码！</div>
-        </>,
-        [INFO_STATUS.CHECK_AGREEMENT]: () => <div className={s.info}>请勾选用户协议</div>,
-        [INFO_STATUS.SECRET_NOT_EQUAL]: () => <div className={s.info}>密码不一致</div>,
-        [INFO_STATUS.SEC_TOO_SHORT]: () => <div className={s.info}>密码少于8位</div>
-    }
-    return contentMap[type]();
-}
-
 const SecretPart:FC = function() {
     let { t } = useTranslation();
     
@@ -59,6 +46,7 @@ const SecretPart:FC = function() {
     }
     const [stateObj, setState] = useReducer(stateReducer, { infoStatus: INFO_STATUS.COMMON } as CreateStateObj);
     const createStore = useStores('CreateAccountStore') as CreateStoreType;
+    const mnLan = (input: string) => t(`createAccount:${input}`);
 
     //  切换用户协议状态
     function changeAgreeSta() {
@@ -93,6 +81,19 @@ const SecretPart:FC = function() {
             createStore.createStage = CREAT_STAGE.MNEMONIC;
         })
     }
+
+    function infoPart(type: number) {
+        const contentMap = {
+            [INFO_STATUS.COMMON]: () => <>
+                <div className={s.info}>{mnLan('No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols')}</div>
+                <div className={s.info}>{mnLan("This password will be used as the transaction password of the wallet. Kiter can't provide password recovery function. Please keep your wallet password properly!")}</div>
+            </>,
+            [INFO_STATUS.CHECK_AGREEMENT]: () => <div className={s.info}>{mnLan('Please check the user agreement')}</div>,
+            [INFO_STATUS.SECRET_NOT_EQUAL]: () => <div className={s.info}>{mnLan('The password is inconsistent')}</div>,
+            [INFO_STATUS.SEC_TOO_SHORT]: () => <div className={s.info}>{mnLan('The password is less than 8 digits')}</div>
+        }
+        return contentMap[type]();
+    }
     //  修改眼睛内容，antd有点问题没有办法传入node节点的时候带上类名
     // function secretIcon(show) {
     //     const styleObj = {
@@ -105,9 +106,9 @@ const SecretPart:FC = function() {
     // }
     return (
         <div className={s.contentWrap}>
-            <div className={cx(s.formTitle, s.topT)}>钱包名称</div>
+            <div className={cx(s.formTitle, s.topT)}>{mnLan('Wallet name')}</div>
             <Form.Item >
-                <Input value={createStore.accountName} onChange={(e) => changeInput(createStore, 'accountName', e)} className={s.input} maxLength={12} placeholder={'1-12位字符'}/>
+                <Input value={createStore.accountName} onChange={(e) => changeInput(createStore, 'accountName', e)} className={s.input} maxLength={12} placeholder={mnLan('1-12 characters')}/>
             </Form.Item>
             <SecretInput secretKey={CREATE_STORE_KEY.INPUT_SEC} checkSecretKey={CREATE_STORE_KEY.INPUT_SEC_CONFIRM} store={createStore}/>
             <div className={s.explainInfo}>
@@ -115,7 +116,7 @@ const SecretPart:FC = function() {
             </div>
             <div className={s.pad}/>
             <UserAgreement isCheck={stateObj.userArgeementStatus} externalCallBack={changeAgreeSta}/>
-            <div className={s.createBtn} onClick={createAccount}>创建钱包</div>
+            <div className={s.createBtn} onClick={createAccount}>{mnLan('Creating wallets')}</div>
         </div>
     )
 }

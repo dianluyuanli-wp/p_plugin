@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 20:52:03
+ * @Last Modified time: 2021-03-04 23:52:15
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -24,6 +24,7 @@ const STATUS = {
     THREE: 2
 }
 
+const LAN_PREFIX = 'createAccount';
 interface WordObj {
     value: string,
     isPick: boolean
@@ -39,13 +40,13 @@ interface mnemonicStateObj {
 export interface addressArrayObj {
     accountAddress: Array<string>
 }
-//      "content_security_policy": "script-src 'self' 'unsafe-eval' https://baidu.com/; object-src 'self'",
 
 const CreactMnemonic:FC = function() {
     let { t } = useTranslation();
     const history = useHistory();
     const createStore = useStores('CreateAccountStore') as CreateStoreType;
     const globalStore = useStores('GlobalStore') as globalStoreType;
+    const mnLan = (input: string) => t(`createAccount:${input}`);
 
     //  状态管理
     function stateReducer(state: Object, action: mnemonicStateObj) {
@@ -116,7 +117,7 @@ const CreactMnemonic:FC = function() {
             [STATUS.ONE]: () => <>
                 <div className={s.mask} onClick={() => setState({ status: STATUS.TWO })}>
                     <div className={s.lock}/>
-                    <div className={s.btnTip}>点击显示助记词</div>
+                    <div className={s.btnTip}>{t(`${LAN_PREFIX}:click to show mnemonic`)}</div>
                 </div>
             </>,
             [STATUS.TWO]: () => <>
@@ -136,7 +137,7 @@ const CreactMnemonic:FC = function() {
                 </div>
                 <div className={s.check}>
                     {(!isRightOrder && (pickWords.length === words.length)) ?
-                        <>顺序不正确,<span className={s.deLine} onClick={reset}>点击重试</span></>
+                        <>{t(`${LAN_PREFIX}:out of order`)}<span className={s.deLine} onClick={reset}>{t(`${LAN_PREFIX}:click and try again`)}</span></>
                         : null
                     }
                 </div>
@@ -186,7 +187,7 @@ const CreactMnemonic:FC = function() {
         const isAble = status === STATUS.TWO || isRightOrder;
         return <Spin spinning={stateObj.showLoading}>
             <div className={cx(s.bottomBtn, isAble ? s.ableBtn : '')} onClick={buttonClick}>
-                {status !== STATUS.THREE ? '确认备份' : '完成备份'}
+                {status !== STATUS.THREE ? mnLan('confirm the mnenoic') : mnLan('finish')}
             </div>
         </Spin>
     }
@@ -194,14 +195,14 @@ const CreactMnemonic:FC = function() {
     function headInfo() {
         const { status } = stateObj;
         return status !== STATUS.THREE ? <>
-                <div className={s.title}>备份助记词</div>
-                <div className={s.info}>请按书序手动抄写下面助记词，确保备份正确</div>
-                <div className={s.info}><span className={s.point}>·</span> 获得助记词等同于拥有钱包资产所有权</div>
-                <div className={s.info}><span className={s.point}>·</span> 不要截屏或复制，否则可能会造成资产损失</div>
+                <div className={s.title}>{mnLan('save mnenoic')}</div>
+                <div className={s.info}>{mnLan('Please copy the following mnemonics manually to make sure the backup is correct')}</div>
+                <div className={s.info}><span className={s.point}>·</span> {mnLan('Acquiring mnemonics is equivalent to owning the property of the wallet')}</div>
+                <div className={s.info}><span className={s.point}>·</span> {mnLan('Do not take a screen capture or copy, otherwise it may cause asset loss')}</div>
             </> :
             <>
-                <div className={s.title}>确认助记词</div>
-                <div className={s.info}>请按顺序点击助记词，已确认您备份正确</div>
+                <div className={s.title}>{mnLan('Confirm mnemonics')}</div>
+                <div className={s.info}>{mnLan('Please click the mnemonic words in order to confirm that your backup is correct')}</div>
             </>
     }
     return (

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 08:50:12 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 09:41:55
+ * @Last Modified time: 2021-03-05 09:39:13
  */
 
 import React, { FC } from 'react';
@@ -19,22 +19,25 @@ const Entry:FC = function() {
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
 
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`generalSetting:${input}`);
+
     function jump(path: string, state?: Record<string, any>) {
         history.push(path, state);
     }
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'通用'}/>
+            <HeadBar word={lanWrap('General settings')}/>
             <div className={s.item} onClick={() => jump(PAGE_NAME.GENERAL_SETTING_LANGUAGE)}>
-                <div>语言</div>
+                <div>{lanWrap('language')}</div>
                 <div className={s.right}>
                     <div className={s.mini}>{globalStore.localConfig.language === 'chinese' ? '简体中文' : 'english'}</div>
                     <div className={s.arrow}/>
                 </div>
             </div>
             <div className={s.item} onClick={() => jump(PAGE_NAME.GENERAL_SETTING_AUTOLOCK)}>
-                <div>自动锁定</div>
+                <div>{lanWrap('Auto lock')}</div>
                 <div className={s.right}>
                     <div className={s.arrow}/>
                 </div>
