@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-27 21:17:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 23:50:51
+ * @Last Modified time: 2021-03-06 11:59:48
  */
 
 import React, { FC, useReducer } from 'react';
@@ -34,6 +34,9 @@ const DeleteAccount:FC = function() {
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const { favoriteAccount } = globalStore;
     const history = useHistory();
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`setWalletDetial:${input}`);
 
     //  状态管理
     function stateReducer(state: Object, action: SecState) {
@@ -83,7 +86,7 @@ const DeleteAccount:FC = function() {
                 keyring.restoreAccount(configAccount, stateObj.secret);
             } catch(e) {
                 return setState({
-                    errorInfo: '密码错误',
+                    errorInfo: lanWrap('Wrong password'),
                     isSpining: false
                 })
             }
@@ -92,18 +95,18 @@ const DeleteAccount:FC = function() {
                 errorInfo: '',
             })
             await deleteAccount(address);
-            message.info('已删除账号');
+            message.info(lanWrap('Account deleted'));
             history.push(PAGE_NAME.HOME);
         }, 0)
     }
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'删除钱包'}/>
-            <Input.Password onChange={enterSec} className={s.input} placeholder={'请输入密码'}/>
+            <HeadBar word={lanWrap('Delete Wallet')}/>
+            <Input.Password onChange={enterSec} className={s.input} placeholder={lanWrap('Please input a password')}/>
             <div className={s.info}>{stateObj.errorInfo}</div>
             <Spin spinning={stateObj.isSpining}>
-                <div className={s.confirm} onClick={confirm}>确认</div>
+                <div className={s.confirm} onClick={confirm}>{lanWrap('confirm')}</div>
             </Spin>
         </div>
     )

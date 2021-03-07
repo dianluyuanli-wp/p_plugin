@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-28 09:30:32 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 12:20:30
+ * @Last Modified time: 2021-03-06 11:07:24
  */
 
 import React, { FC } from 'react';
@@ -10,7 +10,6 @@ import s from './index.css';
 import HeadBar from '@widgets/headBar';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { PAGE_NAME } from '@constants/app';
 import { globalStoreType } from '@entry/store';
@@ -24,6 +23,9 @@ const Entry:FC = function() {
     function jump(path: string, state?: Record<string, any>) {
         history.push(path, state);
     }
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`recipientAddress:${input}`);
 
     function itemsRender() {
         const { recipientArr } = globalStore;
@@ -41,7 +43,7 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'转账地址'} showRightIcon rightIconCB={() => jump(PAGE_NAME.RECIPIENT_ADD_NEW_OR_EDIT, { target: 'add' })}/>
+            <HeadBar word={lanWrap('Transfer address')} showRightIcon rightIconCB={() => jump(PAGE_NAME.RECIPIENT_ADD_NEW_OR_EDIT, { target: 'add' })}/>
             {itemsRender()}
         </div>
     )

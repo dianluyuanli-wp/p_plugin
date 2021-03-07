@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-28 09:30:32 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-28 23:00:31
+ * @Last Modified time: 2021-03-06 11:17:32
  */
 
 import React, { FC, useReducer, useEffect } from 'react';
@@ -15,7 +15,6 @@ import { Input, Modal } from 'antd';
 import { runInAction } from 'mobx';
 import { useStores } from '@utils/useStore';
 import { keyring } from '@polkadot/ui-keyring';
-import { PAGE_NAME } from '@constants/app';
 import { setStorage } from '@utils/chrome'
 import { globalStoreType } from '@entry/store';
 import { RECIPIENT_ARRAY } from '@constants/chrome';
@@ -38,6 +37,9 @@ const Entry:FC = function() {
     const history = useHistory();
 
     const { addressArr, recipientArr } = globalStore;
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`recipientAddress:${input}`);
 
     //  状态管理
     function stateReducer(state: Object, action: AddStatus) {
@@ -67,12 +69,12 @@ const Entry:FC = function() {
             keyring.encodeAddress(publicKey);
         } catch(e) {
             return setState({
-                errInfo: '错误的地址'
+                errInfo: lanWrap('bad address')
             })
         }
         if (addressArr.includes(inputValue) || recipientArr.some(item => item.address === inputValue)) {
             return setState({
-                errInfo: '该地址已存在'
+                errInfo: lanWrap('The address already exists')
             })
         }
         setState({
@@ -113,7 +115,7 @@ const Entry:FC = function() {
 
     function deleteAddress() {
         Modal.confirm({
-            content: '确认删除地址吗?',
+            content: lanWrap('Are you sure you want to delete the address?'),
             async onOk() {
                 const copyArr = recipientArr.slice();
                 const rank = copyArr.findIndex(item => item.address === address);
@@ -141,18 +143,18 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={isEdit? '编辑地址' : '添加地址'}/>
+            <HeadBar word={isEdit? lanWrap('Edit address') : lanWrap('Add address')}/>
             <div className={s.contentWrap}>
                 <div className={s.top}>
                     <div className={s.icon}/>
                     <div>DOT</div>
                 </div>
-                <div className={s.middle}>地址信息</div>
-                <Input defaultValue={targetConfig.address} className={s.input} placeholder={'输入地址'} onChange={addInput}/>
-                <Input defaultValue={targetConfig.comment} className={s.input} placeholder={'备注'} onChange={otherInfoChange}/>
+                <div className={s.middle}>{lanWrap('Address information')}</div>
+                <Input defaultValue={targetConfig.address} className={s.input} placeholder={lanWrap('Enter the address')} onChange={addInput}/>
+                <Input defaultValue={targetConfig.comment} className={s.input} placeholder={lanWrap('remarks')} onChange={otherInfoChange}/>
                 <div className={s.info}>{stateObj.errInfo}</div>
-                <div className={cx(s.btn, stateObj.isEnable ? s.enable : '', isEdit ? s.eCBtn : '')} onClick={confirm}>{isEdit ? '保存' : '完成'}</div>
-                {isEdit && <div className={cx(s.btn, s.deleteBtn)} onClick={deleteAddress}>删除</div>}
+                <div className={cx(s.btn, stateObj.isEnable ? s.enable : '', isEdit ? s.eCBtn : '')} onClick={confirm}>{isEdit ? lanWrap('save') : lanWrap('complete')}</div>
+                {isEdit && <div className={cx(s.btn, s.deleteBtn)} onClick={deleteAddress}>{lanWrap('delete')}</div>}
             </div>
         </div>
     )

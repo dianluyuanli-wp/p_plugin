@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 17:20:34 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 23:22:52
+ * @Last Modified time: 2021-03-06 11:31:34
  */
 
 import React, { FC } from 'react';
@@ -30,6 +30,8 @@ const CommonPart:FC = function() {
     let { t } = useTranslation();
     const history = useHistory();
     const RetrieveStore = useStores('RetrieveStore') as retrieveStoreType;
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`retriveWallet:${input}`);
 
     function changeStatus() {
         runInAction(() => {
@@ -76,10 +78,10 @@ const CommonPart:FC = function() {
     function checkInfo() {
         const contentMap = {
             [CHECT_STATUS.PASS]: '',
-            [CHECT_STATUS.NOT_CHECK_AGREEMETN]: '请勾选用户协议',
-            [CHECT_STATUS.SECRECT_NOT_EQUAL]: '密码输入不一致',
-            [CHECT_STATUS.SECRET_TOO_SHORT]: '密码位数小于8位',
-            [CHECT_STATUS.WRONG_PASS]: '密码错误'
+            [CHECT_STATUS.NOT_CHECK_AGREEMETN]: lanWrap('Please check the user agreement'),
+            [CHECT_STATUS.SECRECT_NOT_EQUAL]: lanWrap('Inconsistent password input'),
+            [CHECT_STATUS.SECRET_TOO_SHORT]: lanWrap('The number of password digits is less than 8'),
+            [CHECT_STATUS.WRONG_PASS]: lanWrap('Wrong password')
         }
         return <div className={s.checkInfo}>{contentMap[RetrieveStore.checkStatus]}</div>
     }
@@ -87,26 +89,26 @@ const CommonPart:FC = function() {
     const { name, checkAgreement, buttonActive, secret } = RetrieveStore;
     return (
         <>
-            <div className={cx(s.title, s.topTitle)}>用户名</div>
+            <div className={cx(s.title, s.topTitle)}>{lanWrap('user name')}</div>
             <Input
                 value={name}
                 onChange={(e) => changeInput(RetrieveStore, 'name', e)}
-                className={cx(s.secInput, 'retrieveInput')} placeholder={'账户名称'}
+                className={cx(s.secInput, 'retrieveInput')} placeholder={lanWrap('title of account')}
             />
             {isInMnemonic ? <SecretInput secretKey='secret' checkSecretKey='confirmSecret' store={RetrieveStore}/>
                 : <>
-                    <div className={s.formTitle}>原密码</div>
+                    <div className={s.formTitle}>{lanWrap('Original password')}</div>
                     <Input.Password
                         value={secret}
                         onChange={(e) => changeInput(RetrieveStore, 'secret', e)}
                         className={cx(s.input, 'retrieveInput')}
-                        placeholder={'钱包密码'}
+                        placeholder={lanWrap('Wallet password')}
                     />
                 </>  
             }
             {checkInfo()}
             <UserAgreement isCheck={checkAgreement} externalCallBack={changeStatus}/>
-            <div className={cx(s.btn, buttonActive ? s.btnActive : '')} onClick={importAccount}>导入钱包</div>
+            <div className={cx(s.btn, buttonActive ? s.btnActive : '')} onClick={importAccount}>{lanWrap('Import Wallet')}</div>
         </>
     )
 }

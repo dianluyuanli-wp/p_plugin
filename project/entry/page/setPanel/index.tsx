@@ -2,24 +2,23 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 21:55:52 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 09:33:40
+ * @Last Modified time: 2021-03-06 11:42:09
  */
 
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import s from './index.css';
 import HeadBar from '@widgets/headBar';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
 import { PAGE_NAME } from '@constants/app';
-import { useStores } from '@utils/useStore';
-import { globalStoreType } from '../../store';
 
 const SetPanel:FC = function() {
     let { t } = useTranslation();
-    const globalStore = useStores('GlobalStore') as globalStoreType;
-    const { currentAccount } = globalStore;
     const history = useHistory();
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`setPanel:${input}`);
 
     function jump(path: string) {
         history.push(path);
@@ -27,12 +26,12 @@ const SetPanel:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'设置'}/>
-            <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.WALLET_MANAGE)}>钱包管理</div>
-            <div className={cx(s.item, s.add)} onClick={() => jump(PAGE_NAME.RECIPIENT_ADDRESS)}>转账地址</div>
-            <div className={cx(s.item, s.common)} onClick={() => jump(PAGE_NAME.GENERAL_SETTING)}>通用</div>
-            <div className={cx(s.item, s.about)} onClick={() => jump(PAGE_NAME.ABOUT_US)}>关于Kitter</div>
-            <div className={cx(s.item, s.agreement)} onClick={() => jump(PAGE_NAME.USER_AGREEMENT)}>用户协议</div>
+            <HeadBar word={lanWrap('Setting')}/>
+            <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.WALLET_MANAGE)}>{lanWrap('Wallet management')}</div>
+            <div className={cx(s.item, s.add)} onClick={() => jump(PAGE_NAME.RECIPIENT_ADDRESS)}>{lanWrap('Transfer address')}</div>
+            <div className={cx(s.item, s.common)} onClick={() => jump(PAGE_NAME.GENERAL_SETTING)}>{lanWrap('General settings')}</div>
+            <div className={cx(s.item, s.about)} onClick={() => jump(PAGE_NAME.ABOUT_US)}>{lanWrap('About kitter')}</div>
+            <div className={cx(s.item, s.agreement)} onClick={() => jump(PAGE_NAME.USER_AGREEMENT)}>{lanWrap('User agreement')}</div>
         </div>
     )
 }

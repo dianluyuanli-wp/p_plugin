@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-01 08:46:08
+ * @Last Modified time: 2021-03-06 12:26:38
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -35,6 +35,10 @@ interface transferStateObj {
     partialFee?: string;
 }
 const Transfer:FC = function() {
+    let { t } = useTranslation();
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`transfer:${input}`);
+
     //  状态管理
     function stateReducer(state: Object, action: transferStateObj) {
         return Object.assign({}, state, action);
@@ -87,7 +91,7 @@ const Transfer:FC = function() {
 
     const amountIcon = (
         <div className={s.amountIconWrap}>
-            DOT<div className={s.split} /><div>全部</div>
+            DOT<div className={s.split} /><div>{lanWrap('all')}</div>
         </div>
     )
 
@@ -102,11 +106,11 @@ const Transfer:FC = function() {
             keyring.encodeAddress(publicKey);
         } catch(e) {
             return setState({
-                addressErrMsg: '错误的地址'
+                addressErrMsg: lanWrap('bad address')
             })
         }
         setState({
-            addressErrMsg: inputValue === currentAccount.address ? '收款地址和付款地址不能相同' : '',
+            addressErrMsg: inputValue === currentAccount.address ? lanWrap('Collection address and payment address cannot be the same') : '',
             targetAdd: inputValue
         })
     }
@@ -118,14 +122,14 @@ const Transfer:FC = function() {
         if (intReg.test(inputValue) || floatReg.test(inputValue)) {
             if (parseFloat(inputValue) > parseFloat(balance as string)) {
                 setState({
-                    transAmountErrMsg: '余额不足'
+                    transAmountErrMsg: lanWrap('your credit is running low')
                 })
             } else {
                 setState({ transAmountErrMsg: '', transferAmount: inputValue })
             }
         } else {
             setState({
-                transAmountErrMsg: '错误的格式'
+                transAmountErrMsg: lanWrap('Wrong format')
             })
         }
     }
@@ -155,7 +159,7 @@ const Transfer:FC = function() {
                     sendPair.decodePkcs8(secret)
                 } catch(e) {
                     console.log(e);
-                    setState({ errMsg: '密码错误' })
+                    setState({ errMsg: lanWrap('Wrong password') })
                     return;
                 }
                 try {
@@ -164,7 +168,7 @@ const Transfer:FC = function() {
                     console.log(hash);
                 } catch (e) {
                     if (e.toString().includes('Invalid Transaction: Inability to pay some fees')) {
-                        setState({ errMsg: '余额过低'})
+                        setState({ errMsg: lanWrap('The balance is too low')})
                     }
                     console.log(e)
                 }
@@ -192,17 +196,17 @@ const Transfer:FC = function() {
 
     function renderStepOne() {
         return <div className={s.contentWrap}>
-            <div className={cx(s.formTitle, s.topT)}>收款地址</div>
+            <div className={cx(s.formTitle, s.topT)}>{lanWrap('Collection address')}</div>
             <AutoComplete
                 className={cx(s.input, 'tInput')}
                 onChange={addInput}
                 children={<Input onChange={(e) => addressInput(e)}
                     addonAfter={aferIcon}
-                    placeholder={'输入地址'}/>}
+                    placeholder={lanWrap('Enter the address')}/>}
                 options={selectAddress()}
             />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
-            <div className={cx(s.formTitle, s.mid)}>金额 <span className={s.tAmount}>{balance} DOT 可用</span></div>
+            <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{balance} DOT {lanWrap('available')}</span></div>
             <Input onChange={(e) => inputAmount(e)}
                 addonAfter={amountIcon}
                 className={cx('tInput', 'tMInput')} placeholder={'0'}/>
@@ -210,7 +214,7 @@ const Transfer:FC = function() {
             <div className={s.feeWrap}>
                 <Input
                     disabled
-                    value={'矿工费'}
+                    value={lanWrap('Transfer fee')}
                     addonAfter={fee}
                     className={cx('feeInput', 'tInput')}/>
             </div>
@@ -219,31 +223,31 @@ const Transfer:FC = function() {
 
     function isStepTwo() {
         return <div className={s.contentWrap}>
-            <div className={cx(s.formTitle, s.topT)}>转账信息</div>
+            <div className={cx(s.formTitle, s.topT)}>{lanWrap('Transfer information')}</div>
             <div className={s.tableWrap}>
                 <div className={s.sTd}>
-                    <div>转账金额</div><div className={s.tContent}>{stateObj.transferAmount} DOT</div>
+                    <div>{lanWrap('Transfer amount')}</div><div className={s.tContent}>{stateObj.transferAmount} DOT</div>
                 </div>
                 <div className={s.sTd}>
-                    <div>收款地址</div><div className={cx(s.tContent, s.tCAdd)}>{stateObj.targetAdd}</div>
+                    <div>{lanWrap('Collection address')}</div><div className={cx(s.tContent, s.tCAdd)}>{stateObj.targetAdd}</div>
                 </div>
                 <div className={s.sTd}>
-                    <div>付款地址</div><div className={cx(s.tContent, s.tCAdd)}>{currentAccount.address}</div>
+                    <div>{lanWrap('Payment address')}</div><div className={cx(s.tContent, s.tCAdd)}>{currentAccount.address}</div>
                 </div>
                 <div className={s.sTd}>
-                    <div>矿工费</div><div className={s.tContent}>{stateObj.partialFee} DOT</div>
+                    <div>{lanWrap('Transfer fee')}</div><div className={s.tContent}>{stateObj.partialFee} DOT</div>
                 </div>
             </div>
-            <div className={cx(s.formTitle, s.topT)}>密码确认</div>
-            <Input.Password onChange={(e) => inputSec(e)} className={cx(s.input, 'sInput')} placeholder={'请输入密码'}/>
+            <div className={cx(s.formTitle, s.topT)}>{lanWrap('Password confirmation')}</div>
+            <Input.Password onChange={(e) => inputSec(e)} className={cx(s.input, 'sInput')} placeholder={lanWrap('Please input a password')}/>
             <div className={s.addressError}>{stateObj.errMsg}</div>
         </div>
     }
     return (
         <div className={s.wrap}>
-            <HeadBar word={'转账'}/>
+            <HeadBar word={lanWrap('Transfer')}/>
             {isStepOne ? renderStepOne() : isStepTwo()}
-            <div className={s.button} onClick={buttonClick}>{isStepOne ? '下一步' : '确认'}</div>
+            <div className={s.button} onClick={buttonClick}>{isStepOne ? lanWrap('next step') : lanWrap('confirm')}</div>
         </div>
     )
 }

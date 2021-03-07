@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-25 09:53:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 21:34:14
+ * @Last Modified time: 2021-03-06 11:49:29
  */
 
 
@@ -15,7 +15,6 @@ import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { PAGE_NAME } from '@constants/app';
 import { globalStoreType } from '@entry/store';
-import { setStorage } from '@utils/chrome';
 //  import RetrieveStore from '../store';
 
 interface HState {
@@ -26,6 +25,9 @@ const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`setWalletDetial:${input}`);
 
     const { address } = history.location.state as HState;
     const configAccount = globalStore.accountObj[address] as Record<string, any>;
@@ -38,32 +40,32 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'钱包管理'}/>
+            <HeadBar word={lanWrap('Wallet management')}/>
             <div className={cx(s.item, s.topItem)}>
-                <div>钱包地址</div>
+                <div>{lanWrap('Wallet address')}</div>
                 <div className={s.addressItem}>{address}</div>
             </div>
             <div className={s.item} onClick={() => jump(PAGE_NAME.SW_EDIT_NAME)}>
-                <div>钱包名称</div>
+                <div>{lanWrap('Wallet name')}</div>
                 <div className={s.aName}>
                     <div className={s.conName}>{configAccount.meta.name}</div>
                     <div className={s.arrow}/>
                 </div>
             </div>
             <div className={s.item} onClick={() => jump(PAGE_NAME.SW_EDIT_SECRET)}>
-                <div>钱包密码</div>
+                <div>{lanWrap('Wallet password')}</div>
                 <div className={s.aName}>
                     <div className={s.arrow}/>
                 </div>
             </div>
-            <div className={s.bottonTitle}>钱包备份</div>
+            <div className={s.bottonTitle}>{lanWrap('Wallet backup')}</div>
             <div className={s.item} onClick={() => jump(PAGE_NAME.SW_EDIT_BACKUP)}>
-                <div>备份keyStore</div>
+                <div>{lanWrap('Backup keystore')}</div>
                 <div className={s.aName}>
                     <div className={s.arrow}/>
                 </div>
             </div>
-            <div className={s.btn} onClick={() => jump(PAGE_NAME.SW_EDIT_DELETE)}>删除</div>
+            <div className={s.btn} onClick={() => jump(PAGE_NAME.SW_EDIT_DELETE)}>{lanWrap('delete')}</div>
         </div>
     )
 }

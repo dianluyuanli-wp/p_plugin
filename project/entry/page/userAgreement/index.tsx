@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-07 11:50:33 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-07 12:01:35
+ * @Last Modified time: 2021-03-06 12:32:13
  */
 
 import React, { FC } from 'react';
@@ -12,10 +12,12 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 
 const CreactAccount:FC = function() {
-    let { t } = useTranslation()
+    let { t } = useTranslation();
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`userAgreement:${input}`);
     return (
         <div className={s.wrap}>
-            <HeadBar word={t('createAccount:create wallet')}/>
+            <HeadBar word={lanWrap('User agreement')}/>
             <div className={s.title}>kitter用户协议</div>
             <div className={s.content}>
                 <div className={s.tag}>最新更新时间：2020年12月15日</div>

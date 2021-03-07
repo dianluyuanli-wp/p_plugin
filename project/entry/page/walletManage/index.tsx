@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-15 22:25:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 22:36:02
+ * @Last Modified time: 2021-03-06 12:33:42
  */
 
 import React, { FC, useEffect } from 'react';
@@ -15,17 +15,18 @@ import { observer } from 'mobx-react';
 import cx from 'classnames';
 import { PAGE_NAME } from '@constants/app';
 import { addressFormat } from '@utils/tools';
-import { removeStorage, setStorage, getStorage } from '@utils/chrome';
+import { setStorage } from '@utils/chrome';
 import { useStores } from '@utils/useStore';
-import { ADDRESS_ARRAY, FAVORITE_ACCOUNT } from '@constants/chrome';
+import { FAVORITE_ACCOUNT } from '@constants/chrome';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import { globalStoreType } from '../../store';
 
 const WalletManage:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
-    const { currentAccount, favoriteAccount } = globalStore;
     const history = useHistory();
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`walletManage:${input}`);
 
     useEffect(() => {
         console.log(globalStore.accountObj);
@@ -70,7 +71,7 @@ const WalletManage:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'钱包管理'}/>
+            <HeadBar word={lanWrap('Wallet management')}/>
             <div className={s.leftBar}>
                 <div className={s.tab}>
                     <div className={s.blueBlock}/>

@@ -2,13 +2,14 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-17 15:46:34 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-17 16:01:56
+ * @Last Modified time: 2021-03-06 12:42:10
  */
 
 import React, { FC, useState } from 'react';
 import s from './index.css';
 import { PAGE_NAME } from '@constants/app';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 
 interface BarProps {
@@ -21,6 +22,9 @@ const HeadBar:FC<BarProps> = function(props:BarProps) {
     function changeAgreeStatus() {
         props.externalCallBack?.();
     }
+    let { t } = useTranslation();
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`widgets:${input}`);
 
     //  跳转到用户协议
     function toAgreement(e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
@@ -31,7 +35,7 @@ const HeadBar:FC<BarProps> = function(props:BarProps) {
         <>
             <div className={s.agreeWrap} onClick={changeAgreeStatus}>
                 <div className={cx(s.check, props.isCheck ? s.accept : s.notAccept)}/>
-                <div className={s.agrCon}>我已阅读并同意用户协议<span className={s.agreement} onClick={toAgreement}>《用户协议》</span></div>
+                <div className={s.agrCon}>{lanWrap('I have read and agree to the user agreement')}<span className={s.agreement} onClick={toAgreement}>《{lanWrap('User agreement')}》</span></div>
             </div>
         </>
     )

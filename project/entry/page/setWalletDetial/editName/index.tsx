@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-26 08:53:09 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 19:59:02
+ * @Last Modified time: 2021-03-06 11:52:40
  */
 
 import React, { FC, useState } from 'react';
@@ -29,6 +29,9 @@ const Entry:FC = function() {
 
     const [newName, setNewName] = useState('');
 
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`setWalletDetial:${input}`);
+
     const { address } = history.location.state as HState;
     const configAccount = globalStore.accountObj[address];
 
@@ -43,14 +46,14 @@ const Entry:FC = function() {
         const originJson = toJS(configAccount);
         originJson.meta.name = newName;
         await updateAccountInfo({ json: originJson} as CreateResult);
-        message.info('名称已更新');
+        message.info(lanWrap('Name updated'));
     }
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'修改钱包名称'}/>
-            <Input onChange={enterNewName} className={s.input} placeholder={'1-12个字符'} maxLength={12}/>
-            <div className={cx(s.confirm, newName.length > 0 ? s.heighLight : '')} onClick={confirm}>确认</div>
+            <HeadBar word={lanWrap('Change wallet name')}/>
+            <Input onChange={enterNewName} className={s.input} placeholder={lanWrap('1-12 characters')} maxLength={12}/>
+            <div className={cx(s.confirm, newName.length > 0 ? s.heighLight : '')} onClick={confirm}>{lanWrap('confirm')}</div>
         </div>
     )
 }

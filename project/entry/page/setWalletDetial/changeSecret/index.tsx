@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-26 09:24:07 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-27 23:00:24
+ * @Last Modified time: 2021-03-06 12:05:53
  */
 
 import React, { FC, useReducer, useEffect } from 'react';
@@ -43,6 +43,9 @@ const ChangeSec:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`setWalletDetial:${input}`);
 
     //  状态管理
     function stateReducer(state: Object, action: SecState) {
@@ -108,24 +111,24 @@ const ChangeSec:FC = function() {
 
     function info() {
         const contentMap = {
-            [INFO_STATUS.ONE]: '不少于8位字符,建议混合大小写字母、数字、符号',
-            [INFO_STATUS.TWO]: '密码位数少于8位',
-            [INFO_STATUS.THREE]: '两次密码输入不一致',
-            [INFO_STATUS.FOUR]: '密码错误'
+            [INFO_STATUS.ONE]: lanWrap('No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols'),
+            [INFO_STATUS.TWO]: lanWrap('The number of password digits is less than 8'),
+            [INFO_STATUS.THREE]: lanWrap('The two passwords are inconsistent'),
+            [INFO_STATUS.FOUR]: lanWrap('Wrong password')
         }
         return <div className={s.info}>{contentMap[stateObj.infoStatus]}</div>
     }
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'修改钱包密码'}/>
+            <HeadBar word={lanWrap('Change wallet password')}/>
             <div className={s.contentWrap}>
-                <div className={s.topTitle}>旧的密码</div>
-                <Input.Password onChange={(e) => oldSecInput(e)} className={s.input} placeholder={'钱包密码'}/>
-                <SecretInput title={'新的密码'} secretKey='secret' checkSecretKey='confirmSecret' store={SWStore}/>
+                <div className={s.topTitle}>{lanWrap('Old password')}</div>
+                <Input.Password onChange={(e) => oldSecInput(e)} className={s.input} placeholder={lanWrap('Wallet password')}/>
+                <SecretInput title={lanWrap('New password')} secretKey='secret' checkSecretKey='confirmSecret' store={SWStore}/>
                 {info()}
                 <Spin spinning={stateObj.isSpining}>
-                    <div className={cx(s.confirm, stateObj.buttonActive ? s.active : '')} onClick={btnCLick}>确认</div>
+                    <div className={cx(s.confirm, stateObj.buttonActive ? s.active : '')} onClick={btnCLick}>{lanWrap('confirm')}</div>
                 </Spin>
             </div>
         </div>

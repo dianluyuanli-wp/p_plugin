@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-20 09:07:13 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-22 09:49:52
+ * @Last Modified time: 2021-03-06 11:33:17
  */
 
-import React, { FC, useEffect, useReducer } from 'react';
+import React, { FC, useEffect } from 'react';
 import s from './index.css';
 import HeadBar from '@widgets/headBar';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,9 @@ const Mnemonic:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const RetrieveStore = useStores('RetrieveStore') as retrieveStoreType;
-    const { currentAccount } = globalStore;
+
+    //  国际化的包裹函数
+    const lanWrap = (input: string) => t(`retriveWallet:${input}`);
 
     function inputRestoreJson(e: React.ChangeEvent<HTMLTextAreaElement>) {
         const inputValue = e.target.value;
@@ -45,10 +47,10 @@ const Mnemonic:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'创建钱包'}/>
+            <HeadBar word={lanWrap('Creating wallets')}/>
             <div className={s.wordsWrap}>
                 <div className={cx(s.title, s.topTitle)}>keyStore Json</div>
-                <Input.TextArea autoSize={{ minRows: 2 }} value={RetrieveStore.keyStoreJsonStr} onChange={(e) => inputRestoreJson(e)} className={s.textArea} placeholder={'请粘贴keyStore json文件内容'}/>
+                <Input.TextArea autoSize={{ minRows: 2 }} value={RetrieveStore.keyStoreJsonStr} onChange={(e) => inputRestoreJson(e)} className={s.textArea} placeholder={lanWrap('Please paste the contents of keystore JSON file')}/>
                 <div className={s.addressError}>{RetrieveStore.keyStoreErrMsg}</div>
                 <CommonPart />
             </div>
