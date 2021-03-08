@@ -21,6 +21,7 @@ export const PAGE_NAME = {
     GENERAL_SETTING_LANGUAGE: '/generalSetting/language', // 通用配置 语言
     GENERAL_SETTING_AUTOLOCK: '/generalSetting/autolock',   //  通用配置    自动锁定
     ABOUT_US: '/aboutUs', //    关于我们
+    DEMOCRACY: '/democracy', // 民主治理
 }
 
 //  本地存储偏好语言

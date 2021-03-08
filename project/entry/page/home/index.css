@@ -189,3 +189,41 @@
     top: -.02rem;
     left: .07rem;
 }
+
+.bottomRouter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 1.18rem;
+    border-top: .01rem solid #F2F2F2;
+}
+
+.iconWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.img {
+    width: .35rem;
+    height: .35rem;
+    background-size: 100% 100%;
+}
+
+.bTitle {
+    font-size: .12rem;
+    color: #333333;
+}
+
+.democracy {
+    background-image: url('./img/democracy.png');
+}
+
+.record {
+    background-image: url('./img/transRecord.png');
+}
+
+.browser {
+    background-image: url('./img/browser.png');
+}

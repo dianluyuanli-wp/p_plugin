@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 23:54:04
+ * @Last Modified time: 2021-03-07 16:04:23
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -99,6 +99,20 @@ const HomePage:FC = function() {
                     <div onClick={() => jump(PAGE_NAME.TRANSFER)}>
                         <div className={s.out}/>
                         {t('home:transfer')}
+                    </div>
+                </div>
+                <div className={s.bottomRouter}>
+                    <div className={s.iconWrap} onClick={() => jump(PAGE_NAME.DEMOCRACY)}>
+                        <div className={cx(s.img, s.democracy)}/>
+                        <div className={s.bTitle}>网络治理</div>
+                    </div>
+                    <div className={s.iconWrap}>
+                        <div className={cx(s.img, s.record)}/>
+                        <div className={s.bTitle}>交易记录</div>
+                    </div>
+                    <div className={s.iconWrap}>
+                        <div className={cx(s.img, s.browser)}/>
+                        <div className={s.bTitle}>区块浏览器</div>
                     </div>
                 </div>
             </>

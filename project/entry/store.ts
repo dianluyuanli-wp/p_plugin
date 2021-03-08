@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 09:46:25
+ * @Last Modified time: 2021-03-07 14:58:17
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -133,7 +133,6 @@ class AppStore {
             initSuccess = false;
             return {} as ApiPromise;
         }));
-
         console.log('api init');
         runInAction(() => {
             this.hasInit = initSuccess;

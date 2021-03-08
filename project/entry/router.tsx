@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-05 09:48:44
+ * @Last Modified time: 2021-03-07 15:51:22
  */
 
 import React from 'react';
@@ -29,7 +29,8 @@ import recipientAddressAddNew from './page/recipientAddress/addNewOrEditAddress'
 import generalSettingEntry from './page/generalSetting/entry'; //   通用配置 入口
 import generalSettingLanguage from './page/generalSetting/language/index'; // 通用配置 语言
 import generalSettingAutolock from './page/generalSetting/autoLock'; // 通用配置 自动锁定
-import aboutUs from './page/aboutUs';
+import aboutUs from './page/aboutUs'; //     关于我们
+import democracy from './page/democracy'; //    民主治理
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -91,6 +92,8 @@ function AppRouter() {
                 }} />
                 {/* 关于我们 */}
                 <Route exact path={PAGE_NAME.ABOUT_US} component={aboutUs} />
+                {/* 民主治理 */}
+                <Route exact path={PAGE_NAME.DEMOCRACY} component={democracy} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>
