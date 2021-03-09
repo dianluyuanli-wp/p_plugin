@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-08 09:20:31
+ * @Last Modified time: 2021-03-08 09:27:21
  */
 
 import React, { FC, useEffect } from 'react';
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useStores } from '@utils/useStore';
+import request from 'umi-request';
 import { globalStoreType } from '@entry/store';
 
 const Entry:FC = function() {
@@ -26,6 +27,12 @@ const Entry:FC = function() {
         async function res() {
             let ress = await globalStore.api.derive.democracy.referendums();
             console.log(ress);
+            const xx = await request.post('https://polkadot.subscan.io/api/scan/democracy/referendum', {
+                data: {
+                    referendum_index: 18
+                }
+            })
+            console.log(xx, 'few');
         }
         console.log(111);
         res();
