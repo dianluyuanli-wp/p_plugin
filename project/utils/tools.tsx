@@ -21,8 +21,8 @@ export function myFormatBalance(balance: number | string | BN | BigInt ) {
 }
 
 //  将地址处理成有好一点的形式xxx....xxx
-export function addressFormat(address: string) {
-    return address.slice(0, 4) + '....' + address.slice(address.length - 4);
+export function addressFormat(address: string, padLength = 4) {
+    return address.slice(0, padLength) + '....' + address.slice(address.length - padLength);
 }
 
 //  校验助记词输入
