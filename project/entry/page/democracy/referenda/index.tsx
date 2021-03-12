@@ -14,6 +14,7 @@ import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
 import democrcacyStore from '../store';
 import { runInAction } from 'mobx';
+import cx from 'classnames';
 import { Spin } from 'antd';
 import BN from 'bn.js';
 import { BN_ONE, formatNumber, isBoolean } from '@polkadot/util';
@@ -28,6 +29,10 @@ const TAB_MAP = {
     CANDIDATE: '2'
 }
 
+function getVote(value: string) {
+    return new BN(value).div(new BN(Math.pow(10, 10))).toString();
+}
+
 const Referenda:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
@@ -38,7 +43,7 @@ const Referenda:FC = function() {
 
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`democracy:${input}`);
-    const { referendum_index, pre_image = {}, delay } = democrcacyStore.reScanDetial;
+    const { referendum_index, pre_image = {}, delay, turnout, aye_amount, nay_amount  } = democrcacyStore.reScanDetial;
 
     //  subscan接口更新
     useEffect(() => {
@@ -77,7 +82,6 @@ const Referenda:FC = function() {
 
     const { call_module, call_name, author } = pre_image;
 
-
     function comLeft() {
         const [value, setValue] = useState(new BN(0));
         useEffect(() => {
@@ -110,7 +114,7 @@ const Referenda:FC = function() {
     return (
         <div className={s.wrap}>
             {hasInit && globalStore.hasInit ?
-                <>
+                <div className={s.contentWrap}>
                     <div className={s.title}>
                         <div className={s.rank}>#{referendum_index}</div>
                         <div>{`${call_module}.${call_name}`}</div>
@@ -124,8 +128,20 @@ const Referenda:FC = function() {
                     <div className={s.rowTitle}>投票剩余时间</div>
                     <div className={s.author}>{text}</div>
                     <div className={s.rowTitle}>投票参与度</div>
-                    <div className={s.author}>{democrcacyStore.referenda?.votedTotal.div(new BN(Math.pow(10, 10))).toString() || '0'}DOT({joinRate})</div>
-                </>
+                    <div className={s.author}>{getVote(turnout || '0') || '0'}DOT({joinRate})</div>
+                    <div className={s.splitLine} />
+                    <div className={s.vote}>
+                        <div>支持: {getVote(aye_amount)}票</div>
+                        <div>反对：{getVote(nay_amount)}票</div>
+                    </div>
+                    <div className={s.voteBar}>
+                        <div className={s.ayeBar} style={{ width: parseInt(aye_amount) / (parseInt(nay_amount) + parseInt(aye_amount)) * 3.19 + 'rem'}}/>
+                    </div>
+                    <div className={s.btnGroup}>
+                        <div className={cx(s.btn, s.sBtn)}>支持</div>
+                        <div className={cx(s.btn, s.rBtn)}>反对</div>
+                    </div>
+                </ div>
                 : <Spin />
             }
         </div>

@@ -1,4 +1,5 @@
 export const wrap: string;
+export const contentWrap: string;
 export const title: string;
 export const rank: string;
 export const img: string;
@@ -6,3 +7,11 @@ export const rowTitle: string;
 export const authorWrap: string;
 export const author: string;
 export const ddetial: string;
+export const splitLine: string;
+export const vote: string;
+export const voteBar: string;
+export const ayeBar: string;
+export const btnGroup: string;
+export const btn: string;
+export const sBtn: string;
+export const rBtn: string;
