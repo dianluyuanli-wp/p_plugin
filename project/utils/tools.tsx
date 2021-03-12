@@ -6,10 +6,19 @@ import { keyExtractSuri, mnemonicValidate } from '@polkadot/util-crypto';
 import { ADDRESS_ARRAY } from '@constants/chrome';
 import { getStorage, setStorage } from '@utils/chrome';
 import { globalStoreType } from '@entry/store';
+import { useTranslation } from 'react-i18next';
 import type { CreateResult } from '@polkadot/ui-keyring/types';
 import { runInAction } from 'mobx';
 import globalStore from '@entry/store';
 import type BN from 'bn.js';
+import type { Time } from '@polkadot/util/types';
+import BNObj from 'bn.js';
+import { useMemo } from 'react';
+import { BN_ONE, extractTime } from '@polkadot/util';
+
+type Result = [number, string, Time];
+
+const DEFAULT_TIME = new BNObj(6000);
 
 export interface addressArrayObj {
     accountAddress: Array<string>
@@ -137,3 +146,39 @@ export function dataURLToBlob(dataurl: string){
 export function dotStrToTransferAmount(amount: string) {
     return parseFloat(amount) * Math.pow(10, 10)
 }
+
+export function useBlockTime (blocks = BN_ONE): Result {
+  const { t } = useTranslation();
+
+  return useMemo(
+    (): Result => {
+    //   const blockTime = (
+    //     a.consts.babe?.expectedBlockTime ||
+    //     a.consts.difficulty?.targetBlockTime ||
+    //     a.consts.timestamp?.minimumPeriod.muln(2) ||
+    //     DEFAULT_TIME
+    //   );
+      const blockTime = DEFAULT_TIME;
+      const time = extractTime(blockTime.mul(blocks).toNumber());
+      const { days, hours, minutes, seconds } = time;
+      console.log(time ,'xxx');
+      const timeStr = [
+        days ? (days > 1) ? t<string>('{{days}} days', { replace: { days } }) : t<string>('1 day') : null,
+        hours ? (hours > 1) ? t<string>('{{hours}} hrs', { replace: { hours } }) : t<string>('1 hr') : null,
+        minutes ? (minutes > 1) ? t<string>('{{minutes}} mins', { replace: { minutes } }) : t<string>('1 min') : null,
+        seconds ? (seconds > 1) ? t<string>('{{seconds}} s', { replace: { seconds } }) : t<string>('1 s') : null
+      ]
+        .filter((value): value is string => !!value)
+        .slice(0, 2)
+        .join(' ');
+
+      return [
+        blockTime.toNumber(),
+        timeStr,
+        time
+      ];
+    },
+    [blocks, t]
+  );
+}
+

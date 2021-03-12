@@ -23,7 +23,7 @@ class Democry {
     //  官方api的公投详情
     @observable referenda: DeriveReferendumExt;
     //  subscan的公投详情
-    @observable reScanDetial: Record<string, any>;
+    @observable reScanDetial: Record<string, any> = {};
 
     //  重置store,方便下次创建
     // @action.bound
