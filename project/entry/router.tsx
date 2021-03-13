@@ -32,6 +32,7 @@ import generalSettingAutolock from './page/generalSetting/autoLock'; // 通用�
 import aboutUs from './page/aboutUs'; //     关于我们
 import democracy from './page/democracy'; //    民主治理
 import democracyVote from './page/democracy/voteForReferenda'; //   民主治理，投票
+import democracyCheck from './page/democracy/voteCheck'; // 民主治理，投票确认
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -98,6 +99,7 @@ function AppRouter() {
                     return <>
                         <Route exact path={PAGE_NAME.DEMOCRACY} component={democracy}/>
                         <Route exact path={PAGE_NAME.DEMOCRACY_VOTE} component={democracyVote}/>
+                        <Route exact path={PAGE_NAME.DEMOCRACY_CHECK} component={democracyCheck}/>
                     </>
                 }} />
                 {/* 首页 */}

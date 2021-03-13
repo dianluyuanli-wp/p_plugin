@@ -139,6 +139,24 @@
     margin-top: .24rem;
 }
 
+.balanceDetial {
+    width: 2.3rem;
+    margin: 0 auto;
+    margin-top: .3rem;
+    text-align: center;
+    color: #555555;
+    font-size: .14rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.split {
+    width: .01rem;
+    height: .32rem;
+    background-color: #cccccc;
+}
+
 .balance {
     margin-top: .16rem;
     font-size: .3rem;
@@ -157,7 +175,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: .56rem;
+    margin-top: .36rem;
     font-size: .12rem;
     color: #333333;
     text-align: center;

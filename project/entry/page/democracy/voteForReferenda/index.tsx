@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-12 23:43:12
+ * @Last Modified time: 2021-03-13 22:48:02
  */
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useReducer } from 'react';
 import s from './index.css';
 import './index.antd.css';
 import HeadBar from '@widgets/headBar';
@@ -14,53 +14,58 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useStores } from '@utils/useStore';
-import { keyring } from '@polkadot/ui-keyring';
 import { globalStoreType } from '@entry/store';
-import { getAddInfo } from '@entry/service';
 import DotInput from '@widgets/balanceDotInput';
-import { Select } from 'antd';
+import { Select, message } from 'antd';
 import { WEIGHT_ARR } from '@constants/chain';
+import { runInAction } from 'mobx';
+import democrcacyStore from '../store';
+import { PAGE_NAME } from '@constants/app';
+import BottonBtn from '@widgets/bottomBtn';
 
-
+interface infoVote {
+    errStr?: string;
+    ableDot?: number;
+}
 
 const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
+    function stateReducer(state: Object, action: infoVote) {
+        return Object.assign({}, state, action);
+    }
+    const [stateObj, setState] = useReducer(stateReducer, {} as infoVote);
 
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`democracy:${input}`);
 
-    //     //  
-    //     useEffect(() => {
-    //         let a = keyring.encodeAddress('5EHZ7yCT4KgTs79UBcEtfEbJhLYsHD6gazSjk6Yhs8jeCNun');
-    //         console.log(a, 1);
-    //     }, [])
-
-    function getAbleBalance() {
-        const [aBlance, setAb] = useState(0);
-        useEffect(() => {
-            async function com() {
-                const { address } = globalStore.currentAccount;
-                const endoceAdd = keyring.encodeAddress(address);
-                const res = await getAddInfo(endoceAdd);
-                const { balance, lock } = res.account || {};
-                setAb(parseInt(balance || 0) - parseInt(lock || 0));
-            }
-            com();
-        })
-        return aBlance;
-    }
-
     function cInput(value: string) {
-        console.log(value);
+        runInAction(() => {
+            democrcacyStore.voteDot = value;
+        })
     }
 
-    function changeRatio() {
-
+    function changeRatio(value: number) {
+        runInAction(() => {
+            democrcacyStore.voteRatio = value;
+        })
     }
 
-    const ableBalance = getAbleBalance()
+    function nextSetp() {
+        if (stateObj.errStr || !democrcacyStore.voteDot) {
+            message.error('错误的投票额')
+        } else {
+            history.push(PAGE_NAME.DEMOCRACY_CHECK)
+        }
+    }
+
+    function setErrStr(value: string) {
+        setState({
+            errStr: value
+        })
+    }
+    const { voteDot = '0', voteRatio} = democrcacyStore;
 
     return (
         <div className={s.wrap}>
@@ -68,20 +73,22 @@ const Entry:FC = function() {
             <div className={s.contentWrap}>
                 <div className={s.bWapr}>
                     <div className={s.title}>投票数量</div>
-                    <div className={s.dot}>{ableBalance} DOT 可用</div>
+                    <div className={s.dot}>{globalStore.ableBalance} DOT 可用</div>
                 </div>
-                <DotInput changeInputFn={cInput}/>
+                <DotInput changeInputFn={cInput} setErr={setErrStr}/>
                 <div className={cx(s.bWapr, s.weight)}>
                     <div className={s.title}>投票权重</div>
                 </div>
-                <Select onChange={changeRatio} className={cx(s.select, 'reSelect')} dropdownClassName='rePopSelect'>
+                <Select onChange={changeRatio} className={cx(s.select, 'reSelect')} defaultValue={WEIGHT_ARR[0].ratio}>
                     {WEIGHT_ARR.map((item, index) => {
                         const { text, ratio } = item;
                         return <Select.Option key={index} value={ratio}>{text}</Select.Option>
                     })}
                 </Select>
+                <div className={s.allVote}>总计<div className={s.voteNum}>{parseFloat(voteDot) * voteRatio}</div>票</div>
+                <div className={s.split}/>
+                <BottonBtn word='下一步' cb={nextSetp}/>
             </div>
-
         </div>
     )
 }

@@ -14,6 +14,8 @@ export const aName: string;
 export const address: string;
 export const copyIcon: string;
 export const pIcon: string;
+export const balanceDetial: string;
+export const split: string;
 export const balance: string;
 export const usd: string;
 export const tWrap: string;

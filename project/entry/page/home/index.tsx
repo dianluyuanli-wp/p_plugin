@@ -2,9 +2,9 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-12 22:40:06
+ * @Last Modified time: 2021-03-13 22:46:46
  */
-import React, { FC, useEffect, useReducer, useMemo } from 'react';
+import React, { FC, useEffect, useReducer, useMemo, useState } from 'react';
 import { runInAction } from 'mobx';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,25 +15,17 @@ import { observer } from 'mobx-react';
 import { myFormatBalance, addressFormat } from '@utils/tools';
 import { Spin, message } from 'antd';
 import copyContent from 'copy-to-clipboard';
+import { getAddInfo } from '@entry/service';
 import { keyring } from '@polkadot/ui-keyring';
 import s from './index.css';
 import cx from 'classnames';
-
-interface homeStatus {
-    balance?: string,
-    balanceHasInit?: boolean
-}
 
 const HomePage:FC = function() {
     const history = useHistory();
     let { t ,i18n} = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
-    const { balance, currentAccount } = globalStore;
+    const { currentAccount } = globalStore;
 
-    function stateReducer(state: Object, action: homeStatus) {
-        return Object.assign({}, state, action);
-    }
-    const [stateObj, setState] = useReducer(stateReducer, { balance, balanceHasInit: false } as homeStatus);
     //  是否初始化完成
     const hasInit = useMemo(() => globalStore.hasInit, [globalStore.hasInit]);
     function jump(path: string) {
@@ -44,19 +36,31 @@ const HomePage:FC = function() {
         i18n.changeLanguage(i18n.language=='en'?'zh':'en')
     }
 
-    useEffect(() => {
-        if(globalStore.hasInit && currentAccount?.address) {
-            globalStore.api.query.system.account(currentAccount.address).then(a => {
+    function comLeft() {
+        const [value, setValue] = useState({
+            balance: '',
+            lockBalance: ''
+        });
+        useEffect(() => {
+            async function com() {
+                const { address } = globalStore.currentAccount;
+                const endoceAdd = keyring.encodeAddress(address);
+                const res = await getAddInfo(endoceAdd);
+                const { balance, lock } = res?.data?.account || {};
+                setValue({
+                    balance,
+                    lockBalance: lock
+                });
                 runInAction(() => {
-                    globalStore.balance = myFormatBalance(a.data.free);
+                    globalStore.balance = balance;
+                    globalStore.lockBalance = lock;
+                    globalStore.ableBalance = parseFloat(balance) - parseFloat(lock) + '';
                 })
-                setState({
-                    balance: myFormatBalance(a.data.free),
-                    balanceHasInit: true
-                })
-            })
-        }
-    }, [globalStore.hasInit])
+            }
+            com();
+        }, [])
+        return value;
+    }
 
     function statusIcon() {
         return !hasInit ? <div className={s.connetIcon}>{t('home:connecting')}</div> : null;
@@ -67,6 +71,9 @@ const HomePage:FC = function() {
         copyContent(address);
         message.success(t('home:copy success'));
     }
+
+    const balanceObj = comLeft();
+    const { balance, lockBalance } = balanceObj;
 
     function AccountPage() {
         const target = currentAccount;
@@ -88,9 +95,20 @@ const HomePage:FC = function() {
                     </div>
                 </div>
                 <div className={s.pIcon}/>
-                <Spin spinning={!stateObj.balanceHasInit}>
-                    <div className={s.balance}>{stateObj.balance} DOT</div>
+                <Spin spinning={balance === ''}>
+                    <div className={s.balance}>{balance} DOT</div>
                     <div className={s.usd}>$0.00 USD</div>
+                    <div className={s.balanceDetial}>
+                        <div>
+                            <div>{lockBalance} DOT</div>
+                            <div>锁定</div>
+                        </div>
+                        <div className={s.split}/>
+                        <div>
+                            <div>{parseFloat(balance) - parseFloat(lockBalance)} DOT</div>
+                            <div>可用</div>
+                        </div>
+                    </div>
                 </Spin>
                 <div className={s.tWrap}>
                     <div onClick={() => jump(PAGE_NAME.RECIENT)}>

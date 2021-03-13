@@ -15,6 +15,8 @@ export interface CreateStoreType {
     referenda: DeriveReferendumExt;
     reScanDetial: Record<string, any>;
     action: 'support' | 'reject';
+    voteDot: string;
+    voteRatio: number;
 }
 
 class Democry {
@@ -25,7 +27,12 @@ class Democry {
     @observable referenda: DeriveReferendumExt;
     //  subscan的公投详情
     @observable reScanDetial: Record<string, any> = {};
+    //  支持还是反对
     @observable action: 'support' | 'reject';
+    //  投票金额
+    @observable voteDot: string;
+    //  投票系数
+    @observable voteRatio: number = 0.1;
 
     //  重置store,方便下次创建
     // @action.bound

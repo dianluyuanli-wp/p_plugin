@@ -126,6 +126,12 @@ const Transfer:FC = function() {
         })
     }
 
+    function setAmountErrString(err: string) {
+        setState({
+            transAmountErrMsg: err
+        })
+    }
+
     async function buttonClick() {
         const { secret, targetAdd, transferAmount } = stateObj;
         if (buttonIsAcctive) {
@@ -187,7 +193,7 @@ const Transfer:FC = function() {
             />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
             <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{balance} DOT {lanWrap('available')}</span></div>
-            <DotInput changeInputFn={inputAmount}/>
+            <DotInput changeInputFn={inputAmount} setErr={setAmountErrString}/>
             <div className={s.feeWrap}>
                 <Input
                     disabled

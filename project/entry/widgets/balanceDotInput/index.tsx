@@ -16,6 +16,7 @@ import { Input } from 'antd';
 
 interface BarProps {
     changeInputFn: Function,
+    setErr: Function,
     wrapCls?: string
 }
 
@@ -28,7 +29,7 @@ const DotInput:FC<BarProps> = function(props:BarProps) {
     let { t } = useTranslation();
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`widgets:${input}`);
-    const { changeInputFn, wrapCls } = props;
+    const { changeInputFn, wrapCls, setErr } = props;
 
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const { balance } = globalStore;
@@ -49,17 +50,23 @@ const DotInput:FC<BarProps> = function(props:BarProps) {
         const floatReg = /^([0-9]{1,}[.][0-9]*)$/; //   判断小数的正则
         if (intReg.test(inputValue) || floatReg.test(inputValue)) {
             if (parseFloat(inputValue) > parseFloat(balance as string)) {
+                const errStr = lanWrap('your credit is running low');
                 setState({
-                    transAmountErrMsg: lanWrap('your credit is running low')
+                    transAmountErrMsg: errStr
                 })
+                setErr(errStr)
+                changeInputFn(inputValue, '');
             } else {
                 setState({ transAmountErrMsg: '' })
                 changeInputFn(inputValue);
+                setErr('')
             }
         } else {
+            const errStr = lanWrap('Wrong format');
             setState({
-                transAmountErrMsg: lanWrap('Wrong format')
+                transAmountErrMsg: errStr
             })
+            setErr(errStr)
         }
     }
 
