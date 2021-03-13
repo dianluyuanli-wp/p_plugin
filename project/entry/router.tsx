@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-07 15:51:22
+ * @Last Modified time: 2021-03-12 22:50:33
  */
 
 import React from 'react';
@@ -31,6 +31,7 @@ import generalSettingLanguage from './page/generalSetting/language/index'; // �
 import generalSettingAutolock from './page/generalSetting/autoLock'; // 通用配置 自动锁定
 import aboutUs from './page/aboutUs'; //     关于我们
 import democracy from './page/democracy'; //    民主治理
+import democracyVote from './page/democracy/voteForReferenda'; //   民主治理，投票
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -93,7 +94,12 @@ function AppRouter() {
                 {/* 关于我们 */}
                 <Route exact path={PAGE_NAME.ABOUT_US} component={aboutUs} />
                 {/* 民主治理 */}
-                <Route exact path={PAGE_NAME.DEMOCRACY} component={democracy} />
+                <Route path={PAGE_NAME.DEMOCRACY} render={() => {
+                    return <>
+                        <Route exact path={PAGE_NAME.DEMOCRACY} component={democracy}/>
+                        <Route exact path={PAGE_NAME.DEMOCRACY_VOTE} component={democracyVote}/>
+                    </>
+                }} />
                 {/* 首页 */}
                 <Route path='' exact component={Home} />
             </Switch>

@@ -1,0 +1,25 @@
+.reSelect .ant-select-selection-item {
+    font-size: .14rem;
+    line-height: .48rem !important;
+}
+
+.reSelect .ant-select-selector {
+    height: .48rem !important;
+}
+
+.rePopSelect .ant-select-item-option-content {
+    font-size: .14rem;
+}
+
+.rePopSelect .ant-select-item {
+    height: .16rem;
+    line-height: .16rem !important;
+}
+
+.rePopSelect .rc-virtual-list-holder {
+    max-width: 1.12rem !important;
+}
+
+.rePopSelect .ant-select-item-option-content {
+    height: .16rem;
+}

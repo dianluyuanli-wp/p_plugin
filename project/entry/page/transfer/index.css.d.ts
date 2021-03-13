@@ -6,8 +6,6 @@ export const input: string;
 export const icon: string;
 export const mid: string;
 export const tAmount: string;
-export const amountIconWrap: string;
-export const split: string;
 export const feeWrap: string;
 export const fee: string;
 export const addressError: string;

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-09 23:37:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-10 09:58:22
+ * @Last Modified time: 2021-03-12 22:50:37
  */
 
 import React, { FC, useEffect, useState, useMemo } from 'react';
@@ -17,6 +17,7 @@ import { runInAction } from 'mobx';
 import cx from 'classnames';
 import { Spin } from 'antd';
 import BN from 'bn.js';
+import { PAGE_NAME } from '@constants/app';
 import { BN_ONE, formatNumber, isBoolean } from '@polkadot/util';
 import { myFormatBalance, addressFormat, useBlockTime } from '@utils/tools';
 import { getReferendas, getReferDetail } from '../service';
@@ -44,6 +45,17 @@ const Referenda:FC = function() {
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`democracy:${input}`);
     const { referendum_index, pre_image = {}, delay, turnout, aye_amount, nay_amount  } = democrcacyStore.reScanDetial;
+
+    function jump(path: string) {
+        history.push(path);
+    }
+
+    function vote(action: 'support' | 'reject') {
+        runInAction(() => {
+            democrcacyStore.action = action;
+        })
+        history.push(PAGE_NAME.DEMOCRACY_VOTE);
+    }
 
     //  subscan接口更新
     useEffect(() => {
@@ -138,8 +150,8 @@ const Referenda:FC = function() {
                         <div className={s.ayeBar} style={{ width: parseInt(aye_amount) / (parseInt(nay_amount) + parseInt(aye_amount)) * 3.19 + 'rem'}}/>
                     </div>
                     <div className={s.btnGroup}>
-                        <div className={cx(s.btn, s.sBtn)}>支持</div>
-                        <div className={cx(s.btn, s.rBtn)}>反对</div>
+                        <div className={cx(s.btn, s.sBtn)} onClick={() => vote('support')}>支持</div>
+                        <div className={cx(s.btn, s.rBtn)} onClick={() => vote('reject')}>反对</div>
                     </div>
                 </ div>
                 : <Spin />

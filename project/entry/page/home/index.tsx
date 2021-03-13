@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-07 16:04:23
+ * @Last Modified time: 2021-03-12 22:40:06
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import { runInAction } from 'mobx';
@@ -15,6 +15,7 @@ import { observer } from 'mobx-react';
 import { myFormatBalance, addressFormat } from '@utils/tools';
 import { Spin, message } from 'antd';
 import copyContent from 'copy-to-clipboard';
+import { keyring } from '@polkadot/ui-keyring';
 import s from './index.css';
 import cx from 'classnames';
 

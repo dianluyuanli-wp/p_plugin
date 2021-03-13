@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-10 08:39:34 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-10 09:46:51
+ * @Last Modified time: 2021-03-12 22:45:49
  */
 
 import { observable, runInAction, action, makeAutoObservable } from 'mobx';
@@ -14,6 +14,7 @@ import keyring from '@polkadot/ui-keyring';
 export interface CreateStoreType {
     referenda: DeriveReferendumExt;
     reScanDetial: Record<string, any>;
+    action: 'support' | 'reject';
 }
 
 class Democry {
@@ -24,6 +25,7 @@ class Democry {
     @observable referenda: DeriveReferendumExt;
     //  subscan的公投详情
     @observable reScanDetial: Record<string, any> = {};
+    @observable action: 'support' | 'reject';
 
     //  重置store,方便下次创建
     // @action.bound

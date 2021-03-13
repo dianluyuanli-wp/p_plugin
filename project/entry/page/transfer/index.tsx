@@ -15,8 +15,9 @@ import { globalStoreType } from '../../store';
 import { addressFormat } from '@utils/tools';
 import { dotStrToTransferAmount } from '@utils/tools';
 import { keyring } from '@polkadot/ui-keyring';
+import DotInput from '@widgets/balanceDotInput';
 
-import { message, Input, Form, AutoComplete } from 'antd';
+import { Input, AutoComplete } from 'antd';
 
 const  TRANSFER_STEP = {
     ONE: 0,
@@ -89,12 +90,6 @@ const Transfer:FC = function() {
         computedFee();
     }, [stateObj.transferAmount, stateObj.targetAdd])
 
-    const amountIcon = (
-        <div className={s.amountIconWrap}>
-            DOT<div className={s.split} /><div>{lanWrap('all')}</div>
-        </div>
-    )
-
     const fee = (
         <div className={s.fee}>{stateObj.partialFee} DOT</div>
     )
@@ -115,23 +110,8 @@ const Transfer:FC = function() {
         })
     }
     //  验证输入金额
-    function inputAmount(e: React.ChangeEvent<HTMLInputElement>) {
-        const inputValue = e.target.value;
-        const intReg = /^([0-9]{1,})$/; // 判断整数的正则
-        const floatReg = /^([0-9]{1,}[.][0-9]*)$/; //   判断小数的正则
-        if (intReg.test(inputValue) || floatReg.test(inputValue)) {
-            if (parseFloat(inputValue) > parseFloat(balance as string)) {
-                setState({
-                    transAmountErrMsg: lanWrap('your credit is running low')
-                })
-            } else {
-                setState({ transAmountErrMsg: '', transferAmount: inputValue })
-            }
-        } else {
-            setState({
-                transAmountErrMsg: lanWrap('Wrong format')
-            })
-        }
+    function inputAmount(inputValue: string) {
+        setState({ transferAmount: inputValue })
     }
 
     function inputSec(e: React.ChangeEvent<HTMLInputElement>) {
@@ -207,10 +187,7 @@ const Transfer:FC = function() {
             />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
             <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{balance} DOT {lanWrap('available')}</span></div>
-            <Input onChange={(e) => inputAmount(e)}
-                addonAfter={amountIcon}
-                className={cx('tInput', 'tMInput')} placeholder={'0'}/>
-            <div className={s.addressError}>{stateObj.transAmountErrMsg}</div>
+            <DotInput changeInputFn={inputAmount}/>
             <div className={s.feeWrap}>
                 <Input
                     disabled
