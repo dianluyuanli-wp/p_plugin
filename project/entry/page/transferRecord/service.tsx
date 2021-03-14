@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-14 19:03:45 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 19:05:31
+ * @Last Modified time: 2021-03-14 20:50:27
  */
 
 import { postReq } from '@utils/request';
@@ -14,6 +14,13 @@ export function getTransRecord(address: string) {
         address,
         page: 0,
         row: 25
+    })
+}
+
+//  拉取单笔详情
+export function getRecordDetail(hash: string) {
+    return postReq(`${SUBSCAN_DOMAIN}/api/scan/extrinsic`, {
+        hash,
     })
 }
 

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 20:34:18
+ * @Last Modified time: 2021-03-14 20:45:53
  */
 
 import React, { FC, useEffect, useState } from 'react';
@@ -16,7 +16,8 @@ import { observer } from 'mobx-react';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
 import { Tabs } from 'antd';
-import { addressFormat, useBlockTime } from '@utils/tools';
+import { addressFormat } from '@utils/tools';
+import { PAGE_NAME } from '@constants/app';
 import { getTransRecord } from './service';
 import moment from 'moment';
 
@@ -56,9 +57,9 @@ const Entry:FC = function() {
 
     function List(tarr: Array<Record<string, any>>) {
         return tarr.map((item, index) => {
-            const { amount, block_timestamp, from, to, success } = item;
+            const { amount, block_timestamp, from, to, success, hash } = item;
             const isIn = from !== TargetAdd;
-            return <div className={s.singleItem}>
+            return <div className={s.singleItem} onClick={() => history.push(PAGE_NAME.TRANSFER_RECORD_DETAIL, { hash })}>
                 <div className={s.firstRow}>
                     <div className={s.frLeft}>
                         <div className={cx(s.icon, isIn ? '' : s.outIcon)} />

@@ -25,6 +25,7 @@ export const PAGE_NAME = {
     DEMOCRACY_VOTE: '/democracy/vote', //   民主治理-投票
     DEMOCRACY_CHECK: '/democracy/check', // 民主治理-投票确认
     TRANSFER_RECORD: '/transferRecord', //  转账记录
+    TRANSFER_RECORD_DETAIL: '/transferRecord/detail', //    转账记录，单笔详情
 }
 
 //  本地存储偏好语言
