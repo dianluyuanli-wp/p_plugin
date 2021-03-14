@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-13 22:46:46
+ * @Last Modified time: 2021-03-14 19:11:37
  */
 import React, { FC, useEffect, useReducer, useMemo, useState } from 'react';
 import { runInAction } from 'mobx';
@@ -125,7 +125,7 @@ const HomePage:FC = function() {
                         <div className={cx(s.img, s.democracy)}/>
                         <div className={s.bTitle}>网络治理</div>
                     </div>
-                    <div className={s.iconWrap}>
+                    <div className={s.iconWrap} onClick={() => jump(PAGE_NAME.TRANSFER_RECORD)}>
                         <div className={cx(s.img, s.record)}/>
                         <div className={s.bTitle}>交易记录</div>
                     </div>

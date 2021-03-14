@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-12 22:50:33
+ * @Last Modified time: 2021-03-14 19:11:17
  */
 
 import React from 'react';
@@ -33,6 +33,7 @@ import aboutUs from './page/aboutUs'; //     关于我们
 import democracy from './page/democracy'; //    民主治理
 import democracyVote from './page/democracy/voteForReferenda'; //   民主治理，投票
 import democracyCheck from './page/democracy/voteCheck'; // 民主治理，投票确认
+import transferRecord from './page/transferRecord'; //  转账记录
 import RetrieveStore from './page/retriveWallet/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -100,6 +101,13 @@ function AppRouter() {
                         <Route exact path={PAGE_NAME.DEMOCRACY} component={democracy}/>
                         <Route exact path={PAGE_NAME.DEMOCRACY_VOTE} component={democracyVote}/>
                         <Route exact path={PAGE_NAME.DEMOCRACY_CHECK} component={democracyCheck}/>
+                    </>
+                }} />
+                {/* 转账记录 */}
+                <Route path={PAGE_NAME.TRANSFER_RECORD} render={() => {
+                    return <>
+                        <Route exact path={PAGE_NAME.TRANSFER_RECORD} component={transferRecord}/>
+                        {/* <Route exact path={PAGE_NAME.DEMOCRACY_VOTE} component={democracyVote}/> */}
                     </>
                 }} />
                 {/* 首页 */}

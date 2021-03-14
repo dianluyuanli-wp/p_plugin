@@ -1,0 +1,19 @@
+/*
+ * @Author: guanlanluditie 
+ * @Date: 2021-03-14 19:03:45 
+ * @Last Modified by: guanlanluditie
+ * @Last Modified time: 2021-03-14 19:05:31
+ */
+
+import { postReq } from '@utils/request';
+import { SUBSCAN_DOMAIN } from '@constants/chain';
+
+//  拉取用户转账信息
+export function getTransRecord(address: string) {
+    return postReq(`${SUBSCAN_DOMAIN}/api/scan/transfers`, {
+        address,
+        page: 0,
+        row: 25
+    })
+}
+

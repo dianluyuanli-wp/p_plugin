@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-09 23:37:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-12 22:50:37
+ * @Last Modified time: 2021-03-14 20:07:04
  */
 
 import React, { FC, useEffect, useState, useMemo } from 'react';
@@ -18,8 +18,8 @@ import cx from 'classnames';
 import { Spin } from 'antd';
 import BN from 'bn.js';
 import { PAGE_NAME } from '@constants/app';
-import { BN_ONE, formatNumber, isBoolean } from '@polkadot/util';
-import { myFormatBalance, addressFormat, useBlockTime } from '@utils/tools';
+import { BN_ONE } from '@polkadot/util';
+import { addressFormat, useBlockTime } from '@utils/tools';
 import { getReferendas, getReferDetail } from '../service';
 import type { DeriveReferendumExt } from '@polkadot/api-derive/types';
 
