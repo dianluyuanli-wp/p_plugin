@@ -55,7 +55,7 @@ const Transfer:FC = function() {
         secret: '' } as transferStateObj
     );
     const globalStore = useStores('GlobalStore') as globalStoreType;
-    const { balance, currentAccount, api } = globalStore;
+    const { balance, currentAccount, api, ableBalance } = globalStore;
     //  判断当前阶段
     const isStepOne = useMemo(() => stateObj.status === TRANSFER_STEP.ONE, [stateObj.status]);
     //  判断摁钮是否可点击
@@ -192,8 +192,8 @@ const Transfer:FC = function() {
                 options={selectAddress()}
             />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
-            <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{balance} DOT {lanWrap('available')}</span></div>
-            <DotInput changeInputFn={inputAmount} setErr={setAmountErrString}/>
+            <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{ableBalance} DOT {lanWrap('available')}</span></div>
+            <DotInput changeInputFn={inputAmount} setErr={setAmountErrString} allDot={ableBalance}/>
             <div className={s.feeWrap}>
                 <Input
                     disabled

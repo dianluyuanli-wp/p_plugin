@@ -17,7 +17,8 @@ import { Input } from 'antd';
 interface BarProps {
     changeInputFn: Function,
     setErr: Function,
-    wrapCls?: string
+    wrapCls?: string,
+    allDot?: string;
 }
 
 interface InputStatus {
@@ -29,7 +30,7 @@ const DotInput:FC<BarProps> = function(props:BarProps) {
     let { t } = useTranslation();
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`widgets:${input}`);
-    const { changeInputFn, wrapCls, setErr } = props;
+    const { changeInputFn, wrapCls, setErr, allDot } = props;
 
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const { balance } = globalStore;
@@ -71,7 +72,7 @@ const DotInput:FC<BarProps> = function(props:BarProps) {
     }
 
     const amountIcon = (
-        <div className={s.amountIconWrap}>
+        <div className={s.amountIconWrap} onClick={() => changeInputFn(allDot)}>
             DOT<div className={s.split} /><div>{lanWrap('all')}</div>
         </div>
     )

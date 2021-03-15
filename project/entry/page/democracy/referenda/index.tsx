@@ -23,13 +23,6 @@ import { addressFormat, useBlockTime } from '@utils/tools';
 import { getReferendas, getReferDetail } from '../service';
 import type { DeriveReferendumExt } from '@polkadot/api-derive/types';
 
-
-const TAB_MAP = {
-    REFERENDA: '0',
-    PROPOSAL: '1',
-    CANDIDATE: '2'
-}
-
 function getVote(value: string) {
     return new BN(value).div(new BN(Math.pow(10, 10))).toString();
 }
@@ -75,6 +68,10 @@ const Referenda:FC = function() {
         }
         res();
     }, [])
+
+    function seeDetail() {
+        window.open(`https://polkadot.subscan.io/referenda/${referendum_index}`);
+    }
 
     //  官方api接口更新
     useEffect(() => {
@@ -135,7 +132,7 @@ const Referenda:FC = function() {
                     <div className={s.rowTitle}>提案人</div>
                     <div className={s.authorWrap}>
                         <div className={s.author}>{addressFormat(author.address, 8)}</div>
-                        <div className={s.ddetial}>提案详情</div>
+                        <div className={s.ddetial} onClick={seeDetail}>提案详情</div>
                     </div>
                     <div className={s.rowTitle}>投票剩余时间</div>
                     <div className={s.author}>{text}</div>

@@ -38,23 +38,25 @@ const HomePage:FC = function() {
 
     function comLeft() {
         const [value, setValue] = useState({
-            balance: '',
-            lockBalance: ''
+            balance: '0',
+            lockBalance: '0',
+            preserveDot: '0'
         });
         useEffect(() => {
             async function com() {
                 const { address } = globalStore.currentAccount;
                 const endoceAdd = keyring.encodeAddress(address);
                 const res = await getAddInfo(endoceAdd);
-                const { balance, lock } = res?.data?.account || {};
+                const { balance = 0, lock = 0, reserved = 0 } = res?.data?.account || {};
                 setValue({
                     balance,
-                    lockBalance: lock
+                    lockBalance: lock,
+                    preserveDot: reserved
                 });
                 runInAction(() => {
                     globalStore.balance = balance;
                     globalStore.lockBalance = lock;
-                    globalStore.ableBalance = parseFloat(balance) - parseFloat(lock) + '';
+                    globalStore.ableBalance = parseFloat(balance) - parseFloat(lock) - parseFloat(reserved) / Math.pow(10, 10)+ '';
                 })
             }
             com();
@@ -66,6 +68,11 @@ const HomePage:FC = function() {
         return !hasInit ? <div className={s.connetIcon}>{t('home:connecting')}</div> : null;
     }
 
+    //  跳转subscan
+    function seeBloclBrowser() {
+        window.open('https://polkadot.subscan.io/')
+    }
+
     function copyClick() {
         const { address } = currentAccount;
         copyContent(address);
@@ -73,7 +80,7 @@ const HomePage:FC = function() {
     }
 
     const balanceObj = comLeft();
-    const { balance, lockBalance } = balanceObj;
+    const { balance, lockBalance = '0', preserveDot = '0' } = balanceObj;
 
     function AccountPage() {
         const target = currentAccount;
@@ -105,7 +112,7 @@ const HomePage:FC = function() {
                         </div>
                         <div className={s.split}/>
                         <div>
-                            <div>{parseFloat(balance) - parseFloat(lockBalance)} DOT</div>
+                            <div>{parseFloat(balance) - parseFloat(lockBalance) - parseFloat(preserveDot) / Math.pow(10, 10)} DOT</div>
                             <div>可用</div>
                         </div>
                     </div>
@@ -130,7 +137,7 @@ const HomePage:FC = function() {
                         <div className={s.bTitle}>交易记录</div>
                     </div>
                     <div className={s.iconWrap}>
-                        <div className={cx(s.img, s.browser)}/>
+                        <div className={cx(s.img, s.browser)} onClick={seeBloclBrowser}/>
                         <div className={s.bTitle}>区块浏览器</div>
                     </div>
                 </div>

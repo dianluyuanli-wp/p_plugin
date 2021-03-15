@@ -63,7 +63,7 @@ const Entry:FC = function() {
                 <div className={s.firstRow}>
                     <div className={s.frLeft}>
                         <div className={cx(s.icon, isIn ? '' : s.outIcon)} />
-                        <div>{addressFormat(from)}</div>
+                        <div>{addressFormat(from, 8)} --{'>'} {addressFormat(to, 8)}</div>
                     </div>
                     <div className={s.amout}>{isIn ? '+' : '-'}{amount}</div>
                 </div>

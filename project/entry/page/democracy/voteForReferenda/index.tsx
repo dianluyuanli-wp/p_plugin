@@ -5,7 +5,7 @@
  * @Last Modified time: 2021-03-13 22:48:02
  */
 
-import React, { FC, useEffect, useState, useReducer } from 'react';
+import React, { FC, useReducer } from 'react';
 import s from './index.css';
 import './index.antd.css';
 import HeadBar from '@widgets/headBar';
@@ -75,7 +75,7 @@ const Entry:FC = function() {
                     <div className={s.title}>投票数量</div>
                     <div className={s.dot}>{globalStore.ableBalance} DOT 可用</div>
                 </div>
-                <DotInput changeInputFn={cInput} setErr={setErrStr}/>
+                <DotInput changeInputFn={cInput} setErr={setErrStr} allDot={globalStore.ableBalance}/>
                 <div className={cx(s.bWapr, s.weight)}>
                     <div className={s.title}>投票权重</div>
                 </div>
