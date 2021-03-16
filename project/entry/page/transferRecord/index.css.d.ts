@@ -6,3 +6,6 @@ export const firstRow: string;
 export const frLeft: string;
 export const amout: string;
 export const time: string;
+export const listWrap: string;
+export const observer: string;
+export const center: string;

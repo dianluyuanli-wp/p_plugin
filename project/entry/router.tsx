@@ -36,6 +36,7 @@ import democracyCheck from './page/democracy/voteCheck'; // 民主治理，投�
 import transferRecord from './page/transferRecord'; //  转账记录
 import transferRecordDetail from './page/transferRecord/recordDetail'; //   转账单笔详情
 import RetrieveStore from './page/retriveWallet/store';
+import DemocracyStore from './page/democracy/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -44,6 +45,7 @@ function AppRouter() {
         GlobalStore,
         CreateAccountStore,
         RetrieveStore,
+        DemocracyStore
     }
 
     return <MobXProviderContext.Provider value={storeObj}>

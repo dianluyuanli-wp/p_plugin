@@ -19,7 +19,6 @@ import DotInput from '@widgets/balanceDotInput';
 import { Select, message } from 'antd';
 import { WEIGHT_ARR } from '@constants/chain';
 import { runInAction } from 'mobx';
-import democrcacyStore from '../store';
 import { PAGE_NAME } from '@constants/app';
 import BottonBtn from '@widgets/bottomBtn';
 
@@ -31,6 +30,7 @@ interface infoVote {
 const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
+    const democrcacyStore = useStores('DemocracyStore');
     const history = useHistory();
     function stateReducer(state: Object, action: infoVote) {
         return Object.assign({}, state, action);
@@ -41,6 +41,7 @@ const Entry:FC = function() {
     const lanWrap = (input: string) => t(`democracy:${input}`);
 
     function cInput(value: string) {
+        console.log(value, '111');
         runInAction(() => {
             democrcacyStore.voteDot = value;
         })
@@ -66,16 +67,23 @@ const Entry:FC = function() {
         })
     }
     const { voteDot = '0', voteRatio} = democrcacyStore;
+    console.log('rrender');
 
+    function test() {
+        console.log('xcsd');
+        runInAction(() => {
+            democrcacyStore.voteDot = '10';
+        })
+    }
     return (
         <div className={s.wrap}>
             <HeadBar word={'链上公投'}/>
             <div className={s.contentWrap}>
                 <div className={s.bWapr}>
-                    <div className={s.title}>投票数量</div>
+                    <div className={s.title} onClick={test}>投票数量{voteDot}</div>
                     <div className={s.dot}>{globalStore.ableBalance} DOT 可用</div>
                 </div>
-                <DotInput changeInputFn={cInput} setErr={setErrStr} allDot={globalStore.ableBalance}/>
+                <DotInput changeInputFn={cInput} controlValue={democrcacyStore.voteDot} setErr={setErrStr} allDot={globalStore.ableBalance}/>
                 <div className={cx(s.bWapr, s.weight)}>
                     <div className={s.title}>投票权重</div>
                 </div>
@@ -85,7 +93,7 @@ const Entry:FC = function() {
                         return <Select.Option key={index} value={ratio}>{text}</Select.Option>
                     })}
                 </Select>
-                <div className={s.allVote}>总计<div className={s.voteNum}>{parseFloat(voteDot) * voteRatio}</div>票</div>
+                <div className={s.allVote}>总计<div className={s.voteNum}>{parseFloat(democrcacyStore.voteDot || '0') * voteRatio}</div>票</div>
                 <div className={s.split}/>
                 <BottonBtn word='下一步' cb={nextSetp}/>
             </div>

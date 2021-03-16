@@ -5,7 +5,7 @@
  * @Last Modified time: 2021-03-14 20:45:53
  */
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useReducer, useRef } from 'react';
 import s from './index.css';
 import './index.antd.css';
 import HeadBar from '@widgets/headBar';
@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
-import { Tabs } from 'antd';
+import { Tabs, Spin } from 'antd';
 import { addressFormat } from '@utils/tools';
 import { PAGE_NAME } from '@constants/app';
 import { getTransRecord } from './service';
@@ -30,36 +30,80 @@ const TAB_MAP = {
     OUT: '2'
 }
 
+const SINGLE_PAGE_SIZE = 25;
+interface recordTabStatus {
+    pageNum?: number,
+    isFetching?: boolean,
+    hasMore?: boolean,
+    traArr?: Array<Record<string, any>>
+}
+
 const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
     const [actTab, setTab] = useState(TAB_MAP.ALL);
 
+    //  状态管理
+    function stateReducer(state: Object, action: recordTabStatus) {
+        return Object.assign({}, state, action);
+    }
+    const [stateObj, setState] = useReducer(stateReducer, { 
+        pageNum: 0,
+        hasMore: true,
+        traArr: [],
+        isFetching: false } as recordTabStatus
+    );
+
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`democracy:${input}`);
 
-    const TargetAdd = '165ketsk66SBVQi7d8w2z1McVnUNkJzbWVqpA9hRanznigDV';
+    //  const TargetAdd = '165ketsk66SBVQi7d8w2z1McVnUNkJzbWVqpA9hRanznigDV';
+    const TargetAdd = '1ugnSE55RvN3CkjH3YetBg1iS5Rs7ZNGJ6LkUhbLS4Lrs7U';
 
-    function getTransArr() {
-        const [traArr, setTraArr] = useState([]);
-        useEffect(() => {
-            async function getRecord() {
-                const res = await getTransRecord(TargetAdd);
-                const { count, transfers } = res.data || {};
-                console.log(res);
-                setTraArr(transfers);
-            }
-            getRecord()
-        }, [])
-        return traArr;
+    const observerInstance = useRef<IntersectionObserver>();
+
+    async function getRecord(outerState: recordTabStatus) {
+        const { pageNum, traArr } = outerState;
+        setState({
+            isFetching: true
+        })
+        const res = await getTransRecord(TargetAdd, pageNum, SINGLE_PAGE_SIZE);
+        const { count, transfers } = res.data || {};
+        const nextPageNum = pageNum + 1;
+        setState({
+            isFetching: false,
+            pageNum: nextPageNum,
+            hasMore: !(nextPageNum * SINGLE_PAGE_SIZE >= count),
+            traArr: traArr.concat(transfers || [])
+        })
     }
 
+    const Outer = useRef<recordTabStatus>();
+    Outer.current = stateObj;
+    //  定义观察者
+    useEffect(() => {
+        observerInstance.current = new IntersectionObserver(async () => {
+            const { hasMore, isFetching } = Outer.current;
+            console.log('ovxxx', Outer.current);
+            if (isFetching) {
+                return;
+            }
+            if (!hasMore) {
+                return observerInstance.current.disconnect();
+            }
+            //  这里不直接使用stateObj的原因:这会直接取快照，内容永远不变
+            //  借用Outer,也就是ref来获取引用
+            await getRecord(Outer.current);
+        });
+        observerInstance.current.observe(document.getElementById('observerObj'))
+    }, [actTab])
+
     function List(tarr: Array<Record<string, any>>) {
-        return tarr.map((item, index) => {
+        const ItemList = tarr.map((item, index) => {
             const { amount, block_timestamp, from, to, success, hash } = item;
             const isIn = from !== TargetAdd;
-            return <div className={s.singleItem} onClick={() => history.push(PAGE_NAME.TRANSFER_RECORD_DETAIL, { hash })}>
+            return <div className={s.singleItem} key={index} onClick={() => history.push(PAGE_NAME.TRANSFER_RECORD_DETAIL, { hash })}>
                 <div className={s.firstRow}>
                     <div className={s.frLeft}>
                         <div className={cx(s.icon, isIn ? '' : s.outIcon)} />
@@ -69,10 +113,16 @@ const Entry:FC = function() {
                 </div>
                 <div className={s.time}>{moment(block_timestamp * 1000).format('DD/MM/YYYY hh:mm:ss')}</div>
             </div>
-        })
+        });
+        const { hasMore, isFetching } = stateObj;
+        return <div className={s.listWrap}>
+            {ItemList}
+            {isFetching && <div className={s.center}><Spin /></div>}
+            <div className={s.observer} id='observerObj'>{hasMore ? '' : '没有更多了'}</div>
+        </div>
     }
 
-    const AllAry = getTransArr();
+    const AllAry = stateObj.traArr;
     const outArr = AllAry.filter(item => item.from === TargetAdd);
     const inArr = AllAry.filter(item => item.from !== TargetAdd)
 

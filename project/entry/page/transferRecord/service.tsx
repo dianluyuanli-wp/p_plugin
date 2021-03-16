@@ -9,11 +9,11 @@ import { postReq } from '@utils/request';
 import { SUBSCAN_DOMAIN } from '@constants/chain';
 
 //  拉取用户转账信息
-export function getTransRecord(address: string) {
+export function getTransRecord(address: string, pageNum: number, pageSize: number) {
     return postReq(`${SUBSCAN_DOMAIN}/api/scan/transfers`, {
         address,
-        page: 0,
-        row: 25
+        page: pageNum,
+        row: pageSize
     })
 }
 

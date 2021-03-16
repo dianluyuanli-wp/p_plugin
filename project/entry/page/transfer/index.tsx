@@ -193,7 +193,7 @@ const Transfer:FC = function() {
             />
             <div className={s.addressError}>{stateObj.addressErrMsg}</div>
             <div className={cx(s.formTitle, s.mid)}>{lanWrap('amount of money')} <span className={s.tAmount}>{ableBalance} DOT {lanWrap('available')}</span></div>
-            <DotInput changeInputFn={inputAmount} setErr={setAmountErrString} allDot={ableBalance}/>
+            <DotInput changeInputFn={inputAmount} controlValue={stateObj.transferAmount} setErr={setAmountErrString} allDot={ableBalance}/>
             <div className={s.feeWrap}>
                 <Input
                     disabled
