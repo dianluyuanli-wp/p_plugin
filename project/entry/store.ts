@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 19:16:24
+ * @Last Modified time: 2021-03-18 11:49:04
  */
 import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -10,6 +10,9 @@ import { ADDRESS_ARRAY, FAVORITE_ACCOUNT, RECIPIENT_ARRAY, LOCAL_CONFIG } from '
 import keyring from '@polkadot/ui-keyring';
 import { getStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
+import { AccountsStore } from '@polkadot/extension-base/stores';
+import { accounts as accountsObservable } from '@polkadot/ui-keyring/observable/accounts';
+import type { SubjectInfo } from '@polkadot/ui-keyring/observable/types';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import type BN from 'bn.js';
 
@@ -100,15 +103,25 @@ class AppStore {
                 lastInSTM: 0
             }}) as any || {};
         const queryAccObj = {} as Record<string, string>;
+        console.log(ans, 'ans');
         (ans.accountAddress || []).forEach((item: string) => {
             queryAccObj[item] = '';
         })
         const accountDeatil = await getStorage(queryAccObj) as any;
+
+        //  订阅账户的变化
+        const subscription = accountsObservable.subject.subscribe((accounts: SubjectInfo): void =>
+            runInAction(() => {
+                this.accountObj = accounts;
+                this.addressArr = Object.keys(accounts);
+            })
+        );
+
         const firsetAcc = Object.keys(accountDeatil)[0];
         runInAction(() => {
-            this.addressArr = ans.accountAddress,
+            //  this.addressArr = ans.accountAddress,
             this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            this.accountObj = Object.assign.call(null, {}, accountDeatil);
+            //  this.accountObj = Object.assign.call(null, {}, accountDeatil);
             this.localConfig = ans[LOCAL_CONFIG];
             this.recipientArr = ans[RECIPIENT_ARRAY];
 
@@ -126,7 +139,7 @@ class AppStore {
         keyring.loadAll({
             //  genesisHash: this.api.genesisHash as any,
             ss58Format: 0,
-            store: undefined,
+            store: new AccountsStore(),
             type: 'ed25519'
         }, [])
         const provider = new WsProvider(OFFICAL_END_POINT);

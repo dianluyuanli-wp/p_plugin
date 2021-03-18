@@ -99,13 +99,13 @@ export async function addNewAccount(result: CreateResult) {
     newArray.push(saveKey);
     //  同步本地的store状态
     runInAction(() => {
-        globalStore.addressArr = newArray,
+        //  globalStore.addressArr = newArray,
         globalStore.favoriteAccount = globalStore.favoriteAccount || address;
-        globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: localSaveObj })
+        //  globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: localSaveObj })
     })
     //  修改chromeStorage
     await setStorage({
-        [ADDRESS_ARRAY]: newArray,
+        // [ADDRESS_ARRAY]: newArray,
         [address]: localSaveObj
     })
 }

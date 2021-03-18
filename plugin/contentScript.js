@@ -66,3 +66,14 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
         actionMap[method](payLoad);
     }
 });
+
+//  manifest里面的配置
+
+// "content_scripts": 
+// [
+//   {
+//     "matches": ["<all_urls>"],
+//     "js": ["contentScript.js"],
+//     "run_at": "document_start"
+//   }
+// ],

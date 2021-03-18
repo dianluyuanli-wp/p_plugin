@@ -18,14 +18,6 @@
           "description": "Opens pop.html"
         }
     },
-    "content_scripts": 
-    [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["contentScript.js"],
-        "run_at": "document_start"
-      }
-    ],
     "permissions": ["contextMenus", "declarativeContent", "http://localhost:3000/", "webRequest", "https://*/*", "http://*/*",
         "webRequestBlocking", "tabs", "storage"]
 }
