@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-18 11:46:12
+ * @Last Modified time: 2021-03-18 23:45:02
  */
 import React, { FC, useEffect, useReducer, useMemo, useState } from 'react';
-import { runInAction } from 'mobx';
+import { runInAction, toJS } from 'mobx';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PAGE_NAME } from '@constants/app';
@@ -45,6 +45,11 @@ const HomePage:FC = function() {
         useEffect(() => {
             async function com() {
                 const { address } = globalStore.currentAccount;
+                //  没有地址直接返回
+                if (!address) {
+                    return;
+                }
+                console.log(address, 'add');
                 const endoceAdd = keyring.encodeAddress(address);
                 const res = await getAddInfo(endoceAdd);
                 const { balance = 0, lock = 0, reserved = 0 } = res?.data?.account || {};
@@ -60,7 +65,7 @@ const HomePage:FC = function() {
                 })
             }
             com();
-        }, [])
+        }, [globalStore.currentAccount])
         return value;
     }
 
@@ -156,7 +161,6 @@ const HomePage:FC = function() {
         </>
     }
     const hasAccount = currentAccount.address;
-    console.log(hasAccount, currentAccount);
     return (
         <div>
             {hasAccount ? AccountPage() : homeWithoutAccount()}

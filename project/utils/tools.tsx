@@ -111,18 +111,18 @@ export async function addNewAccount(result: CreateResult) {
 }
 
 //  更新账号信息，内存和chrome存储都更新
-export async function updateAccountInfo(result: CreateResult) {
-    const { json } = result;
-    const { address } = json
-    //  同步本地的store状态
-    runInAction(() => {
-        globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: json })
-    })
-    //  修改chromeStorage
-    await setStorage({
-        [address]: json
-    })
-}
+// export async function updateAccountInfo(result: CreateResult) {
+//     const { json } = result;
+//     const { address } = json
+//     //  同步本地的store状态
+//     runInAction(() => {
+//         globalStore.accountObj = Object.assign({}, globalStore.accountObj, { [address]: json })
+//     })
+//     //  修改chromeStorage
+//     await setStorage({
+//         [address]: json
+//     })
+// }
 
 //  将canvas转换成dataUrl
 export function canvasToDataURL(canvas: any){

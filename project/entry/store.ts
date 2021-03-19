@@ -2,17 +2,17 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-18 11:49:04
+ * @Last Modified time: 2021-03-18 23:53:00
  */
-import { observable, runInAction, action, makeAutoObservable, computed } from 'mobx';
+import { observable, runInAction, action, makeAutoObservable, computed, toJS } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ADDRESS_ARRAY, FAVORITE_ACCOUNT, RECIPIENT_ARRAY, LOCAL_CONFIG } from '@constants/chrome';
 import keyring from '@polkadot/ui-keyring';
-import { getStorage } from '@utils/chrome';
+import { getStorage, setStorage } from '@utils/chrome';
 import { OFFICAL_END_POINT } from '@constants/chain';
 import { AccountsStore } from '@polkadot/extension-base/stores';
 import { accounts as accountsObservable } from '@polkadot/ui-keyring/observable/accounts';
-import type { SubjectInfo } from '@polkadot/ui-keyring/observable/types';
+import type { SubjectInfo, SingleAddress } from '@polkadot/ui-keyring/observable/types';
 import type { KeyringPair$Json } from '@polkadot/keyring/types';
 import type BN from 'bn.js';
 
@@ -102,22 +102,28 @@ class AppStore {
                 autoLockTime: Infinity,
                 lastInSTM: 0
             }}) as any || {};
-        const queryAccObj = {} as Record<string, string>;
-        console.log(ans, 'ans');
-        (ans.accountAddress || []).forEach((item: string) => {
-            queryAccObj[item] = '';
-        })
-        const accountDeatil = await getStorage(queryAccObj) as any;
 
         //  订阅账户的变化
         const subscription = accountsObservable.subject.subscribe((accounts: SubjectInfo): void =>
-            runInAction(() => {
-                this.accountObj = accounts;
-                this.addressArr = Object.keys(accounts);
-            })
+            {
+                const addArrs = Object.keys(accounts);
+                console.log(accounts, 'sub');
+                const parsedAccObj = {} as Record<string, any>;
+                addArrs.map(key => {
+                    parsedAccObj[key] = accounts[key].json
+                })
+                runInAction(() => {
+                    this.accountObj = parsedAccObj;
+                    this.addressArr = addArrs;
+                })
+                setStorage({
+                    [ADDRESS_ARRAY]: addArrs,
+                })
+            }
+
         );
 
-        const firsetAcc = Object.keys(accountDeatil)[0];
+        const firsetAcc = ans.accountAddress[0];
         runInAction(() => {
             //  this.addressArr = ans.accountAddress,
             this.favoriteAccount = ans.favoriteAccount || firsetAcc;

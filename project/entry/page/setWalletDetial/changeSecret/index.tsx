@@ -19,7 +19,6 @@ import { Input, Spin } from 'antd';
 import SecretInput from '@widgets/secretInput';
 import SWStore from '../store';
 import type { CreateResult } from '@polkadot/ui-keyring/types';
-import { updateAccountInfo } from '@utils/tools';
 
 interface HState {
     address?: string;
@@ -104,7 +103,6 @@ const ChangeSec:FC = function() {
                 setState({
                     isSpining: false
                 })
-                updateAccountInfo({ json: newJson } as CreateResult);
             }, 0)
         }
     } 

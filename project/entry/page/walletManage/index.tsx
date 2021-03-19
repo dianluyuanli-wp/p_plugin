@@ -40,7 +40,7 @@ const WalletManage:FC = function() {
         runInAction(() => {
             globalStore.favoriteAccount = address;
         })
-        //  设置chrome存储
+        //  设置localStorage存储
         setStorage({
             [FAVORITE_ACCOUNT]: address
         })

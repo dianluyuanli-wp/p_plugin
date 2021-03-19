@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-26 08:53:09 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-06 11:52:40
+ * @Last Modified time: 2021-03-18 23:14:52
  */
 
 import React, { FC, useState } from 'react';
@@ -15,7 +15,7 @@ import cx from 'classnames';
 import { useStores } from '@utils/useStore';
 import { globalStoreType } from '@entry/store';
 import { Input, message } from 'antd';
-import { updateAccountInfo } from '@utils/tools';
+import { keyring } from '@polkadot/ui-keyring';
 import type { CreateResult } from '@polkadot/ui-keyring/types';
 
 interface HState {
@@ -28,6 +28,7 @@ const Entry:FC = function() {
     const history = useHistory();
 
     const [newName, setNewName] = useState('');
+    const [secret, setSecret] = useState('');
 
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`setWalletDetial:${input}`);
@@ -39,13 +40,17 @@ const Entry:FC = function() {
         setNewName(e.target.value);
     }
 
+    function secInput(e: React.ChangeEvent<HTMLInputElement>) {
+        setSecret(e.target.value)
+    }
+
     async function confirm() {
         if (newName.length === 0) {
             return;
         }
         const originJson = toJS(configAccount);
         originJson.meta.name = newName;
-        await updateAccountInfo({ json: originJson} as CreateResult);
+        keyring.restoreAccount(originJson, secret);
         message.info(lanWrap('Name updated'));
     }
 
@@ -53,6 +58,7 @@ const Entry:FC = function() {
         <div className={s.wrap}>
             <HeadBar word={lanWrap('Change wallet name')}/>
             <Input onChange={enterNewName} className={s.input} placeholder={lanWrap('1-12 characters')} maxLength={12}/>
+            <Input.Password onChange={secInput} className={s.input} placeholder={'钱包密码'}/>
             <div className={cx(s.confirm, newName.length > 0 ? s.heighLight : '')} onClick={confirm}>{lanWrap('confirm')}</div>
         </div>
     )

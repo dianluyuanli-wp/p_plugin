@@ -55,13 +55,11 @@ const DeleteAccount:FC = function() {
 
     async function deleteAccount(add: string) {
         //  避免冒泡
-        let ans = await getStorage({ [ADDRESS_ARRAY]: [] }) as any;
-        let addArr = ans[ADDRESS_ARRAY];
+        let addArr = globalStore.addressArr;
         const targetIndex = addArr.indexOf(add);
         addArr.splice(targetIndex, 1);
         const isFavorite = add === favoriteAccount;
         setStorage({
-            [ADDRESS_ARRAY]: addArr,
             [FAVORITE_ACCOUNT]: (isFavorite ? addArr[0] : globalStore.favoriteAccount)
         })
         if (add === favoriteAccount) {
@@ -69,12 +67,6 @@ const DeleteAccount:FC = function() {
                 globalStore.favoriteAccount = addArr[0];
             })
         }
-        //  同步自己store的内容
-        runInAction(() => {
-            globalStore.addressArr = addArr;
-            delete globalStore.accountObj[add];
-        })
-        removeStorage(add);
     }
 
     async function confirm() {
