@@ -33,7 +33,6 @@ class Democry {
     @observable voteDot: string;
     //  投票系数
     @observable voteRatio: number = 0.1;
-    testArr: DeriveReferendumExt[];
 
     //  重置store,方便下次创建
     // @action.bound

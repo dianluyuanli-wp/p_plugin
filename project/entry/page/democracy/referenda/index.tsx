@@ -79,7 +79,6 @@ const Referenda:FC = function() {
         async function res() {
             try {
                 const officalRes = await globalStore.api.derive.democracy.referendums();
-                console.log(officalRes, '111');
                 runInAction(() => {
                     democrcacyStore.referenda = officalRes;
                 })

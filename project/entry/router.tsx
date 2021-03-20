@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { MobXProviderContext  } from 'mobx-react';
+import { MobXProviderContext, Provider } from 'mobx-react';
 import Home from './page/home';
 import GlobalStore from './store';
 import CreateAccount from './page/createAccount'; //    创建账号
