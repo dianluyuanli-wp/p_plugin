@@ -42,12 +42,12 @@ const Entry:FC = function() {
                 <TabPane tab="链上公投" key={TAB_MAP.REFERENDA}>
                     <Referenda />
                 </TabPane>
-                <TabPane tab="社区提案" key={TAB_MAP.PROPOSAL}>
+                {/* <TabPane tab="社区提案" key={TAB_MAP.PROPOSAL}>
                     Content of Tab Pane 2
                 </TabPane>
                 <TabPane tab="理事会选举" key={TAB_MAP.CANDIDATE}>
                     Content of Tab Pane 3
-                </TabPane>
+                </TabPane> */}
             </Tabs>
         </div>
     )

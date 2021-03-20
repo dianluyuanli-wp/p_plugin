@@ -182,3 +182,20 @@ export function useBlockTime (blocks = BN_ONE): Result {
   );
 }
 
+export function getBlockTime(blocks = BN_ONE) {
+    const blockTime = DEFAULT_TIME;
+    const time = extractTime(blockTime.mul(blocks).toNumber());
+    const { days, hours, minutes, seconds } = time;
+    console.log(time ,'xxx');
+    const timeStr = [
+      days ? (days > 1) ? `${days} days` : '1 day' : null, 
+      hours ? (hours > 1) ? `${hours} hours` : '1 hr' : null,
+      minutes ? (minutes > 1) ? `${minutes} minutes` : '1 min' : null,
+      seconds ? (seconds > 1) ? `${seconds} seconds` : '1 s' : null
+    ]
+      .filter((value): value is string => !!value)
+      .slice(0, 2)
+      .join(' ');
+    return timeStr
+}
+

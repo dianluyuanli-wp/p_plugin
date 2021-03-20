@@ -24,15 +24,16 @@ class Democry {
         makeAutoObservable(this);
     }
     //  官方api的公投详情
-    @observable referenda: DeriveReferendumExt;
+    @observable referenda: DeriveReferendumExt[];
     //  subscan的公投详情
-    @observable reScanDetial: Record<string, any> = {};
+    @observable reScanDetial: Record<string, any>[] = [];
     //  支持还是反对
     @observable action: 'support' | 'reject';
     //  投票金额
     @observable voteDot: string;
     //  投票系数
     @observable voteRatio: number = 0.1;
+    testArr: DeriveReferendumExt[];
 
     //  重置store,方便下次创建
     // @action.bound

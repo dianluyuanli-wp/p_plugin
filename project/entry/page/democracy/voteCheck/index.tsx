@@ -27,6 +27,10 @@ interface checkStatus {
     errPass?: boolean
 }
 
+interface HisState {
+    index: number
+}
+
 const Entry:FC = function() {
     let { t } = useTranslation();
     const globalStore = useStores('GlobalStore') as globalStoreType;
@@ -42,7 +46,8 @@ const Entry:FC = function() {
 
     const { api, currentAccount } = globalStore;
     const { reScanDetial, voteDot, voteRatio, action } = democrcacyStore;
-    const { pre_image = {}, referendum_index } = reScanDetial;
+    const { index } = history.location.state as HisState;
+    const { pre_image = {}, referendum_index } = reScanDetial[index];
     const { call_module, call_name } = pre_image;
 
     function getVoteAction() {

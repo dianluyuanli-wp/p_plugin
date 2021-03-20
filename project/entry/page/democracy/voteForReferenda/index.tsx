@@ -80,7 +80,7 @@ const Entry:FC = function() {
             <HeadBar word={'链上公投'}/>
             <div className={s.contentWrap}>
                 <div className={s.bWapr}>
-                    <div className={s.title} onClick={test}>投票数量{voteDot}</div>
+                    <div className={s.title} onClick={test}>投票数量{democrcacyStore.voteDot}</div>
                     <div className={s.dot}>{globalStore.ableBalance} DOT 可用</div>
                 </div>
                 <DotInput changeInputFn={cInput} controlValue={democrcacyStore.voteDot} setErr={setErrStr} allDot={globalStore.ableBalance}/>
@@ -101,4 +101,4 @@ const Entry:FC = function() {
     )
 }
 
-export default observer(Entry);
+export default Entry;

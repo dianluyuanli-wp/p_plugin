@@ -1,4 +1,5 @@
 export const wrap: string;
+export const spin: string;
 export const contentWrap: string;
 export const title: string;
 export const rank: string;
