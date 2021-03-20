@@ -9,7 +9,10 @@
 .TRtabWrap .ant-tabs-tab {
     color: #555555 !important;
     font-size: .14rem;
-    margin-right: .4rem;
+}
+
+.TRtabWrap .ant-tabs-nav-wrap {
+    left: -.2rem;
 }
 
 .TRtabWrap .ant-tabs-nav-list {

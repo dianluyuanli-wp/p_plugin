@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:12:30 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-06 12:43:10
+ * @Last Modified time: 2021-03-20 21:26:36
  */
 //  import LanguageDetector from 'i18next-browser-languagedetector';
 import i18n from "i18next";
@@ -19,6 +19,8 @@ import { transferEn, transferZh } from '@entry/page/transfer/language'; // 转�
 import { userAgreementEn, userAgreementZh } from '@entry/page/userAgreement/language'; //  用户协议
 import { walletManageEn, walletManageZh } from '@entry/page/walletManage/language'; // 总的钱包管理入口页
 import { widgetsEn, widgetsZh } from '@widgets/language'; // 各个小组件
+import { democracyZh, democracyEn } from '@entry/page/democracy/language'; //  链上治理
+import { transRecordEn, transRecordZh } from '@entry/page/transferRecord/language'; // 转账记录
 import { LOCAL_LANGUAGE } from '@constants/app';
 import {
   initReactI18next
@@ -45,6 +47,8 @@ i18n.use(initReactI18next) //init i18next
       userAgreement: userAgreementEn,
       walletManage: walletManageEn,
       widgets: widgetsEn,
+      democracy: democracyEn,
+      transRecord: transRecordEn,
     },
     zh: {
       home: homeCn,
@@ -59,7 +63,9 @@ i18n.use(initReactI18next) //init i18next
       transfer: transferZh,
       userAgreement: userAgreementZh,
       walletManage: walletManageZh,
-      widgets: widgetsZh
+      widgets: widgetsZh,
+      democracy: democracyZh,
+      transRecord: transRecordZh,
     },
   },
   //选择默认语言，选择内容为上述配置中的key，即en/zh

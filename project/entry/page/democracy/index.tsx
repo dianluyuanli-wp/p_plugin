@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-10 10:02:07
+ * @Last Modified time: 2021-03-20 22:02:08
  */
 
 import React, { FC, useEffect, useState } from 'react';
@@ -37,9 +37,9 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'民主治理'}/>
+            <HeadBar word={lanWrap('Democratic Governance')}/>
             <Tabs defaultActiveKey={TAB_MAP.REFERENDA} onChange={setTab} centered className='DEtabWrap'>
-                <TabPane tab="链上公投" key={TAB_MAP.REFERENDA}>
+                <TabPane tab={lanWrap('Chain referendum')} key={TAB_MAP.REFERENDA}>
                     <Referenda />
                 </TabPane>
                 {/* <TabPane tab="社区提案" key={TAB_MAP.PROPOSAL}>

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-13 22:48:02
+ * @Last Modified time: 2021-03-20 21:31:40
  */
 
 import React, { FC, useReducer } from 'react';
@@ -18,7 +18,7 @@ import DotInput from '@widgets/balanceDotInput';
 import { Select, message } from 'antd';
 import { useLocalObservable, Observer } from 'mobx-react';
 import democrcacyStore, { CreateStoreType } from '../store';
-import { WEIGHT_ARR } from '@constants/chain';
+import { WEIGHT_ARR, useWeightArr } from '@constants/chain';
 import { runInAction } from 'mobx';
 import { PAGE_NAME } from '@constants/app';
 import BottonBtn from '@widgets/bottomBtn';
@@ -58,7 +58,7 @@ const Entry = function() {
 
     function nextSetp() {
         if (stateObj.errStr || !democrcacyStore.voteDot) {
-            message.error('错误的投票额')
+            message.error(lanWrap('Wrong number of votes'))
         } else {
             history.push(PAGE_NAME.DEMOCRACY_CHECK)
         }
@@ -70,29 +70,30 @@ const Entry = function() {
         })
     }
     const { voteDot = '0', voteRatio} = democrcacyStore;
-
+    //  倍率选择
+    const ratioArr = useWeightArr();
     return (
         <Observer>{
             () => <div className={s.wrap}>
-                <HeadBar word={'链上公投'}/>
+                <HeadBar word={lanWrap('Wrong number of votes')}/>
                 <div className={s.contentWrap}>
                     <div className={s.bWapr}>
-                        <div className={s.title}>投票数量</div>
-                        <div className={s.dot}>{globalStore.ableBalance} DOT 可用{globalStore.lockBalance}</div>
+                        <div className={s.title}>{lanWrap('Number of votes')}</div>
+                        <div className={s.dot}>{globalStore.ableBalance} DOT {lanWrap('available')}</div>
                     </div>
                     <DotInput changeInputFn={cInput} controlValue={voteDot} setErr={setErrStr} allDot={globalStore.ableBalance}/>
                     <div className={cx(s.bWapr, s.weight)}>
-                        <div className={s.title}>投票权重</div>
+                        <div className={s.title}>{lanWrap('Voting weight')}</div>
                     </div>
-                    <Select onChange={changeRatio} className={cx(s.select, 'reSelect')} defaultValue={WEIGHT_ARR[0].ratio}>
-                        {WEIGHT_ARR.map((item, index) => {
+                    <Select onChange={changeRatio} className={cx(s.select, 'reSelect')} defaultValue={ratioArr[0].ratio}>
+                        {ratioArr.map((item, index) => {
                             const { text, ratio } = item;
                             return <Select.Option key={index} value={ratio}>{text}</Select.Option>
                         })}
                     </Select>
-                    <div className={s.allVote}>总计<div className={s.voteNum}>{parseFloat(democrcacyStore.voteDot || '0') * voteRatio}</div>票</div>
+                    <div className={s.allVote}>{lanWrap('total')}<div className={s.voteNum}>{parseFloat(democrcacyStore.voteDot || '0') * voteRatio}</div>{lanWrap('polls')}</div>
                     <div className={s.split}/>
-                    <BottonBtn word='下一步' cb={nextSetp}/>
+                    <BottonBtn word={lanWrap('next step')} cb={nextSetp}/>
                 </div>
         </div>
         }

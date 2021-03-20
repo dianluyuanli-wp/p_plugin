@@ -175,24 +175,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: .36rem;
+    margin-top: .16rem;
     font-size: .12rem;
     color: #333333;
     text-align: center;
-}
-
-.inAccount {
-    width: .45rem;
-    height: .45rem;
-    background-size: 100% 100%;
-    background-image: url('./img/transfer.png');
-}
-
-.out {
-    width: .45rem;
-    height: .45rem;
-    background-size: 100% 100%;
-    background-image: url('./img/out.png');
 }
 
 .connetIcon {
@@ -245,4 +231,19 @@
 
 .browser {
     background-image: url('./img/browser.png');
+}
+
+.aWrap {
+    width: .7rem;
+}
+
+.grayBtn {
+    width: 1.63rem;
+    height: .48rem;
+    background-color: #F2F2F2;
+    color: #333333;
+    font-size: .14rem;
+    text-align: center;
+    line-height: .48rem;
+    border-radius: .04rem;
 }

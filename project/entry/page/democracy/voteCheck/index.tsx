@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-13 21:15:04
+ * @Last Modified time: 2021-03-20 21:10:05
  */
 
 import React, { FC, useEffect, useState, useReducer } from 'react';
@@ -89,10 +89,9 @@ const Entry:FC = function() {
         }
         setState({ errPass: false })
         try {
-            return;
             const voteAction = getVoteAction();
             const result = await voteAction.signAndSend(sendPair);
-            message.info('操作成功')
+            message.info(lanWrap('success'))
             console.log(result);
         } catch (e) {
             console.log(e)
@@ -101,37 +100,37 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'链上公投'}/>
+            <HeadBar word={lanWrap('Chain referendum')}/>
             <div className={s.contentWrap}>
-                <div className={s.title}>投票信息</div>
+                <div className={s.title}>{lanWrap('Voting information')}</div>
                 <div className={s.colum}>
-                    <div className={s.cTitle}>投票提案</div>
+                    <div className={s.cTitle}>{lanWrap('Voting proposal')}</div>
                     <div className={s.cContent}>#{`${referendum_index} ${call_module}.${call_name}`}</div>
                 </div>
                 <div className={s.colum}>
-                    <div className={s.cTitle}>投票数量</div>
+                    <div className={s.cTitle}>{lanWrap('Number of votes')}</div>
                     <div className={s.cContent}>{voteDot} DOT</div>
                 </div>
                 <div className={s.colum}>
-                    <div className={s.cTitle}>投票权重</div>
+                    <div className={s.cTitle}>{lanWrap('Voting weight')}</div>
                     <div className={s.cContent}>{WEIGHT_ARR.find(item => item.ratio === voteRatio).text}</div>
                 </div>
                 <div className={s.colum}>
-                    <div className={s.cTitle}>总计票数</div>
+                    <div className={s.cTitle}>{lanWrap('total')}</div>
                     <div className={s.cContent}>{parseFloat(voteDot) * voteRatio}票 ({voteDot}×{voteRatio})</div>
                 </div>
                 <div className={s.colum}>
-                    <div className={s.cTitle}>矿工费</div>
+                    <div className={s.cTitle}>{lanWrap("Miner's fee")}</div>
                     <div className={s.cContent}>{stateObj.fee} DOT</div>
                 </div>
-                <div className={s.title}>密码确认</div>
+                <div className={s.title}>{lanWrap('Password confirmation')}</div>
                 <Input.Password
                     onChange={changePass}
                     className={cx(s.input, 'retrieveInput')}
                     placeholder={lanWrap('Wallet password')}
                 />
-                <div className={s.errPass}>{stateObj.errPass ? '密码错误' : ''}</div>
-                <BottonBtn cb={vote} word='确认'/>
+                <div className={s.errPass}>{stateObj.errPass ? lanWrap('Wrong password') : ''}</div>
+                <BottonBtn cb={vote} word={lanWrap('confirm')}/>
             </div>
         </div>
     )

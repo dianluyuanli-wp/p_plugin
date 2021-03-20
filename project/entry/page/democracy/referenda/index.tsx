@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-09 23:37:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 20:07:04
+ * @Last Modified time: 2021-03-20 20:42:52
  */
 
 import React, { FC, useEffect, useState, useMemo } from 'react';
@@ -37,7 +37,6 @@ const Referenda:FC = function() {
 
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`democracy:${input}`);
-    //  const { referendum_index, pre_image = {}, delay, turnout, aye_amount, nay_amount  } = democrcacyStore.reScanDetial;
 
     function jump(path: string) {
         history.push(path);
@@ -137,26 +136,26 @@ const Referenda:FC = function() {
                     <div>{`${call_module}.${call_name}`}</div>
                     <div className={s.img}/>
                 </div>
-                <div className={s.rowTitle}>提案人</div>
+                <div className={s.rowTitle}>{lanWrap('Sponsor')}</div>
                 <div className={s.authorWrap}>
                     <div className={s.author}>{addressFormat(author?.address, 8)}</div>
-                    <div className={s.ddetial} onClick={() => seeDetail(referendum_index)}>提案详情</div>
+                    <div className={s.ddetial} onClick={() => seeDetail(referendum_index)}>{lanWrap('Details of the proposal')}</div>
                 </div>
-                <div className={s.rowTitle}>投票剩余时间</div>
+                <div className={s.rowTitle}>{lanWrap('Voting time remaining')}</div>
                 <div className={s.author}>{textList[index]}</div>
-                <div className={s.rowTitle}>投票参与度</div>
+                <div className={s.rowTitle}>{lanWrap('Voting participation')}</div>
                 <div className={s.author}>{getVote(turnout || '0') || '0'}DOT({rateList[index]})</div>
                 <div className={s.splitLine} />
                 <div className={s.vote}>
-                    <div>支持: {getVote(aye_amount)}票</div>
-                    <div>反对：{getVote(nay_amount)}票</div>
+                    <div>{lanWrap('support')}: {getVote(aye_amount)}{lanWrap('polls')}</div>
+                    <div>{lanWrap('oppose')}：{getVote(nay_amount)}{lanWrap('polls')}</div>
                 </div>
                 <div className={s.voteBar}>
                     <div className={s.ayeBar} style={{ width: parseInt(aye_amount) / (parseInt(nay_amount) + parseInt(aye_amount)) * 3.19 + 'rem'}}/>
                 </div>
                 <div className={s.btnGroup}>
-                    <div className={cx(s.btn, s.sBtn)} onClick={() => vote('support', index)}>支持</div>
-                    <div className={cx(s.btn, s.rBtn)} onClick={() => vote('reject', index)}>反对</div>
+                    <div className={cx(s.btn, s.sBtn)} onClick={() => vote('support', index)}>{lanWrap('support')}</div>
+                    <div className={cx(s.btn, s.rBtn)} onClick={() => vote('reject', index)}>{lanWrap('oppose')}</div>
                 </div>
             </ div>
         })

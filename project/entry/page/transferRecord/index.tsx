@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 20:45:53
+ * @Last Modified time: 2021-03-20 21:18:46
  */
 
 import React, { FC, useEffect, useState, useReducer, useRef } from 'react';
@@ -56,10 +56,11 @@ const Entry:FC = function() {
     );
 
     //  国际化的包裹函数
-    const lanWrap = (input: string) => t(`democracy:${input}`);
+    const lanWrap = (input: string) => t(`transRecord:${input}`);
 
     //  const TargetAdd = '165ketsk66SBVQi7d8w2z1McVnUNkJzbWVqpA9hRanznigDV';
-    const TargetAdd = '1ugnSE55RvN3CkjH3YetBg1iS5Rs7ZNGJ6LkUhbLS4Lrs7U';
+    //  超长1ugnSE55RvN3CkjH3YetBg1iS5Rs7ZNGJ6LkUhbLS4Lrs7U
+    const TargetAdd = globalStore.currentAccount.address;
 
     const observerInstance = useRef<IntersectionObserver>();
 
@@ -85,7 +86,6 @@ const Entry:FC = function() {
     useEffect(() => {
         observerInstance.current = new IntersectionObserver(async () => {
             const { hasMore, isFetching } = Outer.current;
-            console.log('ovxxx', Outer.current);
             if (isFetching) {
                 return;
             }
@@ -116,9 +116,9 @@ const Entry:FC = function() {
         });
         const { hasMore, isFetching } = stateObj;
         return <div className={s.listWrap}>
-            {ItemList}
+            {tarr.length ? ItemList : (isFetching ? null : <div className={s.empty}>{lanWrap('There is no record')}</div>)}
             {isFetching && <div className={s.center}><Spin /></div>}
-            <div className={s.observer} id='observerObj'>{hasMore ? '' : '没有更多了'}</div>
+            <div className={s.observer} id='observerObj'>{hasMore ? '' : lanWrap('No more')}</div>
         </div>
     }
 
@@ -129,15 +129,15 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={'交易记录'}/>
+            <HeadBar word={lanWrap('Transaction records')}/>
             <Tabs defaultActiveKey={TAB_MAP.ALL} onChange={setTab} centered className='TRtabWrap'>
-                <TabPane tab="全部" key={TAB_MAP.ALL}>
+                <TabPane tab={lanWrap('all')} key={TAB_MAP.ALL}>
                     {List(AllAry)}
                 </TabPane>
-                <TabPane tab="转入" key={TAB_MAP.INCOME}>
+                <TabPane tab={lanWrap('income')} key={TAB_MAP.INCOME}>
                     {List(inArr)}
                 </TabPane>
-                <TabPane tab="转出" key={TAB_MAP.OUT}>
+                <TabPane tab={lanWrap('Transfer out')} key={TAB_MAP.OUT}>
                     {List(outArr)}
                 </TabPane>
             </Tabs>

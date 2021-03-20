@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-18 23:45:02
+ * @Last Modified time: 2021-03-20 22:03:52
  */
 import React, { FC, useEffect, useReducer, useMemo, useState } from 'react';
 import { runInAction, toJS } from 'mobx';
@@ -111,39 +111,37 @@ const HomePage:FC = function() {
                     <div className={s.balance}>{balance} DOT</div>
                     <div className={s.usd}>$0.00 USD</div>
                     <div className={s.balanceDetial}>
-                        <div>
+                        <div className={s.aWrap}>
                             <div>{lockBalance} DOT</div>
-                            <div>锁定</div>
+                            <div>{t('home:locked')}</div>
                         </div>
                         <div className={s.split}/>
-                        <div>
+                        <div className={s.aWrap}>
                             <div>{parseFloat(balance) - parseFloat(lockBalance) - parseFloat(preserveDot) / Math.pow(10, 10)} DOT</div>
-                            <div>可用</div>
+                            <div>{t('home:Available balance')}</div>
                         </div>
                     </div>
                 </Spin>
                 <div className={s.tWrap}>
                     <div onClick={() => jump(PAGE_NAME.RECIENT)}>
-                        <div className={s.inAccount} />
-                        {t('home:receiving')}
+                        <div className={s.grayBtn}>{t('home:receiving')}</div>
                     </div>
                     <div onClick={() => jump(PAGE_NAME.TRANSFER)}>
-                        <div className={s.out}/>
-                        {t('home:transfer')}
+                        <div className={s.grayBtn}>{t('home:transfer')}</div>
                     </div>
                 </div>
                 <div className={s.bottomRouter}>
                     <div className={s.iconWrap} onClick={() => jump(PAGE_NAME.DEMOCRACY)}>
                         <div className={cx(s.img, s.democracy)}/>
-                        <div className={s.bTitle}>网络治理</div>
+                        <div className={s.bTitle}>{t('home:Network Governance')}</div>
                     </div>
                     <div className={s.iconWrap} onClick={() => jump(PAGE_NAME.TRANSFER_RECORD)}>
                         <div className={cx(s.img, s.record)}/>
-                        <div className={s.bTitle}>交易记录</div>
+                        <div className={s.bTitle}>{t('home:Transaction records')}</div>
                     </div>
                     <div className={s.iconWrap}>
                         <div className={cx(s.img, s.browser)} onClick={seeBloclBrowser}/>
-                        <div className={s.bTitle}>区块浏览器</div>
+                        <div className={s.bTitle}>{t('home:Polkadot Explorer')}</div>
                     </div>
                 </div>
             </>

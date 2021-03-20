@@ -9,3 +9,4 @@ export const time: string;
 export const listWrap: string;
 export const observer: string;
 export const center: string;
+export const empty: string;
