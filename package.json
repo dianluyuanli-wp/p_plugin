@@ -5,6 +5,7 @@
         "start": "node ./bin/start",
         "dev": "webpack-dev-server",
         "build": "webpack --color --config webpack.config.js",
+        "pbuild": "webpack --color --config webpack.config.js --pluginBuild",
         "clear": "node project/script/pre-commit.js",
         "deploy": "npm run build && node writeHtml.js"
     },
@@ -14,6 +15,8 @@
         "@polkadot/api": "^4.1.1",
         "@polkadot/api-contract": "^4.1.1",
         "@polkadot/extension-base": "^0.37.2",
+        "@polkadot/extension-chains": "^0.37.2",
+        "@polkadot/extension-inject": "^0.37.2",
         "@polkadot/keyring": "6.0.5",
         "@polkadot/metadata": "^4.1.1",
         "@polkadot/rpc-provider": "^4.1.1",

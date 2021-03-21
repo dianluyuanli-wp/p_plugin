@@ -3,8 +3,23 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const tsImportPluginFactory = require("ts-import-plugin");
 
-module.exports = {
-    context: path.resolve(__dirname),
+//  判断是否是插件辅助文件打包
+const isPluginFileBuild = process.argv.includes('--pluginBuild');
+
+const config = isPluginFileBuild ? {
+    //  打包bg.js,injeted.js,content.js等
+    entry: {
+        background: ['./project/pluginFile/background.ts'],
+        content: ['./project/pluginFile/content.ts'],
+        injectScript: ['./project/pluginFile/injectScript.ts'],
+    },
+    output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'plugin'),
+        publicPath: 'http://localhost:3000/'
+    },
+} : {
+    //  打包插件主体
     entry: {
         app: ['./project/entry/index.tsx']
     },
@@ -36,6 +51,11 @@ module.exports = {
             },
         },
     },
+};
+
+module.exports = {
+    context: path.resolve(__dirname),
+    ...config,
     plugins: [
         new MiniCssExtractPlugin({      //对css进行打包，webpack4推荐语法
             filename: "[name].css",
@@ -43,6 +63,12 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
+    watch: true,
+    watchOptions: {
+        poll: 1, // 每秒询问多少次
+        aggregateTimeout: 500,  //防抖 多少毫秒后再次触发
+        ignored: /node_modules/ //忽略时时监听
+    },
     module: {
         rules: [
             {
@@ -131,12 +157,6 @@ module.exports = {
                 type: 'javascript/auto'
             },
         ]
-    },
-    watch: true,
-    watchOptions: {
-        poll: 1, // 每秒询问多少次
-        aggregateTimeout: 500,  //防抖 多少毫秒后再次触发
-        ignored: /node_modules/ //忽略时时监听
     },
     resolve: {
         extensions: [

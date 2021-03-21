@@ -8,6 +8,27 @@
         "default_title": "polkadot plugin",
         "default_icon": "pIcon.png"
     },
+    "background": {
+      "scripts": [
+        "background.js"
+      ],
+      "persistent": true
+    },
+    "content_scripts": [
+      {
+        "js": [
+          "content.js"
+        ],
+        "matches": [
+          "http://*/*",
+          "https://*/*"
+        ],
+        "run_at": "document_start"
+      }
+    ],
+    "web_accessible_resources": [
+      "injectScript.js"
+    ],
     "content_security_policy": "script-src 'self' blob: 'unsafe-eval' 'wasm-eval'; object-src 'self'",
     "commands": {
         "_execute_browser_action": {

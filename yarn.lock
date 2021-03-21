@@ -1081,6 +1081,14 @@
     "@polkadot/phishing" "^0.6.1"
     "@polkadot/ui-keyring" "^0.70.1"
 
+"@polkadot/extension-chains@^0.37.2":
+  version "0.37.2"
+  resolved "https://registry.yarnpkg.com/@polkadot/extension-chains/-/extension-chains-0.37.2.tgz#a5414c03adec490a993f5ebdf6c25d3ca99a88eb"
+  integrity sha512-9IyXr47F/ahzLKyd8LDI0jcUnXrDLIftcLEConLMy/a1LzArkGCuUpvRboOJ6OsQd4IZpChvPRq2XrdTPdCxGA==
+  dependencies:
+    "@babel/runtime" "^7.13.8"
+    "@polkadot/networks" "^5.9.2"
+
 "@polkadot/extension-inject@^0.37.2":
   version "0.37.2"
   resolved "https://registry.yarnpkg.com/@polkadot/extension-inject/-/extension-inject-0.37.2.tgz#4b890cc98468683ac70b980460259f5b145baaf6"
