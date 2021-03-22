@@ -74,6 +74,7 @@
     line-height: .48rem;
     border-radius: .02rem;
     background-color: #358FB6;
+    cursor: pointer;
 }
 
 .tableWrap {

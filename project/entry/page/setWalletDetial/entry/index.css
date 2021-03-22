@@ -14,6 +14,7 @@
     height: .48rem;
     color: #333333;
     margin-bottom: .01rem;
+    cursor: pointer;
 }
 
 .topItem {
@@ -68,4 +69,5 @@
     text-align: center;
     color: #FF3333;
     line-height: .48rem;
+    cursor: pointer;
 }

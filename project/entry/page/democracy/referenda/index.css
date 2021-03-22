@@ -123,6 +123,7 @@
     color: #ffffff;
     border-radius: .02rem;
     font-size: .14rem;
+    cursor: pointer;
 }
 
 .sBtn {

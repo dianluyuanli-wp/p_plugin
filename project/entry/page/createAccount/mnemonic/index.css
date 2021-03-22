@@ -38,6 +38,7 @@
     flex-direction: column;
     background-image: url('./image/mask.png');
     background-size: 100% 100%;
+    cursor: pointer;
 }
 
 .lock {
@@ -66,6 +67,7 @@
     border-radius: .03rem;
     background-color: #C7E3F0;
     user-select: none;
+    cursor: pointer;
 }
 
 .showContent {
@@ -97,6 +99,7 @@
     display: inline-block;
     vertical-align: top;
     user-select: none;
+    cursor: pointer;
 }
 
 .grayTag {

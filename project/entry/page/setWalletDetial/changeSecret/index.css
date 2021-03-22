@@ -36,6 +36,7 @@
     text-align: center;
     line-height: .48rem;
     background-color: #C7E3F0;
+    cursor: pointer;
 }
 
 .active {

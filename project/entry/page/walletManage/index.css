@@ -48,6 +48,7 @@
     width: .15rem;
     height: .15rem;
     background-size: 100%;
+    cursor: pointer;
     background-image: url('./img/add.png');
 }
 
@@ -67,6 +68,7 @@
     border: .01rem solid #F2F2F2;
     margin-bottom: .12rem;
     border-radius: .02rem;
+    cursor: pointer;
 }
 
 .firRow {

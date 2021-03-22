@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-22 22:36:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-20 22:03:52
+ * @Last Modified time: 2021-03-22 22:41:29
  */
 import React, { FC, useEffect, useReducer, useMemo, useState } from 'react';
 import { runInAction, toJS } from 'mobx';
@@ -15,7 +15,7 @@ import { observer } from 'mobx-react';
 import { myFormatBalance, addressFormat } from '@utils/tools';
 import { Spin, message } from 'antd';
 import copyContent from 'copy-to-clipboard';
-import { getAddInfo } from '@entry/service';
+import { getAddInfo, getDotInfo } from '@entry/service';
 import { keyring } from '@polkadot/ui-keyring';
 import s from './index.css';
 import cx from 'classnames';
@@ -36,6 +36,19 @@ const HomePage:FC = function() {
         i18n.changeLanguage(i18n.language=='en'?'zh':'en')
     }
 
+    //  拉取dot兑美元汇率
+    useEffect(() => {
+        async function getInfo() {
+            if (globalStore.dotToDollar === '0') {
+                const res = await getDotInfo();
+                runInAction(() => {
+                    globalStore.dotToDollar = res?.data?.detail?.DOT?.price || '0';
+                })
+            }
+        }
+        getInfo();
+    }, [])
+
     function comLeft() {
         const [value, setValue] = useState({
             balance: '0',
@@ -49,7 +62,6 @@ const HomePage:FC = function() {
                 if (!address) {
                     return;
                 }
-                console.log(address, 'add');
                 const endoceAdd = keyring.encodeAddress(address);
                 const res = await getAddInfo(endoceAdd);
                 const { balance = 0, lock = 0, reserved = 0 } = res?.data?.account || {};
@@ -65,7 +77,7 @@ const HomePage:FC = function() {
                 })
             }
             com();
-        }, [globalStore.currentAccount])
+        }, [globalStore.currentAccount, globalStore.dotToDollar])
         return value;
     }
 
@@ -90,6 +102,7 @@ const HomePage:FC = function() {
     function AccountPage() {
         const target = currentAccount;
         const { address, meta } = target;
+        const useDolar = (parseFloat(balance) * parseFloat(globalStore.dotToDollar)).toFixed(4);
         return (
             <>
                 <div className={s.head}>
@@ -109,7 +122,7 @@ const HomePage:FC = function() {
                 <div className={s.pIcon}/>
                 <Spin spinning={balance === ''}>
                     <div className={s.balance}>{balance} DOT</div>
-                    <div className={s.usd}>$0.00 USD</div>
+                    <div className={s.usd}>${useDolar} USD</div>
                     <div className={s.balanceDetial}>
                         <div className={s.aWrap}>
                             <div>{lockBalance} DOT</div>

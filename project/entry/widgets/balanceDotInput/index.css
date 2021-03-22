@@ -7,6 +7,7 @@
     height: .48rem;
     width: .7rem;
     user-select: none;
+    cursor: pointer;
 }
 
 .split {

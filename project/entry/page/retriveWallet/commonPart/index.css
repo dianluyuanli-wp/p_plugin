@@ -25,6 +25,7 @@
     border-radius: .02rem;
     font-size: .14rem;
     user-select: none;
+    cursor: pointer;
 }
 
 .btnActive {

@@ -17,6 +17,7 @@
     position: absolute;
     top: .21rem;
     left: .13rem;
+    cursor: pointer;
 }
 
 .addIcon {
@@ -27,4 +28,5 @@
     position: absolute;
     top: .14rem;
     right: .09rem;
+    cursor: pointer;
 }

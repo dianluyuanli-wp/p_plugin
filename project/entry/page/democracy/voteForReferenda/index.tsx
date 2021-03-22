@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-07 15:32:20 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-20 21:31:40
+ * @Last Modified time: 2021-03-22 22:13:56
  */
 
 import React, { FC, useReducer } from 'react';
@@ -26,6 +26,10 @@ import BottonBtn from '@widgets/bottomBtn';
 interface infoVote {
     errStr?: string;
     ableDot?: number;
+}
+
+interface HisState {
+    index: number
 }
 
 const Entry = function() {
@@ -57,10 +61,11 @@ const Entry = function() {
     }
 
     function nextSetp() {
+        const { index } = history.location.state as HisState;
         if (stateObj.errStr || !democrcacyStore.voteDot) {
             message.error(lanWrap('Wrong number of votes'))
         } else {
-            history.push(PAGE_NAME.DEMOCRACY_CHECK)
+            history.push(PAGE_NAME.DEMOCRACY_CHECK, { index })
         }
     }
 
@@ -75,7 +80,7 @@ const Entry = function() {
     return (
         <Observer>{
             () => <div className={s.wrap}>
-                <HeadBar word={lanWrap('Wrong number of votes')}/>
+                <HeadBar word={lanWrap('Chain referendum')}/>
                 <div className={s.contentWrap}>
                     <div className={s.bWapr}>
                         <div className={s.title}>{lanWrap('Number of votes')}</div>

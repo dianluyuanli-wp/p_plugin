@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 08:50:12 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-05 09:39:13
+ * @Last Modified time: 2021-03-22 21:57:39
  */
 
 import React, { FC } from 'react';
@@ -36,12 +36,12 @@ const Entry:FC = function() {
                     <div className={s.arrow}/>
                 </div>
             </div>
-            <div className={s.item} onClick={() => jump(PAGE_NAME.GENERAL_SETTING_AUTOLOCK)}>
+            {/* <div className={s.item} onClick={() => jump(PAGE_NAME.GENERAL_SETTING_AUTOLOCK)}>
                 <div>{lanWrap('Auto lock')}</div>
                 <div className={s.right}>
                     <div className={s.arrow}/>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

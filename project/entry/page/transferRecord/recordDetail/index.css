@@ -70,6 +70,7 @@
 .bottomContent {
     justify-content: space-between;
     padding-right: .13rem;
+    cursor: pointer;
     margin-top: .01rem;
 }
 

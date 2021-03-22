@@ -31,5 +31,6 @@
     font-size: .14rem;
     text-align: center;
     line-height: .48rem;
+    cursor: pointer;
     background-color: #0273A4;
 }

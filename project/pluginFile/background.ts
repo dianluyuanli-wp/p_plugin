@@ -25,15 +25,39 @@ chrome.runtime.onConnect.addListener((port): void => {
 });
 
 // initial setup
-// cryptoWaitReady()
-//   .then((): void => {
-//     console.log('crypto initialized');
+cryptoWaitReady()
+  .then((): void => {
+    console.log('crypto initialized');
 
-//     // load all the keyring data
-//     keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
+    // load all the keyring data
+    keyring.loadAll({ store: new AccountsStore(), type: 'sr25519' });
 
-//     console.log('initialization completed');
-//   })
-//   .catch((error): void => {
-//     console.error('initialization failed', error);
-//   });
+    console.log('initialization completed');
+  })
+  .catch((error): void => {
+    console.error('initialization failed', error);
+});
+
+//  manifeast
+
+// "background": {
+//     "scripts": [
+//       "background.js"
+//     ],
+//     "persistent": true
+//   },
+//   "content_scripts": [
+//     {
+//       "js": [
+//         "content.js"
+//       ],
+//       "matches": [
+//         "http://*/*",
+//         "https://*/*"
+//       ],
+//       "run_at": "document_start"
+//     }
+//   ],
+//   "web_accessible_resources": [
+//     "injectScript.js"
+//   ],

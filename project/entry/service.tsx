@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-12 23:35:58 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-12 23:37:16
+ * @Last Modified time: 2021-03-22 22:31:04
  */
 
 import { postReq } from '@utils/request';
@@ -17,3 +17,7 @@ export function getAddInfo(address: string) {
     })
 }
 
+//  用于拉取获取
+export function getDotInfo() {
+    return postReq(`${SUBSCAN_DOMAIN}/api/scan/token`, {})
+}
