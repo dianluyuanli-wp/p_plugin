@@ -15,18 +15,88 @@ const CreactAccount:FC = function() {
     let { t } = useTranslation();
     //  国际化的包裹函数
     const lanWrap = (input: string) => t(`userAgreement:${input}`);
+
+    const ContentArr = [
+        { classN: cx(s.bold, s.center, s.big), content: lanWrap('title')},
+        { classN: cx(s.bold), content: lanWrap('introducton1-0')},
+        { classN: cx(s.bold), content: lanWrap('introducton1-1')},
+        { classN: cx(s.bold), content: lanWrap('int1-3')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c1-0')},
+        { classN: cx(s.bold), content: lanWrap('c1-1')},
+        { classN: cx(s.bold), content: lanWrap('c1-2')},
+        { classN: cx(s.bold), content: lanWrap('c1-3')},
+        { classN: cx(s.bold), content: lanWrap('c1-4')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c2-0')},
+        { classN: '', content: lanWrap('c2-1')},
+        { classN: cx(s.bold), content: lanWrap('c2-2')},
+        { classN: '', content: lanWrap('c2-3')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c2-4')},
+        { classN: '', content: lanWrap('c3-1')},
+        { classN: cx(s.bold), content: lanWrap('c3-2')},
+        { classN: '', content: lanWrap('c3-3')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-0')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-1')},
+        { classN: cx(s.ident), content: lanWrap('c4-2')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-3')},
+        { classN: cx(s.ident), content: lanWrap('c4-4')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-5')},
+        { classN: cx(s.ident), content: lanWrap('c4-6')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-7')},
+        { classN: cx(s.ident), content: lanWrap('c4-8')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-9')},
+        { classN: cx(s.ident), content: lanWrap('c4-10')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-11')},
+        { classN: cx(s.ident), content: lanWrap('c4-12')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-13')},
+        { classN: cx(s.ident), content: lanWrap('c4-14')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-15')},
+        { classN: cx(s.ident), content: lanWrap('c4-16')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-17')},
+        { classN: cx(s.ident), content: lanWrap('c4-18')},
+        { classN: cx(s.bold, s.big), content: lanWrap('c4-19')},
+        { classN: cx(s.ident), content: lanWrap('c4-20')},
+        { classN: cx(s.bold), content: lanWrap('c4-21')},
+        { classN: cx(s.bold, s.center, s.big), content: lanWrap('title2')},
+        { classN: cx(s.bold), content: lanWrap('introducton1-0')},
+        { classN: cx(s.bold), content: lanWrap('introducton1-1')},
+        { classN: cx(s.bold), content: lanWrap('p1-0')},
+        { classN: cx(s.bold, s.ident), content: lanWrap('p1-1')},
+        { classN: cx(s.bold, s.ident), content: lanWrap('p1-2')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-3')},
+        { classN: cx(s.ident), content: lanWrap('p1-4')},
+        { classN: cx(s.ident, s.bold,), content: lanWrap('p1-5')},
+        { classN: cx(s.ident), content: lanWrap('p1-6')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-7')},
+        { classN: cx(s.ident), content: lanWrap('p1-8')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-9')},
+        { classN: cx(s.ident), content: lanWrap('p1-10')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-11')},
+        { classN: cx(s.ident), content: lanWrap('p1-12')},
+        { classN: cx(s.ident, s.bold), content: lanWrap('p1-13')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-14')},
+        { classN: cx(s.ident), content: lanWrap('p1-15')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-16')},
+        { classN: cx(s.ident), content: lanWrap('p1-17')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-18')},
+        { classN: cx(s.ident), content: lanWrap('p1-19')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-20')},
+        { classN: cx(s.ident, s.bold), content: lanWrap('p1-21')},
+        { classN: cx(s.bold, s.big), content: lanWrap('p1-22')},
+        { classN: cx(s.ident), content: lanWrap('p1-23')},
+        { classN: cx(s.bold), content: lanWrap('p1-24')},
+    ]
+
+    function getContent() {
+        return ContentArr.map((item, index) => {
+            const { classN, content } = item;
+            return <p className={classN} key={index}>{content}</p>
+        })
+    }
     return (
         <div className={s.wrap}>
             <HeadBar word={lanWrap('User agreement')}/>
-            <div className={s.title}>kitter用户协议</div>
-            <div className={s.content}>
-                <div className={s.tag}>最新更新时间：2020年12月15日</div>
-                <div className={s.tag}>尊敬的用户</div>
-                <div>感谢您选择Kiter的服务。《Kiter服务协议》（以下简称“本协议”）由CHAINBRIDGE PTE. LTD.（以下简称“本公司”，公司注册号：202000958N，注册地址：9 Temasek Boulevard #04-02 Suntec Tower Two Singapore 038989）和您（以下简称“用户”）签订，本协议在您与本公司之间具有合同上的法律效力。在本协议中：（1）“我们”指代本公司，“我们的”应据此解释；（2）“您”指代用户，“您的”应据此解释。您和本公司单独称为“一方”，合称为“双方”。
-本公司在此特别提醒您，在使用Kiter应用（以下简称“Kiter” 或“本软件”，Kiter可在各移动应用平台上下载，包括但不限于Google Play和Apple App Store）之前，请认真阅读本协议及后文提及的相关协议，尤其是本协议中“免责及责任限制”等以加粗形式体现的条款，确保您充分理解本协议中各条款，并自主考虑风险。
-一、 关于本协议的确认与接纳
-1.您理解本协议及有关协议适用于Kiter及Kiter上本公司所自主开发和拥有的去中心化
-</div>
+            <div className={s.contentWrap}>
+                {getContent()}
             </div>
         </div>
     )
