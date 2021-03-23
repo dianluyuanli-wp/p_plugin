@@ -16,6 +16,7 @@ import { addressFormat } from '@utils/tools';
 import { dotStrToTransferAmount } from '@utils/tools';
 import { keyring } from '@polkadot/ui-keyring';
 import DotInput from '@widgets/balanceDotInput';
+import { message } from 'antd';
 
 import { Input, AutoComplete } from 'antd';
 
@@ -151,7 +152,7 @@ const Transfer:FC = function() {
                 try {
                     const tx = api.tx.balances.transfer(targetAdd, dotStrToTransferAmount(transferAmount));
                     const hash = await tx.signAndSend(sendPair);
-                    console.log(hash);
+                    message.info(lanWrap('success'))
                 } catch (e) {
                     if (e.toString().includes('Invalid Transaction: Inability to pay some fees')) {
                         setState({ errMsg: lanWrap('The balance is too low')})

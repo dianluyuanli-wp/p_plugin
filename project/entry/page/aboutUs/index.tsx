@@ -39,7 +39,7 @@ const Entry:FC = function() {
         <div className={s.wrap}>
             <HeadBar word={t('aboutUs:about kitter')}/>
             <div className={s.logo} />
-            <div className={s.title}>Kiter</div>
+            <div className={s.title}>Doter</div>
             <div className={s.title}>v0.1.0</div>
             {renderItem()}
         </div>

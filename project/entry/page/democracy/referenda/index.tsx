@@ -138,11 +138,13 @@ const Referenda:FC = function() {
                 </div>
                 <div className={s.rowTitle}>{lanWrap('Sponsor')}</div>
                 <div className={s.authorWrap}>
-                    <div className={s.author}>{addressFormat(author?.address, 8)}</div>
+                    <div className={s.author}>{addressFormat(author?.address || '', 8)}</div>
                     <div className={s.ddetial} onClick={() => seeDetail(referendum_index)}>{lanWrap('Details of the proposal')}</div>
                 </div>
                 <div className={s.rowTitle}>{lanWrap('Voting time remaining')}</div>
-                <div className={s.author}>{textList[index]}</div>
+                <Spin spinning={!textList[index]}>
+                    <div className={s.author}>{textList[index]}</div>
+                </Spin>
                 <div className={s.rowTitle}>{lanWrap('Voting participation')}</div>
                 <div className={s.author}>{getVote(turnout || '0') || '0'}DOT({rateList[index]})</div>
                 <div className={s.splitLine} />

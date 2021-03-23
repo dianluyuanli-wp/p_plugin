@@ -25,7 +25,8 @@ export const transferEn = {
     'Please input a password': 'Please input a password',
     'Transfer': 'Transfer',
     'next step': 'next step',
-    'confirm': 'confirm'
+    'confirm': 'confirm',
+    'success': 'success'
 }
 
 export const transferZh = {
@@ -48,5 +49,6 @@ export const transferZh = {
     'Please input a password': '请输入密码',
     'Transfer': '转账',
     'next step': '下一步',
-    'confirm': '确认'
+    'confirm': '确认',
+    'success': '成功'
 }

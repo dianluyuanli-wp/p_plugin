@@ -21,7 +21,7 @@ export const homeEn = {
     'Polkadot Explorer': 'Polkadot Explorer',
 }
 export const homeCn = {
-    'kitter is a polkadot wallet': 'Kiter是波卡网络的治理钱包',
+    'kitter is a polkadot wallet': 'Doter是波卡网络的治理钱包',
     'welcome to use': '欢迎使用',
     'create wallet': '创建钱包',
     'import wallet': '导入钱包',

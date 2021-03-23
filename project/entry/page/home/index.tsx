@@ -108,7 +108,7 @@ const HomePage:FC = function() {
                 <div className={s.head}>
                     <div className={s.leftTitle}>
                         <div className={s.titleIcon} />
-                        <div>Kitter {statusIcon()}</div>
+                        <div>Doter {statusIcon()}</div>
                     </div>
                     <div className={s.toolIcon} onClick={() => jump(PAGE_NAME.SET_PANEL)}/>
                 </div>

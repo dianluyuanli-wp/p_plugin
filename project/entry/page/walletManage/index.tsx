@@ -59,7 +59,7 @@ const WalletManage:FC = function() {
             return <div key={index} className={s.accountWrap} onClick={() => changeFavorite(address)}>
                 <div className={s.firRow}>
                     <div className={s.ffRow}>
-                        <div className={cx(s.point, address === globalStore.favoriteAccount ? s.activePoint : '')}/>
+                        <div className={cx(s.point, address === globalStore.currentAccount.address ? s.activePoint : '')}/>
                         <div className={s.aName}>{meta.name}</div>
                     </div>
                     <div className={s.tail} onClick={(e) => toSingleManage(e, address)}>···</div>

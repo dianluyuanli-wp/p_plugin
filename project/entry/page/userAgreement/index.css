@@ -11,6 +11,8 @@
     font-size: .1rem;
     background-color: #ffffff;
     white-space: pre-line;
+    padding-left: .16rem;
+    padding-right: .16rem;
 }
 
 .contentWrap::-webkit-scrollbar {
@@ -44,7 +46,7 @@
 }
 
 .ident {
-    text-indent: 2em;
+    /* text-indent: 2em; */
 }
 
 .center {

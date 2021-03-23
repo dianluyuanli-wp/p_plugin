@@ -86,7 +86,7 @@ const SecretPart:FC = function() {
         const contentMap = {
             [INFO_STATUS.COMMON]: () => <>
                 <div className={s.info}>{mnLan('No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols')}</div>
-                <div className={s.info}>{mnLan("This password will be used as the transaction password of the wallet. Kiter can't provide password recovery function. Please keep your wallet password properly!")}</div>
+                <div className={s.info}>{mnLan("This password will be used as the transaction password of the wallet. doter can't provide password recovery function. Please keep your wallet password properly!")}</div>
             </>,
             [INFO_STATUS.CHECK_AGREEMENT]: () => <div className={s.info}>{mnLan('Please check the user agreement')}</div>,
             [INFO_STATUS.SECRET_NOT_EQUAL]: () => <div className={s.info}>{mnLan('The password is inconsistent')}</div>,
