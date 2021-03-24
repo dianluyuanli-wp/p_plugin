@@ -1,5 +1,10 @@
 # What Is Doter
-Doter is a chrome wallet extension for polkadot ecosystem. User can import or create the accounts with the wallet, and to transfer dot to some other account or join in the ecosystem governance. 
+Doter is a chrome wallet extension for polkadot ecosystem. User can import or create the accounts with the wallet, and to transfer dot to some other account or join in the ecosystem governance.  
+## the home page
+![home page](docs/home.png)
+
+## transfer
+![transfer](docs/transfer.png)
 
 # How To Develop
 1. `yarn install` to install the dependencies 
