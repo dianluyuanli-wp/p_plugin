@@ -1,6 +1,7 @@
 # title
-基于chrome extension的Polkadot 生态插件
+基于chrome extension的Polkadot 生态钱包插件
 
-# 初始化
-因为内含polkadot的包，必须用yarn安装
-yarn install 
+# develop
+`yarn install` to install the dependencies 
+`yarn build` to build the extension  
+then the bundle result will be in the `plugin` file
