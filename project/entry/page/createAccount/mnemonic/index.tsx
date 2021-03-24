@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 23:52:15
+ * @Last Modified time: 2021-03-24 23:16:17
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -69,7 +69,7 @@ const CreactMnemonic:FC = function() {
                 words: wordsList,
                 pickWords: [],
                 randomSortWords: wordsList.slice()
-                //  .sort(() => Math.random() - 0.5)
+                .sort(() => Math.random() - 0.5)
             })
         }
         init();
