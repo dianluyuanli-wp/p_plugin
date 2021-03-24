@@ -30,7 +30,7 @@ const SetPanel:FC = function() {
             <div className={cx(s.item, s.wallet)} onClick={() => jump(PAGE_NAME.WALLET_MANAGE)}>{lanWrap('Wallet management')}</div>
             <div className={cx(s.item, s.add)} onClick={() => jump(PAGE_NAME.RECIPIENT_ADDRESS)}>{lanWrap('Transfer address')}</div>
             <div className={cx(s.item, s.common)} onClick={() => jump(PAGE_NAME.GENERAL_SETTING)}>{lanWrap('General settings')}</div>
-            <div className={cx(s.item, s.about)} onClick={() => jump(PAGE_NAME.ABOUT_US)}>{lanWrap('About kitter')}</div>
+            <div className={cx(s.item, s.about)} onClick={() => jump(PAGE_NAME.ABOUT_US)}>{lanWrap('About doter')}</div>
             <div className={cx(s.item, s.agreement)} onClick={() => jump(PAGE_NAME.USER_AGREEMENT)}>{lanWrap('User agreement')}</div>
         </div>
     )

@@ -10,7 +10,7 @@ export const setPanelEn = {
     'Wallet management': 'Wallet management',
     'Transfer address': 'Transfer address',
     'General settings': 'General settings',
-    'About kitter': 'About kitter',
+    'About doter': 'About doter',
     'User agreement': 'User agreement',
     
 }
@@ -20,7 +20,7 @@ export const setPanelZh = {
     'Wallet management': '钱包管理',
     'Transfer address': '转账地址',
     'General settings': '通用',
-    'About kitter': '关于Kitter',
+    'About doter': '关于doter',
     'User agreement': '用户协议',
 
 }

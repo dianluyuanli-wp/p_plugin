@@ -29,6 +29,7 @@
     font-size: .14rem;
     color: #333333;
     border-bottom: .01rem solid #fafafa;
+    cursor: pointer;
 }
 
 .link {

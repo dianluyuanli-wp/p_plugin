@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-03 09:12:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 23:10:07
+ * @Last Modified time: 2021-03-24 23:39:18
  */
 
 import React, { FC } from 'react';
@@ -37,10 +37,10 @@ const Entry:FC = function() {
 
     return (
         <div className={s.wrap}>
-            <HeadBar word={t('aboutUs:about kitter')}/>
+            <HeadBar word={t('aboutUs:about Doter')}/>
             <div className={s.logo} />
             <div className={s.title}>Doter</div>
-            <div className={s.title}>v0.1.0</div>
+            <div className={s.title}>v0.0.1</div>
             {renderItem()}
         </div>
     )

@@ -165,7 +165,7 @@ const HomePage:FC = function() {
             <div className={s.wrap}>
                 <div className={s.loggo} onClick={changeLanguage}/>
             </div>
-            <div className={s.word}>{t('home:kitter is a polkadot wallet')}</div>
+            <div className={s.word}>{t('home:doter is a polkadot wallet')}</div>
             <div className={s.word}>{t('home:welcome to use')}</div>
             <div className={cx(s.btn, s.create)} onClick={() => jump(PAGE_NAME.CREATE_ACCOUNT)}>{t('home:create wallet')}</div>
             <div className={cx(s.btn, s.importIcon)} onClick={() => jump(PAGE_NAME.RETRIEVE_WALLET)}>{t('home:import wallet')}</div>
