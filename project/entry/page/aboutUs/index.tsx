@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-03 09:12:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-24 23:39:18
+ * @Last Modified time: 2021-03-24 23:41:00
  */
 
 import React, { FC } from 'react';
@@ -24,8 +24,11 @@ const Entry:FC = function() {
     }
 
     function renderItem() {
-        const array = [{ text: t('aboutUs:website'), link: 'https://chainbridge.network'}, { text: 'Twitter', link: '@ChainBridgeNetwork'},
-            { text: t('aboutUs:WeChat official account'), link: 'ChainBridgeNetwork'}];
+        const array = [
+            //  { text: t('aboutUs:website'), link: 'https://chainbridge.network'},
+            { text: 'Twitter', link: '@ChainBridgeNetwork'},
+            //  { text: t('aboutUs:WeChat official account'), link: 'ChainBridgeNetwork'}
+        ];
         return array.map(item => {
             const { text, link } = item;
             return <div className={s.itemWrap} onClick={test} key={text}>
