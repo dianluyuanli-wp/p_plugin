@@ -20,7 +20,10 @@ chrome.runtime.onConnect.addListener((port): void => {
   assert([PORT_CONTENT, PORT_EXTENSION].includes(port.name), `Unknown connection from ${port.name}`);
 
   // message and disconnect handlers
-  port.onMessage.addListener((data): void => handlers(data, port));
+  port.onMessage.addListener((data): void => {
+    console.log(data, 'bg data');
+    handlers(data, port)
+  });
   port.onDisconnect.addListener((): void => console.log(`Disconnected from ${port.name}`));
 });
 

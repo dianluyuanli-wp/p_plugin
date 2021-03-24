@@ -17,10 +17,11 @@ port.onMessage.addListener((data): void => {
 // all messages from the page, pass them to the extension
 window.addEventListener('message', ({ data, source }: Message): void => {
   // only allow messages from our window, by the inject
+  console.log('in window post');
   if (source !== window || data.origin !== 'page') {
     return;
   }
-
+  console.log('in window post 2222');
   port.postMessage(data);
 });
 

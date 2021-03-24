@@ -2,10 +2,10 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-29 11:39:22 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-14 20:43:07
+ * @Last Modified time: 2021-03-24 20:46:23
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MobXProviderContext, Provider } from 'mobx-react';
 import Home from './page/home';
 import GlobalStore from './store';
@@ -35,10 +35,15 @@ import democracyVote from './page/democracy/voteForReferenda'; //   民主治理
 import democracyCheck from './page/democracy/voteCheck'; // 民主治理，投票确认
 import transferRecord from './page/transferRecord'; //  转账记录
 import transferRecordDetail from './page/transferRecord/recordDetail'; //   转账单笔详情
+import Authorize from './page/Authorize';
 import RetrieveStore from './page/retriveWallet/store';
 import DemocracyStore from './page/democracy/store';
 import { PAGE_NAME } from '@constants/app';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import type { AccountJson, AccountsContext, AuthorizeRequest, MetadataRequest, SigningRequest } from '@polkadot/extension-base/background/types';
+import { subscribeAccounts, subscribeAuthorizeRequests, subscribeMetadataRequests, subscribeSigningRequests } from '@utils/message/message';
+import { AuthorizeReqContext } from './context';
 
 function AppRouter() {
     const storeObj = {
@@ -48,7 +53,24 @@ function AppRouter() {
         DemocracyStore
     }
 
+    const [authRequests, setAuthRequests] = useState<null | AuthorizeRequest[]>(null);
+    useEffect((): void => {
+        Promise.all([
+          subscribeAuthorizeRequests(setAuthRequests),
+          //    subscribeSigningRequests(setSignRequests)
+        ]).catch(console.error);
+      }, []);
+
+    function Root() {
+        if (authRequests.length === 0) {
+            return <Home />;
+        } else {
+            return <Authorize />;
+        }
+    }
+
     return <MobXProviderContext.Provider value={storeObj}>
+        <AuthorizeReqContext.Provider value={authRequests}>
         <Router>
             <Switch>
                 {/* 账户创建页 */}
@@ -114,9 +136,10 @@ function AppRouter() {
                     </>
                 }} />
                 {/* 首页 */}
-                <Route path='' exact component={Home} />
+                <Route path='' exact component={Root} />
             </Switch>
         </Router>
+        </AuthorizeReqContext.Provider>
     </MobXProviderContext.Provider>
 }
 
