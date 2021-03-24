@@ -1,6 +1,7 @@
 {
     "name": "chrome_polkadot_extension",
     "version": "0.0.1",
+    "license": "Apache-2",
     "scripts": {
         "start": "node ./bin/start",
         "dev": "webpack-dev-server",
