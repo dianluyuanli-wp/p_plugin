@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-03 09:12:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-24 23:41:00
+ * @Last Modified time: 2021-03-24 23:45:58
  */
 
 import React, { FC } from 'react';
@@ -19,8 +19,8 @@ const Entry:FC = function() {
     const globalStore = useStores('GlobalStore') as globalStoreType;
     const history = useHistory();
 
-    function test() {
-        window.open('https://www.baidu.com/?tn=98012088_10_dg&ch=3',"_blank")
+    function jumpToLink(url: string) {
+        window.open(url,"_blank")
     }
 
     function renderItem() {
@@ -31,9 +31,9 @@ const Entry:FC = function() {
         ];
         return array.map(item => {
             const { text, link } = item;
-            return <div className={s.itemWrap} onClick={test} key={text}>
+            return <div className={s.itemWrap}  key={text}>
                 <div>{text}</div>
-                <div className={s.link}>{link}</div>
+                <div className={s.link} onClick={() => jumpToLink(link)}>{link}</div>
             </div>
         })
     }
