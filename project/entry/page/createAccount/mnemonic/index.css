@@ -16,8 +16,8 @@
 .info {
     font-size: .12rem;
     margin-bottom: .12rem;
-    height: .3rem;
     display: flex;
+    line-height: .14rem;
     justify-content: flex-start;
     align-items: center;
 }
@@ -102,9 +102,14 @@
     cursor: pointer;
 }
 
+.notPick {
+    cursor: auto;
+}
+
 .grayTag {
     border: .01rem solid #F2F2F2;
     color: #F2F2F2;
+    cursor: auto;
 }
 
 .ableBtn {

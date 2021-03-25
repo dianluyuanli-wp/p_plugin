@@ -2,18 +2,18 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-03 23:27:47 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-03 23:53:36
+ * @Last Modified time: 2021-03-25 22:20:14
  */
 
 export const homeEn = {
-    'doter is a polkadot wallet': 'doter is a polkadot wallet',
+    'doter is a polkadot wallet': 'Doter is a polkadot wallet',
     'welcome to use': 'welcome to use',
-    'create wallet': 'create wallet',
-    'import wallet': 'import wallet',
+    'create wallet': 'Create wallet',
+    'import wallet': 'Import wallet',
     'connecting': 'connecting',
     'receiving': 'receiving',
     'transfer': 'transfer',
-    'copy success': 'copy success',
+    'copy success': 'Available',
     'locked': 'locked',
     'Available balance': 'Available balance',
     'Network Governance': 'Network Governance',

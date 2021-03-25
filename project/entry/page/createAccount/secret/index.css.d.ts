@@ -8,4 +8,5 @@ export const secretIcon: string;
 export const canSee: string;
 export const canNotSee: string;
 export const createBtn: string;
+export const shadowBtn: string;
 export const pad: string;

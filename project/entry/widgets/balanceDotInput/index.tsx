@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-12 23:53:03 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-13 00:04:56
+ * @Last Modified time: 2021-03-25 22:25:08
  */
 
 import React, { FC, useReducer, useState } from 'react';
@@ -92,8 +92,8 @@ const DotInput:FC<BarProps> = function(props:BarProps) {
         <div className={wrapCls}>
             <Input onChange={(e) => inputAmount(e)}
                 addonAfter={amountIcon}
-                value={cValue}
-                className={cx('tInput', 'tMInput')} placeholder={'0'}/>
+                value={cValue === '0' ? '' : cValue}
+                className={cx('tInput', 'tMInput')}/>
             <div className={s.addressError}>{stateObj.transAmountErrMsg}</div>
         </div>
     )

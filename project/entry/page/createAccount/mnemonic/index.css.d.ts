@@ -9,6 +9,7 @@ export const bottomBtn: string;
 export const showContent: string;
 export const pickContent: string;
 export const tag: string;
+export const notPick: string;
 export const grayTag: string;
 export const ableBtn: string;
 export const check: string;

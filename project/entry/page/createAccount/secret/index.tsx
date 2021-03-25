@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-03 10:57:31 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-02-21 11:54:41
+ * @Last Modified time: 2021-03-25 21:29:59
  */
 import React, { FC, useReducer } from 'react';
 import s from './index.css';
@@ -85,8 +85,8 @@ const SecretPart:FC = function() {
     function infoPart(type: number) {
         const contentMap = {
             [INFO_STATUS.COMMON]: () => <>
-                <div className={s.info}>{mnLan('No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols')}</div>
-                <div className={s.info}>{mnLan("This password will be used as the transaction password of the wallet. doter can't provide password recovery function. Please keep your wallet password properly!")}</div>
+                <div className={s.info}>{mnLan('info1')}</div>
+                <div className={s.info}>{mnLan("info2")}</div>
             </>,
             [INFO_STATUS.CHECK_AGREEMENT]: () => <div className={s.info}>{mnLan('Please check the user agreement')}</div>,
             [INFO_STATUS.SECRET_NOT_EQUAL]: () => <div className={s.info}>{mnLan('The password is inconsistent')}</div>,
@@ -116,7 +116,7 @@ const SecretPart:FC = function() {
             </div>
             <div className={s.pad}/>
             <UserAgreement isCheck={stateObj.userArgeementStatus} externalCallBack={changeAgreeSta}/>
-            <div className={s.createBtn} onClick={createAccount}>{mnLan('Creating wallets')}</div>
+            <div className={cx(s.createBtn, stateObj.userArgeementStatus ? '' : s.shadowBtn)} onClick={createAccount}>{mnLan('Creating wallets')}</div>
         </div>
     )
 }

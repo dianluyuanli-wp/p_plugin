@@ -14,3 +14,4 @@ export const tableWrap: string;
 export const sTd: string;
 export const tContent: string;
 export const tCAdd: string;
+export const shadowBtn: string;

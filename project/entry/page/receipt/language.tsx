@@ -2,15 +2,15 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-05 09:50:26 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-05 09:57:36
+ * @Last Modified time: 2021-03-25 22:21:29
  */
 
 export const receiptEn = {
     'Collection': 'Collection',
     'Scan the QR code and transfer money to me': 'Scan the QR code and transfer money to me',
     'Wallet address': 'Wallet address',
-    'Copy address': 'Copy address',
-    'Download collection code': 'Download collection code',
+    'Copy address': 'Copy',
+    'Download collection code': 'Download',
     'Copy succeeded': 'Copy succeeded'
 }
 export const receiptZh = {

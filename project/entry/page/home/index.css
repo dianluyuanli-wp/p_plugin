@@ -21,7 +21,7 @@
 }
 
 .btn {
-    width: 2.94rem;
+    width: 2.84rem;
     height: .62rem;
     background: #358FB6;
     border: 1px solid #cccccc;
@@ -144,7 +144,7 @@
 .balanceDetial {
     width: 3.3rem;
     margin: 0 auto;
-    margin-top: .3rem;
+    margin-top: .15rem;
     text-align: center;
     color: #555555;
     font-size: .14rem;
@@ -160,7 +160,6 @@
 }
 
 .balance {
-    margin-top: .1rem;
     font-size: .3rem;
     color: #333333;
     text-align: center;
@@ -169,7 +168,6 @@
 .usd {
     color: #999999;
     font-size: .14rem;
-    margin-top: .08rem;
     text-align: center;
 }
 
@@ -202,7 +200,7 @@
     justify-content: space-around;
     align-items: center;
     height: 1.15rem;
-    margin-top: .1rem;
+    margin-top: .2rem;
     border-top: .01rem solid #F2F2F2;
 }
 

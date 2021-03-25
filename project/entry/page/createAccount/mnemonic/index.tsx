@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-08 11:23:37 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-24 23:16:17
+ * @Last Modified time: 2021-03-25 22:42:42
  */
 
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
@@ -13,6 +13,8 @@ import { useStores } from '@utils/useStore';
 import { CreateStoreType } from '../store';
 import { globalStoreType } from '@entry/store';
 import { useHistory } from 'react-router-dom';
+import { PAGE_NAME } from '@constants/app';
+import { runInAction } from 'mobx';
 import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 import cx from 'classnames';
 import { Spin } from 'antd';
@@ -124,7 +126,7 @@ const CreactMnemonic:FC = function() {
                 <div className={s.showContent}>
                     {words.map(item => {
                         const { value } = item;
-                        return <div className={s.tag} key={value}>{value}</div>
+                        return <div className={cx(s.tag, s.notPick)} key={value}>{value}</div>
                     })}
                 </div>
             </>,
@@ -173,10 +175,15 @@ const CreactMnemonic:FC = function() {
                 //  创建新账号
                 const result = keyring.addUri(originMnemonic, inputSec, { name: accountName });
                 await addNewAccount(result);
+                //  修改新账号为当前偏好
+                runInAction(() => {
+                    globalStore.favoriteAccount = result.json.address
+                })
                 setState({
                     showLoading: false
                 })
-                history.goBack();
+                //  回到首页
+                history.push(PAGE_NAME.HOME);
             }, 0)
 
         }

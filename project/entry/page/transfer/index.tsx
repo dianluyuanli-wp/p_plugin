@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-02-13 23:57:28 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-06 12:26:38
+ * @Last Modified time: 2021-03-25 22:36:52
  */
 import React, { FC, useEffect, useReducer, useMemo } from 'react';
 import s from './index.css';
@@ -219,7 +219,7 @@ const Transfer:FC = function() {
                     <div>{lanWrap('Payment address')}</div><div className={cx(s.tContent, s.tCAdd)}>{currentAccount.address}</div>
                 </div>
                 <div className={s.sTd}>
-                    <div>{lanWrap('Transfer fee')}</div><div className={s.tContent}>{stateObj.partialFee} DOT</div>
+                    <div>{lanWrap('Transfer fee')}</div><div className={s.tContent}>{parseFloat(stateObj.partialFee).toFixed(5)} DOT</div>
                 </div>
             </div>
             <div className={cx(s.formTitle, s.topT)}>{lanWrap('Password confirmation')}</div>
@@ -227,11 +227,12 @@ const Transfer:FC = function() {
             <div className={s.addressError}>{stateObj.errMsg}</div>
         </div>
     }
+    const { targetAdd, transferAmount } = stateObj;
     return (
         <div className={s.wrap}>
             <HeadBar word={lanWrap('Transfer')}/>
             {isStepOne ? renderStepOne() : isStepTwo()}
-            <div className={s.button} onClick={buttonClick}>{isStepOne ? lanWrap('next step') : lanWrap('confirm')}</div>
+            <div className={cx(s.button, (targetAdd && transferAmount) ? '' : s.shadowBtn)} onClick={buttonClick}>{isStepOne ? lanWrap('next step') : lanWrap('confirm')}</div>
         </div>
     )
 }

@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-04 23:17:39 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-04 23:39:55
+ * @Last Modified time: 2021-03-25 22:05:01
  */
 
 export const createEn = {
@@ -11,20 +11,21 @@ export const createEn = {
     'out of order': 'out of order,',
     'click and try again': 'click and try again',
     'finish': 'finish',
-    'save mnenoic': 'save mnenoic',
-    'Please copy the following mnemonics manually to make sure the backup is correct': 'Please copy the following mnemonics manually to make sure the backup is correct',
-    'Acquiring mnemonics is equivalent to owning the property of the wallet': 'Acquiring mnemonics is equivalent to owning the property of the wallet',
-    'Do not take a screen capture or copy, otherwise it may cause asset loss': 'Do not take a screen capture or copy, otherwise it may cause asset loss',
-    'Confirm mnemonics': 'Confirm mnemonics',
+    'save mnenoic': 'Backup Mnemonic Phrase',
+    'Please copy the following mnemonics manually to make sure the backup is correct': 'Please write the mnemonic down in order to ensure the backup is correct',
+    'Acquiring mnemonics is equivalent to owning the property of the wallet': 'Obtaining mnemonic is equivalent to owning wallet assets',
+    'Do not take a screen capture or copy, otherwise it may cause asset loss': 'Do not take screenshots or copy, otherwise it may cause asset loss',
+    'Confirm mnemonics': 'Confirmed backup',
     'Please click the mnemonic words in order to confirm that your backup is correct': 'Please click the mnemonic words in order to confirm that your backup is correct',
-    'No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols': 'No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols',
-    "This password will be used as the transaction password of the wallet. doter can't provide password recovery function. Please keep your wallet password properly!": "This password will be used as the transaction password of the wallet. doter can't provide password recovery function. Please keep your wallet password properly!",
+    'info1': 'At least 8 characters, recommended to mix uppercase and lowercase alphabets, numbers and symbols',
+    "info2": "This password will be used as the transaction password for the wallet，Doter does not save password and cannot retrieve them for you. Please keep your password safe.",
     'Please check the user agreement': 'Please check the user agreement',
     'The password is inconsistent': 'The password is inconsistent',
     'The password is less than 8 digits': 'The password is less than 8 digits',
-    'Wallet name': 'Wallet name',
-    '1-12 characters': '1-12 characters',
-    'Creating wallets': 'Creating wallets',
+    'Wallet name': 'Wallet Name',
+    '1-12 characters': '1~12 Characters',
+    'Creating wallets': 'Create',
+    'confirm the mnenoic': 'Confirm'
 }
 export const createZh = {
     'create wallet': '创建钱包',
@@ -39,12 +40,13 @@ export const createZh = {
     'Do not take a screen capture or copy, otherwise it may cause asset loss': '不要截屏或复制，否则可能会造成资产损失',
     'Confirm mnemonics': '确认助记词',
     'Please click the mnemonic words in order to confirm that your backup is correct': '请按顺序点击助记词，已确认您备份正确',
-    'No less than 8 characters. It is recommended to mix upper and lower case letters, numbers and symbols': '不少于8位字符，建议混合大小写字母、数字、符号',
-    "This password will be used as the transaction password of the wallet. doter can't provide password recovery function. Please keep your wallet password properly!": '该密码将作为钱包的交易密码。doter无法提供找回密码功能，请务必妥善保管钱包密码！',
+    'info1': '不少于8位字符，建议混合大小写字母、数字、符号',
+    "info2": '该密码将作为钱包的交易密码。doter无法提供找回密码功能，请务必妥善保管钱包密码！',
     'Please check the user agreement': '请勾选用户协议',
     'The password is inconsistent': '密码不一致',
     'The password is less than 8 digits': '密码少于8位',
     'Wallet name': '钱包名称',
     '1-12 characters': '1-12位字符',
     'Creating wallets': '创建钱包',
+    'confirm the mnenoic': '确认助记词'
 }

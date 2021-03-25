@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-01-28 00:13:41 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-22 22:42:21
+ * @Last Modified time: 2021-03-25 22:43:43
  */
 import { observable, runInAction, action, makeAutoObservable, computed, toJS } from 'mobx';
 import { ApiPromise, WsProvider } from '@polkadot/api';
@@ -124,12 +124,9 @@ class AppStore {
                 })
             }
         );
-
          const firsetAcc = ans.accountAddress[0];
         runInAction(() => {
-            //  this.addressArr = ans.accountAddress,
             this.favoriteAccount = ans.favoriteAccount || firsetAcc;
-            //  this.accountObj = Object.assign.call(null, {}, accountDeatil);
             this.localConfig = ans[LOCAL_CONFIG];
             this.recipientArr = ans[RECIPIENT_ARRAY];
 

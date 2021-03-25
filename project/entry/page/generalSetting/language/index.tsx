@@ -2,7 +2,7 @@
  * @Author: guanlanluditie 
  * @Date: 2021-03-01 09:40:07 
  * @Last Modified by: guanlanluditie
- * @Last Modified time: 2021-03-05 09:46:00
+ * @Last Modified time: 2021-03-25 22:06:54
  */
 
 import React, { FC } from 'react';
@@ -60,7 +60,7 @@ const Entry:FC = function() {
             <div className={s.item}  onClick={() => changeLanguage('english')}>
                 <div>English</div>
                 <div className={s.right}>
-                    {localConfig.language === 'english' && <div className={s.arrow}/>}
+                    {localConfig.language !== 'chinese' && <div className={s.arrow}/>}
                 </div>
             </div>
             {/* <div className={s.btn}>保存</div> */}
