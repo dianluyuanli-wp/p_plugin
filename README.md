@@ -10,9 +10,10 @@ Doter is a chrome wallet extension for polkadot ecosystem. User can import or cr
 ![referendum](docs/referendum.png)
 
 # How To Develop
-1. `yarn install` to install the dependencies 
-2. `yarn build` to build the extension, then the bundle results will be in the `plugin` file 
-3. Install the extension
+1. `yarn install` to install the dependencies  
+2. `yarn dll` to build dll files
+3. `yarn build` to build the extension, then the bundle results will be in the `plugin` file 
+4. Install the extension
     - go to `chrome://extensions/`
     - ensure you have the Development flag set
     - "Load unpacked" and point to `plugin`

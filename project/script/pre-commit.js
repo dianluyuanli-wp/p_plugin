@@ -10,7 +10,8 @@ const rootPosition = path.resolve(__dirname, '..', '..');
 const targetPath = path.resolve(rootPosition, "./plugin/pop");
 let fileNames = fs.readdirSync(targetPath);
 
-let usedFileNames = ['pop.html', 'index.html', 'common.css', 'app.css', 'common.bundle.js', 'app.bundle.js', 'image'];
+let usedFileNames = ['pop.html', 'index.html', 'common.css', 'app.css', 'common.bundle.js', 'app.bundle.js', 'image',
+    'vendors_dll.js', 'vendors-manifest.json'];
 
 //  删除调试过程中出现的文件
 fileNames.forEach(item => {

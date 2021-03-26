@@ -7,6 +7,7 @@
         "dev": "webpack-dev-server",
         "build": "webpack --color --config webpack.config.js",
         "pbuild": "webpack --color --config webpack.config.js --pluginBuild",
+        "dll": "webpack --color --config webpack.dll.config.js",
         "clear": "node project/script/pre-commit.js",
         "deploy": "npm run build && node writeHtml.js"
     },

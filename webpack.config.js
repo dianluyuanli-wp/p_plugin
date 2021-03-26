@@ -61,6 +61,11 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[name].css"
         }),
+        //  动态链接库
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./plugin/pop/vendors-manifest.json')
+        }),
         new webpack.HotModuleReplacementPlugin()
     ],
     watch: true,
